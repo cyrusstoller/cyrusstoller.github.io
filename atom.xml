@@ -1,0 +1,1700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description></description>
+    <link>https://www.cyrusstoller.com/</link>
+    <atom:link href="https://www.cyrusstoller.com/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Creating custom playing cards</title>
+        <description>&lt;p&gt;My family enjoys playing &lt;a href=&quot;https://en.wikipedia.org/wiki/Contract_bridge&quot;&gt;bridge&lt;/a&gt;. It’s one of the games we enjoy
+playing most with my grandmother (she still kicks our butts and can count cards
+better than us). To celebrate her 101st birthday, I thought it would be fun to
+make a custom deck of cards to share with family and friends since we couldn’t
+host an in-person celebration this year due to COVID. In this post, I want to
+share how I went about creating a small run of playing cards that incorporated
+some fun family jokes and symbology while being of high enough quality that we
+would still want to play bridge with them.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-print-a-small-run-of-playing-cards&quot;&gt;How to print a small run of playing cards&lt;/h2&gt;
+
+&lt;p&gt;YouTube is full of wisdom. I was lucky to stumble upon &lt;a href=&quot;https://www.youtube.com/watch?v=TKvGM5-F0D8&quot;&gt;this video&lt;/a&gt;
+created by &lt;a href=&quot;https://www.youtube.com/channel/UCnbSssjaMs0ZYTfAemM4LWg&quot;&gt;Rise Magic&lt;/a&gt; where they explained their process to
+create the prototype for &lt;a href=&quot;https://rise-magic.com/store/rise-playing-cards&quot;&gt;their deck of cards&lt;/a&gt;. After watching their
+video, I had a good sense of the defaults I should use when printing the decks
+with &lt;a href=&quot;https://www.makeplayingcards.com/&quot;&gt;MakePlayingCards&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here are some cliff notes when selecting the type of cards to have printed so
+that they’re of a quality that you’d actually want to play with:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Poker size game cards (&lt;a href=&quot;https://www.makeplayingcards.com/design/custom-blank-card.html&quot;&gt;custom blank&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Use the M31 Linen card stock&lt;/li&gt;
+  &lt;li&gt;Beta finish&lt;/li&gt;
+  &lt;li&gt;You may want to use &lt;a href=&quot;https://drive.google.com/drive/folders/1fM_Mwpf5lENqGGFaZ7ZozDLaYy-Jk5NH&quot;&gt;these Illustrator files&lt;/a&gt; that look like the
+standard &lt;a href=&quot;https://en.wikipedia.org/wiki/United_States_Playing_Card_Company&quot;&gt;USPCC&lt;/a&gt; card faces instead of the standard faces provided by
+MakePlayingCards&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once I had an idea of logistically how to get the cards printed, I needed
+some help designing three main elements:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The back design&lt;/li&gt;
+  &lt;li&gt;Tuck case&lt;/li&gt;
+  &lt;li&gt;A custom card face for the Queen of Hearts that featured my grandmother’s
+face&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;With my level of Illustrator skills, I was able to handle a few other areas of
+design:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Jokers in the shape of maple leaves since my grandmother was born in
+Vancouver.&lt;/li&gt;
+  &lt;li&gt;Ace of Spades that incorporates an outline of San Francisco with a Spade cut
+out of it.&lt;/li&gt;
+  &lt;li&gt;An “Ad” card where my brother and I added a Haiku. In hindsight, I would
+have left this out, since we only really needed this for the version that we
+gave to our grandmother.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;finding-a-designer&quot;&gt;Finding a designer&lt;/h2&gt;
+
+&lt;p&gt;I posted a job listing on three sites: &lt;a href=&quot;https://dribbble.com/freelance-jobs&quot;&gt;Dribbble&lt;/a&gt;, &lt;a href=&quot;https://www.upwork.com/&quot;&gt;UpWork&lt;/a&gt;,
+and &lt;a href=&quot;https://www.fiverr.com/&quot;&gt;Fiverr&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s what I listed:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Title&lt;/strong&gt;: Custom tuck case for deck of cards&lt;/p&gt;
+
+  &lt;p&gt;My grandma is turning 101 at the end of the month. She loves playing bridge
+and I thought that it’d be fun to celebrate her birthday with a custom deck
+of cards for her and the rest of our family. I’m looking for some help
+designing a custom tuck case for the deck of cards.&lt;/p&gt;
+
+  &lt;p&gt;I’m hoping for some help designing the tuck case (and potentially a custom
+face of the Queen of hearts).&lt;/p&gt;
+
+  &lt;p&gt;Here’s the rough concept I have in mind:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;I would like the tuck case to look similar to the
+&lt;a href=&quot;https://cdn.shopify.com/s/files/1/0047/0768/0291/products/IMG_8200_d000d623-ece3-4b59-baee-1c516de547f2.jpg&quot;&gt;Tally-Ho tuck case&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;Instead of it saying “A Dougherty” across the top I would like it to say
+“Chez Lopez”&lt;/li&gt;
+    &lt;li&gt;Where it says “Tally-Ho” I would like it to say “Takako”&lt;/li&gt;
+    &lt;li&gt;Where it says “Linoid Finish” I would like it to say “AKA BUBS”&lt;/li&gt;
+    &lt;li&gt;And then instead of saying “No. 9” I would like it to say “No. 101”&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;If this is something that you’d be interested in helping me create, please
+reach out. I’d like to get started ASAP.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Between these three sites, I received 35+ replies within 24 hours. I started
+conversations with 12 designers whose responses indicated that they had read my
+post. After a little back and forth, I ultimately talked on the phone with 4
+designers and then decided to work with &lt;a href=&quot;https://dribbble.com/TimesNewAlli&quot;&gt;Alli Elster&lt;/a&gt;, whom I
+found on Dribbble. Part of what excited me about working with Alli was her past
+experience with designs &lt;a href=&quot;https://dribbble.com/shots/6173524-Deadbolt-Bar-deck-of-cards&quot;&gt;involving playing cards&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Given that this brief was pretty concrete, I appreciated that Alli was willing
+to offer a fixed price quote. Alli did great work and the cards turned out
+exactly as I had hoped! I’ve started working on another project with her. If
+you are looking for a talented, personable designer, I highly recommend working
+with Alli!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/takako-cards.jpg&quot; class=&quot;centered-image&quot; style=&quot;max-width: 100%;&quot; /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/images/bubs-queen-of-hearts.png&quot; class=&quot;centered-image&quot; style=&quot;max-width: 50%; border: 1px solid #ccc; border-radius: 15px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;potential-gotchas-when-uploading-images&quot;&gt;Potential gotchas when uploading images&lt;/h2&gt;
+
+&lt;p&gt;When I uploaded images to &lt;a href=&quot;https://www.makeplayingcards.com/&quot;&gt;MakePlayingCards&lt;/a&gt;, I wasn’t sure what
+resolution would be necessary for the images not to be fuzzy because the
+previews were pretty small. If you have the option, export the images you want
+to use at a much higher resolution than you think you need to ensure that
+everything comes out crisply when it’s printed. I exported images that are 4x
+larger than required.&lt;/p&gt;
+
+&lt;p&gt;The other area where I made a mistake was in uploading the box design.
+You may want to print out the pdf template with your design on it and try
+folding it before you finalize your order. I found that I should have rotated
+one of the face designs 180º from what I had added initially.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I found this process pretty fun. And the cards have gone over well with the
+family. I hope this blog post can help speed up your learning process if you
+decide to try something similar.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 27 Mar 2021 00:00:00 -0700</pubDate>
+        <link>https://www.cyrusstoller.com/2021/03/27/creating-custom-playing-cards</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2021/03/27/creating-custom-playing-cards</guid>
+      </item>
+    
+      <item>
+        <title>Using WhatsApp for political organizing</title>
+        <description>&lt;p&gt;A friend was recently sending messages to voters in Georgia before the upcoming
+&lt;a href=&quot;https://en.wikipedia.org/wiki/2020%E2%80%9321_United_States_Senate_election_in_Georgia&quot;&gt;runoff&lt;/a&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/2020%E2%80%9321_United_States_Senate_special_election_in_Georgia&quot;&gt;elections&lt;/a&gt; using &lt;a href=&quot;https://www.whatsapp.com/&quot;&gt;WhatsApp&lt;/a&gt;
+and he had an experience that reminded me of the power &lt;a href=&quot;https://www.facebook.com/&quot;&gt;Facebook&lt;/a&gt; holds over
+our ability to effectively and freely communicate. In this case, the support
+team’s resolution seemed appropriate, but nevertheless unsettling.&lt;/p&gt;
+
+&lt;p&gt;To be clear, this post is &lt;em&gt;not&lt;/em&gt; meant to be about Facebook and its policies;
+it’s a broader reflection on our dependence on private companies to exercise our
+democratic rights. This same scenario could have easily occurred using any
+messaging service, not just WhatsApp.&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;For the sake of this story, we’ll call my friend Paul.
+Here’s some background information:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Paul has a WhatsApp account, but had not used it in a long time (3+ months).&lt;/li&gt;
+  &lt;li&gt;Most of Paul’s WhatsApp messages are in English, but there are also a
+significant number of messages with people written in Spanish from when Paul
+lived in Latin America.&lt;/li&gt;
+  &lt;li&gt;A political organizer had reached out to Paul about texting registered voters
+in Spanish to ensure that they had a plan to vote in the upcoming
+election.&lt;/li&gt;
+  &lt;li&gt;Paul installed the &lt;a href=&quot;https://www.whatsapp.com/download/?lang=en&quot;&gt;desktop WhatsApp application for Mac OS&lt;/a&gt; for
+the first time.&lt;/li&gt;
+  &lt;li&gt;Paul sent ~100 messages written in Spanish using the WhatsApp desktop
+application to registered voters that followed a similar template, but that
+were personalized with the voter’s name.
+These messages were all sent over the course of ~1 hour.&lt;/li&gt;
+  &lt;li&gt;Paul received a message from WhatsApp that his account had been
+banned for violating the &lt;a href=&quot;https://www.whatsapp.com/legal/?lang=en&amp;amp;doc=terms-of-service&amp;amp;version=20200128&quot;&gt;Terms of Service&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Your phone number +1 (XYZ) XYZ-WXYZ is banned from using WhatsApp. Please
+contact customer support for assistance.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;After providing a pdf of his latest phone bill to prove ownership of his phone
+number, Paul was able to reactivate his WhatsApp account.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;reflection-on-the-situation-and-the-nature-of-spam&quot;&gt;Reflection on the situation and the nature of spam&lt;/h2&gt;
+
+&lt;p&gt;I imagine that Paul’s relatively sudden change in behavior triggered an
+automated system that flagged his account for spam activity.
+This was likely due to the dramatic increase in messages being sent, message
+similarity, messages being sent from the desktop application for the first time,
+or a number of recipients flagging the messages as unwanted.&lt;/p&gt;
+
+&lt;p&gt;From WhatsApp’s point of view, it’s &lt;em&gt;hard to distinguish&lt;/em&gt;
+between unwanted messages being sent en masse and unwanted messages
+being sent on a relatively small scale to strangers for political outreach.
+Given that both types of messages are between parties that have never
+communicated together before and where the recipients may not want to be
+receiving the messages in the first place, there’s no obvious heuristic to tell
+the difference between these use cases.&lt;/p&gt;
+
+&lt;h2 id=&quot;resolution-paths&quot;&gt;Resolution paths&lt;/h2&gt;
+
+&lt;p&gt;In this situation, I think WhatsApp could have sent Paul an automated
+warning to say that he could not longer send messages to accounts who had not
+responded to him for 72 hours while they assessed whether or not he was a real
+person. Or, the automated message could share that Paul’s account had been
+flagged for suspcious activity and would be shut off if the activity continued.
+The automated messaged would have had the desired effect of limiting spam while
+continuing to allow Paul to access his account.&lt;/p&gt;
+
+&lt;p&gt;Instead of taking this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;warning&lt;/code&gt; approach, Paul received a notification
+that his account had been banned. Not only could he no longer
+send messages, but he also could not look at previous messages that he had sent.
+Understandably, some of the exchanges he’d had with his host family in Latin
+America had sentimental value. So, the prospect of having his account banned in
+trying to help a political cause he cared about seemed particularly stark.&lt;/p&gt;
+
+&lt;h2 id=&quot;chilling-effect&quot;&gt;Chilling effect&lt;/h2&gt;
+
+&lt;p&gt;While the net effect of WhatsApp’s current process for resolving this type of
+situation and WhatsApp sending a warning that service will shut off may be the
+same, the way in which the issue has been communicated to Paul made him worry
+that he had &lt;a href=&quot;https://en.wikipedia.org/wiki/Brick_(electronics)&quot;&gt;bricked&lt;/a&gt; his phone number.&lt;/p&gt;
+
+&lt;p&gt;In other words, he could continue to use his phone, but if he ever
+wanted to use WhatsApp again, he’d need to get a new phone number. This would be
+a huge hassle because it would require reaching out to each of Paul’s contacts
+and figuring out all of the services that use his phone number for
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Multi-factor_authentication&quot;&gt;multifactor authentication&lt;/a&gt;, so that he wouldn’t inadvertently lock
+himself out of other services.&lt;/p&gt;
+
+&lt;p&gt;Paul was also worried about how he’d handle future travel in Latin America.
+Having WhatsApp is key for communication, so before the issue was resolved, Paul
+started thinking about whether he’d need to get a “disposable” phone number the
+next time he went on a trip to communicate with friends and AirBnB hosts.&lt;/p&gt;
+
+&lt;p&gt;The risk of having to resolve this kind of hassle was not what Paul bargained
+for when he signed up to help the political organizer in Georgia.
+The result of this experience is that Paul does &lt;strong&gt;not&lt;/strong&gt; want to use his personal
+WhatsApp again when helping to advance political causes he believes in.&lt;/p&gt;
+
+&lt;h2 id=&quot;technology-and-political-campaigns&quot;&gt;Technology and political campaigns&lt;/h2&gt;
+
+&lt;p&gt;Right now, poltical campaigns routinely ask volunteers to use their own
+technology when reaching out to potential supporters. For phone calls, they
+typically use an online &lt;a href=&quot;https://www.thrutalk.io/&quot;&gt;dialer&lt;/a&gt; &lt;a href=&quot;https://www.hubdialer.com/&quot;&gt;service&lt;/a&gt; that does not
+require the volunteer to use their personal phone number. And for many
+&lt;a href=&quot;https://www.thrutext.io/&quot;&gt;text message campaigns&lt;/a&gt;, the same is true.&lt;/p&gt;
+
+&lt;p&gt;But, there’s another significant portion of outreach where volunteers and staff
+members &lt;em&gt;do&lt;/em&gt; use their personal phone numbers. Paul’s experience makes me
+wonder whether campaign related outreach should go through registered
+phone numbers (similar to &lt;a href=&quot;https://en.wikipedia.org/wiki/Short_code&quot;&gt;short codes&lt;/a&gt;) that would identify
+themselves as associated with political campaigns so that recipients can decide
+to opt out of if they’re not interested it receiving campaign calls and texts.
+This seems like a system that would be better for voters not interested in being
+bombarded before election day and for volunteers eager to engage in the
+political system without the risk of unintended hassles related to their
+personal phone subscriptions.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This was a scenario where both Paul and WhatsApp were well-intentioned, but
+has left Paul less enthusiastic about volunteering for political causes he
+believes in. In the future, I hope political campaigns will work with service
+providers to make it easier for volunteers to engage without this risk. I also
+hope that private companies that facilitate communication will give users
+warnings before making them feel like they’ve been banned for life.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 24 Dec 2020 00:00:00 -0800</pubDate>
+        <link>https://www.cyrusstoller.com/2020/12/24/using-whatsapp-for-political-organizing</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/12/24/using-whatsapp-for-political-organizing</guid>
+      </item>
+    
+      <item>
+        <title>Using Rails templates</title>
+        <description>&lt;p&gt;One of the hardest parts of starting a new project (of any kind) is the initial
+setup. Code generators have helped me to overcome this mental friction when
+working with software. In this tutorial, I’ll share how I’ve constructed
+my Rails template to jumpstart my development process and quickly start digging
+into the features that make a particular project unique instead of getting
+bogged down writing boilerplate code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Rule of thumb&lt;/strong&gt;: if I find myself doing the same thing for the third time, I
+automate it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you haven’t used Rails templates before, I highly recommend reading the
+&lt;a href=&quot;https://guides.rubyonrails.org/rails_application_templates.html&quot;&gt;official guide&lt;/a&gt;. I wish someone had told me to read this
+when I was first learning Rails.&lt;/p&gt;
+
+&lt;h2 id=&quot;structuring-my-template-file&quot;&gt;Structuring my template file&lt;/h2&gt;
+
+&lt;p&gt;When setting up a new Rails project I have a checklist of things I need to do
+regardless of what makes the project unique:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#installing-dependencies&quot;&gt;Installing dependencies&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-basic-layouts-and-font-awesome&quot;&gt;Setting up basic layouts and adding font awesome&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#adding-js-to-power-disappearing-flash-messages-and-hamburger-menus&quot;&gt;Adding js to power disappearing flash messages and hamburger menus&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configuring-user-authentication&quot;&gt;Configuring user authentication&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#adding-user-authorization&quot;&gt;Adding user authorization / permissioning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#adding-pagination&quot;&gt;Adding pagination&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-transactional-email&quot;&gt;Setting up transactional email&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-workers-for-background-jobs&quot;&gt;Setting up workers for background jobs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configuring-vuejs-with-webpacker&quot;&gt;Configuring Vue.js with webpacker&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#updating-the-scaffold-generator&quot;&gt;Updating the scaffold generator to match my layout&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Fortunately, a Rails template is just a plain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ruby&lt;/code&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/Domain-specific_language&quot;&gt;DSL&lt;/a&gt;. The one I’ll
+show you uses &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fileutils&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shellwords&lt;/code&gt;, so it can be loaded locally or from
+the web, which is a trick I learned from
+&lt;a href=&quot;https://github.com/mattbrictson/rails-template&quot;&gt;mattbrictson/rails-template&lt;/a&gt;
+on Github. In effect, the template will clone its own git repo into a temp
+directory if it’s being loaded from the web, so the file structure of the
+repository can be used by Thor actions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;copy_file&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_template_repository_to_source_path&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;__FILE__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;%r{&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\A&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;https?://}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;git_repo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;&amp;lt;LINK TO YOUR TEMPLATE REPO&amp;gt;&amp;gt;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tmpdir&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;source_paths&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;unshift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempdir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mktmpdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jumpstart-&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;at_exit&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FileUtils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;remove_entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;clone: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;--quiet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;git_repo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tempdir&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:shellescape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;%r{&amp;lt;&amp;lt;REPO_NAME&amp;gt;&amp;gt;/(.+)/template.rb}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;checkout: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;source_paths&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;unshift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;basic-file-structure&quot;&gt;Basic file structure&lt;/h2&gt;
+
+&lt;p&gt;If you’ve worked with Rails, this file structure should look familiar. By
+closely mirroring the standard Rails file structure, it’s easy to keep files up
+to date.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── Procfile &lt;span class=&quot;c&quot;&gt;# To make it easy to deploy to Heroku&lt;/span&gt;
+├── README.md
+├── app
+│   ├── assets &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── helpers &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── javascript &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── models &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── policies &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   └── views &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+├── config
+│   ├── cable.yml
+│   ├── initializers &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── locales &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   └── sidekiq.yml
+├── &lt;span class=&quot;nb&quot;&gt;env&lt;/span&gt;
+├── lib
+│   └── templates &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+├── ruby-version
+├── template.rb &lt;span class=&quot;c&quot;&gt;# Where the main logic lives&lt;/span&gt;
+└── &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+    ├── controllers &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    ├── fixtures &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    └── policies &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Subdirectories in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lib&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test&lt;/code&gt; will be copied directly
+into the new Rails project. In this tutorial, I’ll go through some examples
+to give you an idea of how to do this, but since these are a matter of
+preference, you’ll probably be best served writing these yourself.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;installing-dependencies&quot;&gt;Installing dependencies&lt;/h2&gt;
+
+&lt;p&gt;Here are some methods that I’ve written in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;template.rb&lt;/code&gt; to install common
+dependencies for my Rails projects.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_root_directory_files&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;copy_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.env&quot;&lt;/span&gt; 
+  &lt;span class=&quot;n&quot;&gt;copy_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Procfile&quot;&lt;/span&gt; 
+
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ruby-version.tt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.ruby-version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;append_to_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.gitignore&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.env*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;!.env.example&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_dependencies&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'devise'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'font-awesome-sass'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'friendly_id'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'kaminari'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pundit'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'sidekiq'&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;yarn add bulma&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’ve found that I prefer the following included in my local &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env&lt;/code&gt; file. I
+imagine you’ll find that you have preferences you’ll want included as well.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# env&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;RACK_ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;development
+&lt;span class=&quot;nv&quot;&gt;RUBYOPT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'-W:no-deprecated -W:no-experimental'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once these files are in place, the gems need to be installed and the remaining
+commands will be run inside the following block:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;after_bundle&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# add code generators described below here&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;rails_command&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;db:create&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rails_command&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;db:migrate&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:init&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;add: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;commit: &lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;%Q{ -m 'Initial commit' }&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;setting-up-basic-layouts-and-font-awesome&quot;&gt;Setting up basic layouts and font awesome&lt;/h2&gt;
+
+&lt;p&gt;For every Rails project that I work on, I find that I start by adding these
+files.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;copy_templates&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rm app/assets/stylesheets/application.css&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;lib&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# These templates incorporate the name of the project&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/helpers/shared_helper.rb.tt&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/views/layouts/_header.html.erb.tt&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/views/layouts/_social_headers.html.erb.tt&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/views/users/mailer/confirmation_instructions.html.erb.tt&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, I always add a couple static pages: one to serve as a landing page and
+one to explain what the web application does.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_pages_controller&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;controller pages home about&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;route&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;get 'home', to: 'pages#home'&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;route&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;get 'about', to: 'pages#about'&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;get 'pages/home'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;get 'pages/about'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;adding-js-to-power-disappearing-flash-messages-and-hamburger-menus&quot;&gt;Adding js to power disappearing flash messages and hamburger menus&lt;/h2&gt;
+
+&lt;p&gt;This is included in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/javascript/packs/&lt;/code&gt; directory that was copied over in
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;copy_templates&lt;/code&gt; described above.&lt;/p&gt;
+
+&lt;h2 id=&quot;configuring-user-authentication&quot;&gt;Configuring user authentication&lt;/h2&gt;
+
+&lt;p&gt;With &lt;a href=&quot;https://github.com/heartcombo/devise&quot;&gt;Devise&lt;/a&gt; already installed above, this code ensures that it’s been
+configured properly. I’ve found that I often customize the controller logic and
+want the ability to designate certain users as admins. &lt;em&gt;Note:&lt;/em&gt; The production
+mail url options still need to be configured once a domain has been
+procured.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_user_model_and_controllers&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Install Devise&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;devise:install&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Configure Devise&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config.action_mailer.default_url_options =&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot; { host: 'localhost', port: 5000 }&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;env: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'development'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;#config.action_mailer.default_url_options =&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+    &lt;span class=&quot;s2&quot;&gt;&quot; { host: 'localhost' }&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;env: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'production'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;route&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;root to: 'pages#home'&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Create Devise User&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:devise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;User&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;admin:integer&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Set admin default to false&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;in_root&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;glob&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;db/migrate/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;max_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/:admin/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;:admin, default: 0&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/\# t/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;t&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# uncommenting columns&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/\# a/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;a&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# uncommenting indices&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Using explicit controllers&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;devise:controllers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;users&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;devise_for :users&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;sx&quot;&gt;%Q(devise_for :users, controllers: {
+    confirmations: 'users/confirmations',
+    invitations: 'users/invitations',
+    # omniauth_callbacks: 'users/omniauth_callbacks',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    unlocks: 'users/unlocks'
+  })&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;adding-user-authorization&quot;&gt;Adding user authorization&lt;/h2&gt;
+
+&lt;p&gt;This logic configures &lt;a href=&quot;https://github.com/varvet/pundit&quot;&gt;Pundit&lt;/a&gt; to check user permissions and adds 
+helper methods to make writing tests easier.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install_pundit&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/controllers/application_controller.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;  include Pundit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;after: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;class ApplicationController &amp;lt; ActionController::Base&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/controllers/application_controller.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;  protect_from_forgery&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;after: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;include Pundit&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;pundit:install&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Add convenience methods to the test_helper&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;convenience_class&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%q{
+class PolicyTest &amp;lt; ActiveSupport::TestCase
+  def permit(current_user, record, action)
+    self.class.to_s.gsub(/Test/, '').constantize
+      .new(current_user, record).public_send(&quot;#{action.to_s}?&quot;)
+  end
+
+  def forbid(current_user, record, action)
+    !permit(current_user, record, action)
+  end
+end}&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;append_to_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;test/test_helper.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;convenience_class&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;adding-pagination&quot;&gt;Adding pagination&lt;/h2&gt;
+
+&lt;p&gt;For my installation, all of the customization is present in
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/views/kaminari/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-transactional-email&quot;&gt;Setting up transactional email&lt;/h2&gt;
+
+&lt;p&gt;To support Sendgrid, I add the following so that I can easily use the Heroku
+Add-on:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# config/initializers/setup_mail.rb&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;ActionMailer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;smtp_settings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:user_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SENDGRID_USERNAME'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SENDGRID_PASSWORD'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'localhost'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'smtp.sendgrid.net'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;587&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:authentication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:plain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:enable_starttls_auto&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;setting-up-workers-for-background-jobs&quot;&gt;Setting up workers for background jobs&lt;/h2&gt;
+
+&lt;p&gt;This will configure &lt;a href=&quot;https://github.com/mperham/sidekiq&quot;&gt;Sidekiq&lt;/a&gt; with
+ActiveJob and mount the dashboard in the routes file.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_sidekiq&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config.active_job.queue_adapter = :sidekiq&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;require 'sidekiq/web'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;before: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Rails.application.routes.draw do&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;  authenticate :user, lambda { |u| u.admin? } do&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;    mount Sidekiq::Web =&amp;gt; '/sidekiq'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;  end&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;after: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://guides.rubyonrails.org/routing.html&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update_test_helper&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;test/test_helper.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;require 'minitest/autorun'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;require 'sidekiq/testing'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;before: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;class ActiveSupport::TestCase&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;configuring-vuejs-with-webpacker&quot;&gt;Configuring Vue.js with webpacker&lt;/h2&gt;
+
+&lt;p&gt;This adds &lt;a href=&quot;https://vuejs.org/&quot;&gt;Vue.js&lt;/a&gt; to webpacker and supports it working in conjunction
+with &lt;a href=&quot;https://github.com/turbolinks/turbolinks&quot;&gt;Turbolinks&lt;/a&gt;. You can learn more about the split chunks
+configuration
+&lt;a href=&quot;https://github.com/rails/webpacker/blob/master/docs/v4-upgrade.md#splitchunks-configuration&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_vuejs&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rails_command&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'webpacker:install:vue'&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Remove base files&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rm app/javascript/app.vue&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rm app/javascript/packs/application.js&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rm app/javascript/packs/hello_vue.js&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;yarn add vue vue-loader vue-turbolinks&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/webpack/environment.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;const WebpackAssetsManifest = require('webpack-assets-manifest')&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;before: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;module.exports = environment&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/webpack/environment.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;environment.splitChunks()&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;before: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;module.exports = environment&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To make Vue.js play nice with Turbolinks, &lt;a href=&quot;/2017/09/22/how-to-use-vuejs-in-a-rails-project-with-turbolinks&quot;&gt;I add the following&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// app/javascripts/packs/vue_container.js&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// import axios from 'axios'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;vue/dist/vue.esm&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TurbolinksAdapter&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;vue-turbolinks&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TurbolinksAdapter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productionTip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Vue.prototype.$http = axios&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;turbolinks:load&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// const csrfTokenEl = document.querySelector('meta[name=&quot;csrf-token&quot;]')&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// axios.defaults.headers.common = {&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//   &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//   &quot;X-CSRF-Token&quot;: csrfTokenEl.getAttribute('content'),&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//   &quot;X-Requested-With&quot;: &quot;XMLHttpRequest&quot;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// }&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;[vue-enabled]&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$mount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;updating-the-scaffold-generator&quot;&gt;Updating the scaffold generator&lt;/h2&gt;
+
+&lt;p&gt;Add the relevant template files in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lib/templates/erb/scaffold/&lt;/code&gt;. In my case,
+I’ve written some files to make it so that the generated forms make use of
+&lt;a href=&quot;https://bulma.io/&quot;&gt;Bulma&lt;/a&gt; CSS classes.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This isn’t a lot of code. But, it makes it much easier to start building a
+prototype that may still be a fragile idea in my head. I think this type of
+setup without automation used to take me a couple hours. Now it’s just a few
+minutes. I hope this will help you feel more inclined to experiment and spend
+more time building. Happy hacking.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 21 Oct 2020 00:00:00 -0700</pubDate>
+        <link>https://www.cyrusstoller.com/2020/10/21/using-rails-templates</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/10/21/using-rails-templates</guid>
+      </item>
+    
+      <item>
+        <title>When does data become identifiable?</title>
+        <description>&lt;p&gt;Issues regarding data privacy have become increasingly important as tech
+companies continue to develop new ways of monetizing the information they have
+gathered about their users. In response, many new privacy regulations are being
+instituted around the world, from &lt;a href=&quot;https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act&quot;&gt;CCPA&lt;/a&gt; in California to &lt;a href=&quot;https://en.wikipedia.org/wiki/General_Data_Protection_Regulation&quot;&gt;GDPR&lt;/a&gt;
+in Europe. At the heart of these laws is what constitutes personally
+identifiable information.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt; The legal definition of personal information is vague and difficult to
+apply.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;CCPA defines “&lt;a href=&quot;https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201720180AB375&quot;&gt;personal information&lt;/a&gt;” as “information that
+identifies, relates to, describes, is capable of being associated with, or
+could reasonably be linked, directly or indirectly, with a particular
+consumer or household.” And, GDPR defines “&lt;a href=&quot;https://gdpr-info.eu/art-4-gdpr/&quot;&gt;personal data&lt;/a&gt;” as “any
+information relating to an identified or identifiable natural person (‘data
+subject’); an identifiable natural person is one who can be identified,
+directly or indirectly, in particular by reference to an identifier such as a
+name, an identification number, location data, an online identifier or to one
+or more factors specific to the physical, physiological, genetic, mental,
+economic, cultural or social identity of that natural person.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Determining identifiability in some cases is obvious. For example, if a user
+provides their social security number, because each number is associated with a
+specific individual, then it’s pretty clear that that’s personal information.
+On the other hand, if a user fills out a multiple choice survey that is
+submitted anonymously without any attached metadata, then it’s reasonably safe
+to assume that it’s not personally identifiable (presuming there are a
+sufficient number of survey-takers). But, most cases fall somewhere in between
+these two extremes.&lt;/p&gt;
+
+&lt;p&gt;In this post, I’ll highlight a distinction that seems to be missing between
+these two extremes. The current definitions have an inadequate level of
+specificity regarding personal information. This means that many types of data
+may not receive necessary protections (leaving some data vulnerable) and some
+may receive unnecessary protection (potentially impeding beneficial
+innovation). All of this is to say that different levels of identifiability
+aren’t black and white. We need to shift our mindset to evaluate
+identifiability on a spectrum.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: The harms of data misuse or lack of protection are well documented. This
+post is focused on exploring how to answer the question of whether given data
+is identifiable.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;inferred-data&quot;&gt;Inferred data&lt;/h2&gt;
+
+&lt;p&gt;Data can be used to infer information that you’d reasonably expect to be kept
+private, including sensitive data (e.g., health status and credit-worthiness)
+and information about race, sex, religion etc … (which are protected classes in
+the American legal system). This is important because sensitive data, “suspect
+class” data, or other seemingly-benign data can be used in discriminatory ways.
+&lt;a href=&quot;https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418831/&quot;&gt;Here&lt;/a&gt; &lt;a href=&quot;https://www.amazon.com/Algorithms-Oppression-Search-Engines-Reinforce/dp/1479837245/&quot;&gt;are&lt;/a&gt; &lt;a href=&quot;https://nypost.com/2019/05/18/chinas-new-social-credit-system-turns-orwells-1984-into-reality/&quot;&gt;some&lt;/a&gt; &lt;a href=&quot;https://www.theguardian.com/technology/2017/sep/07/new-artificial-intelligence-can-tell-whether-youre-gay-or-straight-from-a-photograph&quot;&gt;examples&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In other words, data can implicitly be used to identify characteristics about a
+user that they may not have intended or wanted to share. In isolation a single
+data point may not be useful in identifying someone, but when taken together, a
+constellation of data points can create a recognizable pattern. This should not
+be surprising anymore as we have all become accustomed to ad targeting being
+eerily in sync with our interests. Read more &lt;a href=&quot;https://www.forbes.com/sites/kashmirhill/2012/02/16/how-target-figured-out-a-teen-girl-was-pregnant-before-her-father-did/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;example-of-the-challenge-of-identifiability-voice-data&quot;&gt;Example of the challenge of identifiability: voice data&lt;/h3&gt;
+
+&lt;p&gt;With the rise of personal assistants like Siri, Alexa, Google Assistant, Portal
+etc … we are handing over more voice data than ever before. Should a short
+voice recording (that is unlabeled and unmorphed) be considered personally
+identifiable? If this kind of short audio recording were shared with the
+broader organization collecting the data (e.g., Apple, Amazon, Google,
+Facebook, etc …, or a hacker), it would be hard to match this audio recording
+to a specific person. However, if I heard a short recording of my own voice, I
+would likely be able to identify it as my own.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, a longer audio clip where users provide context clues that
+can be used to identify them would be a different story. It seems clear that
+the broader organization collecting the data (e.g., Apple, Amazon, Google,
+Facebook, etc …, or a hacker) would be able to easily identify the user who
+created the recording with minimal effort.&lt;/p&gt;
+
+&lt;p&gt;It seems inappropriate for there to be a one size fits all approach to these
+two voice recordings. Both voice files can be personally identified, given the
+right contextual information and technological capabilities. The challenge is
+that big tech companies, non-tech companies, and other potential adversaries
+have different capabilities to identify people based on their voices. Because
+of this, regulations should strive to incorporate nuance between these
+different types of identifiability.&lt;/p&gt;
+
+&lt;h2 id=&quot;proposed-distinction-p-vs-np-style-data&quot;&gt;Proposed distinction: P vs NP-style data&lt;/h2&gt;
+
+&lt;p&gt;In describing these different types of information, it reminded me of the
+distinction between what computer scientists refer to as &lt;a href=&quot;https://en.wikipedia.org/wiki/P_versus_NP_problem&quot;&gt;P and NP
+problems&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In layman’s terms, the solution to a P problem can be found in polynomial time.
+In other words, given a set of inputs, I can use a simple algorithm to find a
+solution. In the case of personally identifiable data, that would mean, if I am
+given a data sample, I can run a reasonably straightforward model to determine
+who the data belongs to. In its simplest form, this would mean looking at the
+unique identifier associated with it. In a slightly more complicated example,
+this may mean computing a faceprint from an image and then comparing that to a
+database of faceprints to identify the person in the photo. There may be some
+margin for error, but this process should never devolve into a brute force
+exercise.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, with an NP problem, I can identify whether a proposed
+solution is valid in polynomial time. The key distinction here is that for an
+NP problem, I cannot necessarily find a solution in polynomial time, but I can
+verify that a solution is valid in polynomial time. For example, I can easily
+tell when a &lt;a href=&quot;http://erikdemaine.org/papers/Jigsaw_GC/paper.pdf&quot;&gt;jigsaw puzzle&lt;/a&gt; has been solved correctly, but I cannot
+easily solve a jigsaw puzzle by simply looking at the pieces. Alternatively,
+presume that a model can detect that the same person is speaking in two
+recordings. Then, you can quickly identify that there is a match. But, if you
+only have one recording it’s much harder to determine who is speaking in the
+recording.&lt;/p&gt;
+
+&lt;p&gt;While both types of information may be personally identifiable, I would argue
+that in my analogy, personally identifiable information in the “P-style
+problem” space should be granted a heightened level of privacy protection. In
+other words, whether under CCPA or GDPR, there should be an expectation for
+consumers that this type of personally identifiable information be deleted upon
+request. On the other hand, if data is “NP personally identifiable” I think
+that companies should be granted more slack if they lack the necessary
+contextual information and technological capability to make the match.&lt;/p&gt;
+
+&lt;p&gt;When thinking about the risk profile for these different types of information,
+it seems clear that “P-style personally identifiable information” can be easily
+linked to a specific person even with limited sophistication. This is
+particularly worrisome since this type of data may be divulged as part of data
+breach to the open internet. This means that an individual with a vendetta
+could weaponize this data relatively anonymously, meaning that those who
+suffered harm would be less likely to find a remedy through the justice system
+for this harm.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, for “NP-style personally identifiable information” to be
+used, an organization would need to be able to contextualize that data. For a
+given data set, due to practicalities, only a limited number of companies and
+state actors have these capabilities. Oftentimes, these organizations will be
+large companies that have a large corpus of data; but, there may also be small
+companies that have the necessary data for contextualization (e.g., a data set
+about a company’s employees).&lt;/p&gt;
+
+&lt;p&gt;The current critiques of big tech companies regarding data protection are
+warranted, but identifiability isn’t only contingent on having large data sets.
+As discussed earlier, an organization only needs to have the right contextual
+information to identify the data.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Currently, personally identifiable information is generally treated as a single
+classification. How to treat P-style data within this framework is clear; &lt;strong&gt;the
+question is how to approach NP-style data&lt;/strong&gt;. With greater nuance, regulations
+can be more impactful and enforceable, giving individuals more control of their
+data.&lt;/p&gt;
+
+&lt;p&gt;In the absence of clear guidance, a likely default is for companies to adopt
+the least restrictive approach since they have a clear incentive to minimize
+risk by labeling as little data as possible as “personally identifiable” and
+therefore avoiding regulatory requirements.&lt;/p&gt;
+
+&lt;p&gt;I’d love to hear your thoughts on whether this distinction would be helpful in
+crafting your internal data practices.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 05 Aug 2020 00:00:00 -0700</pubDate>
+        <link>https://www.cyrusstoller.com/2020/08/05/when-does-data-become-identifiable</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/08/05/when-does-data-become-identifiable</guid>
+      </item>
+    
+      <item>
+        <title>Pro-bono work offer in response to COVID-19</title>
+        <description>&lt;p&gt;Many businesses, non-profits, and individuals are suffering economically due to
+COVID-19. With limited cash flow, organizations must adapt and innovate to
+survive.&lt;/p&gt;
+
+&lt;p&gt;If you work for an organization (large or small) or are an individual with a
+need for which some software would be helpful, I want to see if I can support
+you. For example, do you need help putting up a website, writing custom
+software, or setting up a system to take remote orders?&lt;/p&gt;
+
+&lt;p&gt;Please send an email to &lt;a href=&quot;mailto:pro-bono@hoshon.com&quot;&gt;pro-bono@hoshon.com&lt;/a&gt; with
+the following information and I’ll get back to you as soon as I can about
+whether I can be of help.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Some background on you or your organization&lt;/li&gt;
+  &lt;li&gt;A link to your current website or Yelp/Google profile (if you have one)&lt;/li&gt;
+  &lt;li&gt;Information about the specific problem that you need help solving&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’m grateful to those who are putting themselves on the front lines to protect
+our communities during this time. What I have to offer doesn’t compare, but I
+want to contribute how I can.&lt;/p&gt;
+
+&lt;p&gt;Please share this post with anyone who you think could benefit.&lt;/p&gt;
+
+&lt;p&gt;I look forward to hearing from you.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 01 Apr 2020 00:00:00 -0700</pubDate>
+        <link>https://www.cyrusstoller.com/2020/04/01/pro-bono-work-offer-in-response-to-covid-19</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/04/01/pro-bono-work-offer-in-response-to-covid-19</guid>
+      </item>
+    
+      <item>
+        <title>Managing loneliness during COVID-19</title>
+        <description>&lt;p&gt;Yesterday the San Francisco Bay Area &lt;a href=&quot;https://www.sfdph.org/dph/alerts/files/HealthOrderC19-07-%20Shelter-in-Place.pdf&quot;&gt;was ordered to shelter in place&lt;/a&gt; due
+to growing concerns about the spread of &lt;a href=&quot;https://en.wikipedia.org/wiki/Coronavirus_disease_2019&quot;&gt;COVID-19&lt;/a&gt;. I’m fully supportive of
+the government putting measures in place to ensure that people are &lt;a href=&quot;https://en.wikipedia.org/wiki/Social_distancing&quot;&gt;social
+distancing&lt;/a&gt; themselves to help ease the load on our health care system
+during this pandemic. While this may feel drastic now, I’m proud of our local
+government for proactively responding to this public health emergency. If
+anything, I worry that this measure may be too late.&lt;/p&gt;
+
+&lt;p&gt;This post isn’t about &lt;a href=&quot;https://en.wikipedia.org/wiki/Coronavirus_disease_2019&quot;&gt;COVID-19&lt;/a&gt; itself. It’s about some of the side effects
+that we may encounter from our response to this disease. In particular, I’m
+concerned about social isolation and loneliness during this 3 week period of
+sheltering in place. I can only imagine what this experience must be like for
+people who live by themselves or live with people who they are not particularly
+close to (e.g., a questionable Craigslist roommate).&lt;/p&gt;
+
+&lt;p&gt;Last night, my girlfriend and I tried an experiment. We posted a link to an
+open Google Hangout and told our friends that we were going to be online for a
+couple hours hosting a virtual happy hour / dinner / dessert party. We weren’t
+sure if anyone was going to show up or if it would be awkward for friends who
+didn’t know each other to be on the same video chat. There were certainly some
+momements that were a little awkward, but all in all, I think it was a
+success and I plan on doing it again.&lt;/p&gt;
+
+&lt;p&gt;After we signed off of the Google Hangout, I couldn’t help but reflect on the
+impact that sheltering in place will have on our collective mental health.
+Regardless of how introverted we are (myself included), we all need some social
+interaction. For many people, seeing colleagues at work, or sitting next to
+people on public transit is a reminder that we are part of a greater community.
+When we stay at home it’s easy to lose touch with those around us.&lt;/p&gt;
+
+&lt;p&gt;My concern is that many people will face mental health challenges, or at least
+bouts of loneliness, during this period of isolation.&lt;/p&gt;
+
+&lt;p&gt;Those of us who have the privilege of being surrounded by people who we care
+about (and who care about us) should make concerted efforts to reach out. &lt;strong&gt;If
+you’re willing, I’d encourage you to consider calling friends who you think may
+be spending significant amounts of time alone, even if you haven’t talked to
+them in a long time.&lt;/strong&gt; Even a short conversation (10-15 minutes) will go a long
+way. It’s good for you and it’s good for them.&lt;/p&gt;
+
+&lt;p&gt;Anyway, food for thought as we enter uncharted territory. Stay safe and wash
+your hands.&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 17 Mar 2020 00:00:00 -0700</pubDate>
+        <link>https://www.cyrusstoller.com/2020/03/17/managing-loneliness-during-covid-19</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/03/17/managing-loneliness-during-covid-19</guid>
+      </item>
+    
+      <item>
+        <title>Using Crostini for Rails development</title>
+        <description>&lt;p&gt;Previously, I’ve written about how I &lt;a href=&quot;/2014/12/31/ubuntu-machine-for-travel&quot;&gt;setup a cheap Linux laptop&lt;/a&gt; to take
+traveling. Unfortunately, I have been frustrated that the hardware on these
+cheap laptops has become too weak for me to do meaningful work. The minimal RAM
+results in the system slowing to a crawl when multiple tabs are open. As a
+result, I found myself not really using my cheap laptop anymore.&lt;/p&gt;
+
+&lt;p&gt;On my old travel laptop, I used &lt;a href=&quot;https://github.com/dnschneid/crouton&quot;&gt;Cruton&lt;/a&gt; to transition from &lt;a href=&quot;https://en.wikipedia.org/wiki/Chrome_OS&quot;&gt;ChromeOS&lt;/a&gt;
+to &lt;a href=&quot;https://en.wikipedia.org/wiki/Debian&quot;&gt;Debian&lt;/a&gt;, but that’s started to feel clunky. Now that &lt;a href=&quot;https://chromium.googlesource.com/chromiumos/docs/+/master/containers_and_vms.md&quot;&gt;Crostini&lt;/a&gt;
+is more mature, I have been curious whether this would make for a better travel
+laptop experience. With the Linux environment more deeply integrated into
+ChromeOS I’ve been hopeful that development will feel more natural.&lt;/p&gt;
+
+&lt;h2 id=&quot;pixelbook-go&quot;&gt;Pixelbook Go&lt;/h2&gt;
+
+&lt;p&gt;Not all Chromebooks support &lt;a href=&quot;https://chromium.googlesource.com/chromiumos/docs/+/master/containers_and_vms.md&quot;&gt;Crostini&lt;/a&gt; yet. I chose the &lt;a href=&quot;https://www.amazon.com/Google-Pixelbook-Chromebook-64GB-Black/dp/B07YMGQYP6/&quot;&gt;Pixelbook Go&lt;/a&gt;,
+mainly because it didn’t feel like cheap plastic construction and because I
+felt confident that it wouldn’t lag with multiple tabs open. Oddly, it feels
+pretty similar to a Macbook Air when I first picked it up. Granted $650 isn’t
+as cheap as my previous travel laptops, but this still feels materially cheaper
+than my Macbook Pro, which is the main reason I want a travel laptop in the
+first place.&lt;/p&gt;
+
+&lt;p&gt;From a technical specs point of view, the &lt;a href=&quot;https://www.amazon.com/Google-Pixelbook-Chromebook-64GB-Black/dp/B07YMGQYP6/&quot;&gt;Pixelbook Go&lt;/a&gt; has a Intel M3
+processor and 8gb of RAM, which is comparable to the now defunct 12-inch
+Macbook. Not a powerhouse computer by any means, but with 10+ hours of reliable
+battery life and all metal construction weighing only a little over 2 pounds
+this felt like a good combo for travel.&lt;/p&gt;
+
+&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Make sure you purchase a Chromebook that supports Crostini&lt;/li&gt;
+  &lt;li&gt;Go to your settings and click &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Linux (Beta)&lt;/code&gt; and click install&lt;/li&gt;
+  &lt;li&gt;Once it’s installed you’ll be presented with bash prompt
+    &lt;ul&gt;
+      &lt;li&gt;(Optional) Install zsh and clone my &lt;a href=&quot;https://github.com/cyrusstoller/dotfiles&quot;&gt;dotfiles&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent&quot;&gt;Generate an ssh key pair&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Install necessary packages to setup your development environment&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;gotchas&quot;&gt;Gotchas&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Replacing zsh as the primary shell&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;vim /etc/passwd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Copy the following line (where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cyrus&lt;/code&gt; is your username):&lt;/p&gt;
+
+&lt;div class=&quot;language-config highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cyrus&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;cyrus&lt;/span&gt;:/&lt;span class=&quot;n&quot;&gt;home&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;cyrus&lt;/span&gt;:/&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;bash&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;And add the following in the line above it:&lt;/p&gt;
+&lt;div class=&quot;language-config highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cyrus&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;:&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;:&lt;span class=&quot;n&quot;&gt;cyrus&lt;/span&gt;:/&lt;span class=&quot;n&quot;&gt;home&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;cyrus&lt;/span&gt;:/&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;zsh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then run:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;chsh &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; zsh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Copy and paste from Chrome&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;At first I got frustrated that I could not copy and paste directly from Chrome
+into the Crostini terminal using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CTRL+V&lt;/code&gt;. I’m still not entirely sure why, but
+you need to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CTRL+SHIFT+V&lt;/code&gt; instead.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) No tabs in the terminal&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I typically use multiple tabs in iTerm to keep projects separated. From what I
+can tell so far, the Crostini terminal does not support this yet. Fortunately,
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux&lt;/code&gt; works great. I just haven’t figured out how to make the mouse bindings
+work like they do on my Mac.&lt;/p&gt;
+
+&lt;p&gt;For one-off tasks and setting up a development server, this works well. But,
+when I need to switch between tabs often, I feel some mental friction in my
+workflow. My hunch is that this may be due to the fact that I haven’t
+customized my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux.conf&lt;/code&gt;. If I want to use this laptop regularly for more than
+just debugging and writing blog posts, I’ll need to put some time into getting
+this setup better.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) No terminal configuration&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I find the red cursor block to be a little annoying. From my use so far, I
+haven’t found a way to adjust that yet. The terminal also doesn’t respond well
+to characters that are more than a fixed width. This became a problem when
+using the default theme for &lt;a href=&quot;https://ohmyz.sh/&quot;&gt;oh-my-zsh.&lt;/a&gt; So, I’ve adjusted my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zshrc&lt;/code&gt; file
+to use a different theme when on a Crostini machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Linux freezes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The only solve I’ve found so far is to restart the Chromebook. Fortunately that
+doesn’t take very long (usually 30 seconds), but I wish there were a way to
+handle this more gracefully.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6) Installing postgres and redis&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;My previous travel laptops have run &lt;a href=&quot;https://en.wikipedia.org/wiki/Ubuntu&quot;&gt;Ubuntu&lt;/a&gt;. So, in the past, I’ve
+been able to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt; packages to install everything, but I’ve found that I
+need to install some of these packages from tarball to get the right versions
+when using Crostini.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I forget that I’m using a Chromebook when I surf the web and check email. The
+main time I’m aware of its limited hardware is when I boot a development
+server or run a test suite. So far, performance has been more than sufficient
+for my travel needs, but falls well short of what I would use as my primary
+laptop. For me, travel is the ideal use case for a Chromebook.&lt;/p&gt;
+
+&lt;p&gt;I hope this is helpful. Happy hacking and safe travels.&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 28 Jan 2020 00:00:00 -0800</pubDate>
+        <link>https://www.cyrusstoller.com/2020/01/28/using-crostini-for-rails-development</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/01/28/using-crostini-for-rails-development</guid>
+      </item>
+    
+      <item>
+        <title>Using ngrok with Ruby on Rails</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Webhook&quot;&gt;Webhooks&lt;/a&gt; provide a powerful way to
+receive callbacks from an API service. Instead of needing to poll for changes,
+you can setup an endpoint to react to specific events. For example, when using
+&lt;a href=&quot;https://twilio.com/&quot;&gt;Twilio&lt;/a&gt;, webhooks allow you to respond to incoming text
+messages. When using &lt;a href=&quot;https://stripe.com/&quot;&gt;Stripe&lt;/a&gt;, webhooks allow you to
+respond to a successful or failed subscription payment. Or, when using
+&lt;a href=&quot;https://plaid.com/&quot;&gt;Plaid&lt;/a&gt;, webhooks allow you to receive new transaction
+histories.&lt;/p&gt;
+
+&lt;p&gt;One of the biggest challenges when getting started with webhooks is setting up
+your development environment. Because a development server is typically only
+available on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;localhost&lt;/code&gt; you need to add some additional configuration to make
+your local web application addressable by the API you are working with.&lt;/p&gt;
+
+&lt;p&gt;There are many tools you can use to create a reverse proxy for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;localhost&lt;/code&gt;. I’m
+most familiar with &lt;a href=&quot;https://ngrok.com/&quot;&gt;ngrok&lt;/a&gt;, but in the past I’ve also used
+&lt;a href=&quot;https://serveo.net/&quot;&gt;serveo&lt;/a&gt;. In this tutorial, I’m going to walkthrough how I
+setup my &lt;a href=&quot;https://rubyonrails.org/&quot;&gt;Ruby on Rails&lt;/a&gt; applications to work with
+ngrok.&lt;/p&gt;
+
+&lt;h2 id=&quot;sign-up-for-ngrok&quot;&gt;Sign up for ngrok&lt;/h2&gt;
+
+&lt;p&gt;First, you need to &lt;a href=&quot;https://dashboard.ngrok.com/signup&quot;&gt;sign up&lt;/a&gt; for an ngrok
+account. There is a free tier that you can experiment with. The downside of the
+free version is that each time you start ngrok you are assigned a new
+subdomain. This means that you have to change your configuration with each API
+provider whenever you start ngrok locally. There are also paid subscriptions
+that will allow you to customize the domains that you can use. This tutorial
+works for both the free and paid plans.&lt;/p&gt;
+
+&lt;p&gt;Once you have an auth token, install the ngrok client locally and register your
+auth token.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew tap caskroom/cask
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew cask &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ngrok
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ngrok authtoken &amp;lt;YOUR_AUTH_TOKEN&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ngrok http 80 &lt;span class=&quot;c&quot;&gt;# to start the ngrok reverse proxy manually&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;integrating-ngrok-into-your-rails-development-environment&quot;&gt;Integrating ngrok into your Rails development environment&lt;/h2&gt;
+
+&lt;p&gt;Install the following gems:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Gemfile&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:development&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ngrok-tunnel'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tty-box'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Add the following at the end of your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;puma.rb&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# config/puma.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;RACK_ENV&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;development&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;addr: &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;PORT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;config: &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HOME&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.ngrok2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ngrok.yml&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# If you have a paid plan you can create tunnels with custom subdomains&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:subdomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;NGROK_SUBDOMAIN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:region&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;NGROK_REGION&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;us&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Create tunnel&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Ngrok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tunnel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TTY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;width: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;height: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;padding: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;title: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;top_left: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;NGROK&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;bottom_right: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;/NGROK&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;style: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;fg: :green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;bg: :black&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;border: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;fg: :green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;bg: :black&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}})&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;STATUS: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Ngrok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tunnel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;PORT:   &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Ngrok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tunnel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;HTTP:   &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Ngrok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tunnel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ngrok_url&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;HTTPS:  &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Ngrok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tunnel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ngrok_url_https&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TTY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;width: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;height: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;align: :center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;padding: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;title: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;top_left: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;NGROK&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;bottom_right: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;/NGROK&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;style: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;fg: :red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;bg: :black&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;border: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;fg: :red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;bg: :black&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}})&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;ERROR: could not create a tunnel ;(&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, whenever you start your local development server ngrok will start
+automatically.&lt;/p&gt;
+
+&lt;h2 id=&quot;accepting-requests-from-outside-localhost&quot;&gt;Accepting requests from outside localhost&lt;/h2&gt;
+
+&lt;p&gt;New in Rails 6 you need to specifically &lt;a href=&quot;https://github.com/rails/rails/pull/33145&quot;&gt;whitelist hosts&lt;/a&gt; to defend against
+DNS rebinding attacks. If you don’t add this configuration, you will receive a
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Blocked host&lt;/code&gt; error.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# config/environments/development.rb&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;configure&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;hosts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/[a-z0-9]+\.ngrok\.io/&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;alternative-approach&quot;&gt;Alternative approach&lt;/h2&gt;
+
+&lt;p&gt;In the code above, I wrote out the specifics of how to integrate Puma and ngrok
+so that this functionality would continue to work without adding an extra
+dependency. But, if you have a basic Rails + Puma setup, then you may want
+consider using
+&lt;a href=&quot;https://github.com/MikeRogers0/puma-ngrok-tunnel&quot;&gt;puma-ngrok-tunnel&lt;/a&gt; instead.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Hopefully this helps you start building web applications that rely on webhooks
+a little faster. Happy hacking.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 18 Dec 2019 00:00:00 -0800</pubDate>
+        <link>https://www.cyrusstoller.com/2019/12/18/using-ngrok-with-rails</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2019/12/18/using-ngrok-with-rails</guid>
+      </item>
+    
+      <item>
+        <title>Supporting multiple OmniAuth providers with Devise</title>
+        <description>&lt;p&gt;One of the things I appreciate most about the Rails ecosystem is that there are
+so many well-maintained gems that can be used to jumpstart a project. This
+means that I can spend more time focusing on what makes my application unique,
+instead of needing to write boilerplate code that most users will take for
+granted. For example, it takes a surprising amount of time to build all of the
+different workflows associated with user authentication (e.g. allowing users to
+reset their passwords or locking accounts after too many failed login
+attempts). Thankfully, &lt;a href=&quot;https://github.com/plataformatec/devise&quot;&gt;Devise&lt;/a&gt; makes it so you can easily start a
+project with secure email / password authentication.&lt;/p&gt;
+
+&lt;p&gt;But even when this is in place, I’ve found that users typically grumble about
+needing to create and remember yet another set of login credentials. They ask
+whether they can just sign in with Google, Twitter, Facebook, etc …
+Fortunately it’s relatively straightforward to use &lt;strong&gt;one&lt;/strong&gt; of these additional
+identities using &lt;a href=&quot;https://oauth.net/2/&quot;&gt;OAuth2&lt;/a&gt;-based on &lt;a href=&quot;https://github.com/omniauth/omniauth&quot;&gt;OmniAuth&lt;/a&gt;. The
+&lt;a href=&quot;https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview&quot;&gt;Devise wiki&lt;/a&gt; provides clear instructions for how to add this
+functionality with a few extra columns on your user table. The challenge with
+this approach is that it assumes that each user will only ever want to use one
+strategy. In other words, if a user connects their Google account, there’s an
+assumption that the user won’t want to also connect a Twitter or Facebook
+account later.&lt;/p&gt;
+
+&lt;p&gt;In this blog post, I’m going to review how to build a Rails application that
+can support an arbitrary number OAuth2 providers. This way a single user can
+pull in data from Google, Twitter, and Facebook at the same time. In the
+default implementation, if a user first connects to Google and then later
+connects to Twitter, the Rails application is no longer able to communicate
+with Google.&lt;/p&gt;
+
+&lt;p&gt;I’m going to walk through how to implement the &lt;a href=&quot;https://github.com/omniauth/omniauth/wiki/Managing-Multiple-Providers&quot;&gt;design discussed on the
+OmniAuth wiki&lt;/a&gt; for Rails. I’ll assume that you’ve
+already installed Devise for basic email / password authentication before.
+But if you haven’t, check out the &lt;a href=&quot;https://github.com/plataformatec/devise#getting-started&quot;&gt;Devise get started guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;conceptually-how-oauth2-works&quot;&gt;Conceptually how OAuth2 works&lt;/h2&gt;
+
+&lt;p&gt;OAuth2 is an &lt;a href=&quot;https://tools.ietf.org/html/rfc6749&quot;&gt;open standard&lt;/a&gt; for access delegation. Typically this
+mechanism is used to allow users to share information about their accounts from
+other services (e.g., allowing an app to see your Facebook friends or post
+tweets on their behalf). In this post, I’m only going to talk about the
+process of allowing users to login, but this can be extended to access other
+data and services that are made available via &lt;a href=&quot;https://en.wikipedia.org/wiki/Application_programming_interface&quot;&gt;API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are three main exchanges in what I like to call the OAuth dance:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Requesting an authorization grant from the OAuth provider. This is done by
+redirecting the user to OAuth provider to enter his/her username and
+password.&lt;/li&gt;
+  &lt;li&gt;Proving that users have granted access to the application that they thought
+they were to retrieve an access_token.&lt;/li&gt;
+  &lt;li&gt;Using the access_token to access protected resources in subsequent requests.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This tutorial is focused on how to manage the first two exchanges.&lt;/p&gt;
+
+&lt;p&gt;These exchanges are dependent on &lt;a href=&quot;https://en.wikipedia.org/wiki/Public-key_cryptography&quot;&gt;public key cryptography&lt;/a&gt;.
+So before we can begin, we need to be issued a public key and a secret. To do
+this you need to register your application with the provider that you’re hoping
+to connect with. In this example, I’ll register with Google as the provider.&lt;/p&gt;
+
+&lt;h2 id=&quot;register-your-application&quot;&gt;Register your application&lt;/h2&gt;
+
+&lt;p&gt;To register a Google application:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Go to &lt;a href=&quot;https://console.cloud.google.com/apis/dashboard&quot;&gt;console.cloud.google.com/apis/dashboard&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Create a new project&lt;/li&gt;
+  &lt;li&gt;Navigate to API / Credentials → create a new set of credentials and
+select “OAuth Client ID”&lt;/li&gt;
+  &lt;li&gt;Be sure to add add callback URLs for your environment - best practice is to
+have a separate set of credentials for development and production&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To register an app with Twitter, Facebook, etc … follow a similar process.&lt;/p&gt;
+
+&lt;p&gt;Once you have your credentials, download them and be sure that they’re &lt;strong&gt;not&lt;/strong&gt;
+added to version control. I use a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env&lt;/code&gt; file (that’s listed in my
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt;) to store these environment variables.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# .env&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;GSUITE_CLIENT_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;XYZ.apps.googleusercontent.com
+&lt;span class=&quot;nv&quot;&gt;GSUITE_CLIENT_SECRET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;XYZ
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;find-a-gem-that-implements-the-omniauth-strategy&quot;&gt;Find a gem that implements the OmniAuth strategy&lt;/h2&gt;
+
+&lt;p&gt;Most large OAuth providers have well-maintained &lt;a href=&quot;https://github.com/omniauth/omniauth/wiki/List-of-Strategies&quot;&gt;OmniAuth
+strategies&lt;/a&gt; that you can you use. For Google, I chose
+&lt;a href=&quot;https://github.com/zquestz/omniauth-google-oauth2&quot;&gt;omniauth-google-oauth2&lt;/a&gt;. If, for some reason, a
+publicly available strategy doesn’t exist yet, they’re relatively
+straightforward to &lt;a href=&quot;https://github.com/omniauth/omniauth/wiki/Strategy-Contribution-Guide&quot;&gt;write on your own&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once you’ve found a gem that implements the strategy for your OAuth provider,
+add it to your Gemfile and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle install&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;A key benefit of using OmniAuth is that you will be provided with a &lt;a href=&quot;https://github.com/omniauth/omniauth/wiki/Auth-Hash-Schema&quot;&gt;normalized
+data&lt;/a&gt; for each strategy. This means that most of the code you
+need to write can be reused with a few exceptions (e.g. Twitter does not
+necessarily provide the user’s email address).&lt;/p&gt;
+
+&lt;h2 id=&quot;registering-your-provider-with-devise&quot;&gt;Registering your provider with Devise&lt;/h2&gt;
+
+&lt;p&gt;Once you have your OmniAuth strategy installed, you need to register it with
+Devise.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# config/initializers/devise.rb&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Devise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setup&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; 
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;omniauth&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:google_oauth2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+    &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'GSUITE_CLIENT_ID'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'GSUITE_CLIENT_SECRET'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;scope: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;userinfo.email, userinfo.profile&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;prompt: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'select_account'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;google&quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By default, this strategy will be called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;google-oauth2&lt;/code&gt;. Cosmetically, you may
+want to add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:name&lt;/code&gt; option so you can refer to the strategy simply as
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;google&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;registering-your-provider-with-the-user-model&quot;&gt;Registering your provider with the user model&lt;/h2&gt;
+
+&lt;p&gt;A limitation of Devise is that &lt;a href=&quot;https://github.com/plataformatec/devise/wiki/OmniAuth-with-multiple-models&quot;&gt;only one resource can be used for
+OAuth&lt;/a&gt; at a time. In general, this shouldn’t be a
+problem. In this tutorial, I’ll assume that you’re only using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user&lt;/code&gt; model.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# app/models/user.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationRecord&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;devise&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:database_authenticatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:registerable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;ss&quot;&gt;:recoverable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:rememberable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:validatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;ss&quot;&gt;:lockable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:confirmable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;ss&quot;&gt;:omniauthable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;omniauth_providers: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:google&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+         &lt;span class=&quot;c1&quot;&gt;# because this user model also has a username column&lt;/span&gt;
+         &lt;span class=&quot;ss&quot;&gt;authentication_keys: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; 
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you add more strategies, you can add more providers to the
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;omniauth_providers&lt;/code&gt; array.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-model-to-store-the-information-provided-by-the-oauth-providers&quot;&gt;Creating a model to store the information provided by the OAuth providers&lt;/h2&gt;
+
+&lt;p&gt;I decided to call this the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;authorizations&lt;/code&gt; table, but I’ve seen other people
+call this the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;identities&lt;/code&gt; table. Naming is hard (&lt;a href=&quot;https://quotesondesign.com/phil-karlton/&quot;&gt;h/t Phil
+Karlton&lt;/a&gt;). Pick the name that makes
+sense to you.&lt;/p&gt;
+
+&lt;p&gt;This model will store the relevant information to check whether an OAuth user
+has authenticated before and to provide you with the necessary information to
+access that API in the future. &lt;strong&gt;Be sure not to store your API keys in your
+code repository.&lt;/strong&gt; And if you opt to store access_tokens in your database,
+please be sure to encrypt them before persisting them because if an adversary
+gains access to the access_tokens they can access your user’s Google account as
+though they are your Rails application!&lt;/p&gt;
+
+&lt;p&gt;To encrypt sensitive fields in your database so that you can retrieve them
+later you can make use of &lt;a href=&quot;https://api.rubyonrails.org/classes/ActiveSupport/MessageEncryptor.html&quot;&gt;ActiveSupport::MessageEncryptor&lt;/a&gt;
+as described &lt;a href=&quot;https://pawelurbanek.com/rails-secure-encrypt-decrypt&quot;&gt;here&lt;/a&gt; OR you can use
+&lt;a href=&quot;https://github.com/attr-encrypted/attr_encrypted&quot;&gt;attr_encrypted&lt;/a&gt;. I would be hesitant to rely on attr_encrypted
+since it hasn’t been updated recently. For simplicity, I’m going to assume that
+these integrations are only for user authentication, so I will only be
+concerned with storing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;provider&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uid&lt;/code&gt; which you’ll use to associate a
+user with an OAuth provider.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;create_table&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;authorizations&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: :cascade&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;integer&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;user_id&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;provider&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;uid&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;email&quot;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# t.string &quot;encrypted_token&quot;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# t.string &quot;encrypted_secret&quot;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# t.string &quot;encrypted_refresh_token&quot; &lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# t.boolean &quot;expires&quot;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# t.datetime &quot;expires_at&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;created_at&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;precision: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;null: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;updated_at&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;precision: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;null: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;provider&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;uid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index_authorizations_on_provider_and_uid&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;provider&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index_authorizations_on_provider&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;uid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index_authorizations_on_uid&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;user_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index_authorizations_on_user_id&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create an Authorization model that will store this information and ensure that
+a Google account is only associated with one account in your application and
+connect it to your User model.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# app/models/authorization.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Authorization&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationRecord&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# include Encryptable&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# attr_encrypted :token, :secret, :refresh_token&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;belongs_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;optional: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;validates_uniqueness_of&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:uid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;scope: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:provider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# app/models/user.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationRecord&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;has_many&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:authorizations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;dependent: :destroy&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;adding-methods-to-the-user-model-to-use-create-authorizations&quot;&gt;Adding methods to the user model to use create Authorizations&lt;/h2&gt;
+
+&lt;p&gt;Now that we have a place to store authorization data, we need to build
+functionality to handle four use cases:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;New user creation&lt;/li&gt;
+  &lt;li&gt;Matching to an existing user (i.e. a user had previously been created with
+that email)&lt;/li&gt;
+  &lt;li&gt;Asking for additional information (i.e. a user record couldn’t fully be
+created because the user needs to choose a username)&lt;/li&gt;
+  &lt;li&gt;Returning users that have already granted access via an OAuth provider&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To do this, we’ll add a couple class methods to the User model and a
+convenience method for building new Authorizations. These will be used when
+receiving in the OmniAuth callback.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# app/models/user.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationRecord&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;from_omniauth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# find an existing user or create a user and authorizations&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# schema of auth https://github.com/omniauth/omniauth/wiki/Auth-Hash-Schema&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;# returning users&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;authorization&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;find_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;provider: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;uid: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;uid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorization&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;user&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'info'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'email'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# match existing users&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;existing_user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_for_database_authentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;email: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;downcase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;existing_user&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;existing_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_oauth_authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;existing_user&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;create_new_user_from_oauth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Maintaining state if a user was not able to be saved&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new_with_session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;tap&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;devise.oauth.data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'info'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'email'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;blank?&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_oauth_authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_oauth_authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;authorizations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;provider: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'provider'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;uid: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'uid'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# token: data['credentials']['token'],&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# secret: data['credentials']['secret'],&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# refresh_token: data['credentials']['refresh_token'],&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# expires: data['credentials']['expires'],&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# expires_at: (Time.at(data['credentials']['expires_at']) rescue nil),&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# Human readable label if a user connects multiple Google accounts&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;email: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'info'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'email'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;kp&quot;&gt;private&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create_new_user_from_oauth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;email: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;username: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;password: &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Devise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;friendly_token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%w(google)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;include?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;skip_confirmation!&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_oauth_authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;creating-a-controller-to-handle-the-oauth-callbacks&quot;&gt;Creating a controller to handle the OAuth callbacks&lt;/h2&gt;
+
+&lt;p&gt;So far, we’ve provided devise with the details it needs to redirect a user to
+the OAuth provider to request an authorization grant. Now, we need to handle
+the second phase of the OAuth dance when we exchange the authorization grant
+for an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;access_token&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To do this, we need to add an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;omniauth_callbacks_controller.rb&lt;/code&gt;. This will
+respond to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/auth/:provider/callback&lt;/code&gt;. In our case, that will be
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/auth/google/callback&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# config/routes.rb&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;draw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;devise_for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;controllers: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;omniauth_callbacks: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'users/omniauth_callbacks'&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The routes for the particular providers are set up when we added the array of
+providers to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;User&lt;/code&gt; model. Next, let’s work on the callbacks controller:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# app/controllers/users/omniauth_callbacks_controller.rb&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Users::OmniauthCallbacksController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Devise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;OmniauthCallbacksController&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;google&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# A class method we need to define&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;from_omniauth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auth_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;persisted?&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;flash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:notice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;I18n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'devise.omniauth_callbacks.success'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;kind: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Google'&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;sign_in_and_redirect&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;event: :authentication&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# We couldn't save the user for some reason (i.e. need to add a username)&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# Removing extra as it can overflow some session stores&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;auth_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'extra'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+      &lt;span class=&quot;c1&quot;&gt;# So data will be available after this request when creating the user&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'devise.oauth.data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;full_messages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;redirect_to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_user_registration_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;alert: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;kp&quot;&gt;private&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;auth_data&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'omniauth.auth'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With the basic routing in place, we need to ensure that our application is not
+vulnerable to &lt;a href=&quot;https://nvd.nist.gov/vuln/detail/CVE-2015-9284&quot;&gt;CVE-2015-9284&lt;/a&gt;
+that’s discussed &lt;a href=&quot;https://github.com/omniauth/omniauth/pull/809&quot;&gt;in this pull
+request&lt;/a&gt;. Here are the
+remediation instructions recommended in the &lt;a href=&quot;https://github.com/omniauth/omniauth/wiki/Resolving-CVE-2015-9284&quot;&gt;OmniAuth
+wiki&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Make sure that you have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;protect_from_forgery with: :exception&lt;/code&gt; added to your
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationController&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gem 'omniauth-rails_csrf_protection&lt;/code&gt; to ensure you will not redirect
+users into the authorization grant via a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET&lt;/code&gt; request.&lt;/li&gt;
+  &lt;li&gt;You need to update links to the OmniAuth Provider strategies to only use
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;POST&lt;/code&gt; requests.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-erb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;%=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link_to&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Sign in with &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;OmniAuth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;camelize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;omniauth_authorize_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resource_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;method: :post&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;%&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I hope this tutorial helps you get started with how to add multiple OmniAuth
+providers to your Rails apps. I’m looking forward to seeing the cool
+applications you build.&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 17 Sep 2019 00:00:00 -0700</pubDate>
+        <link>https://www.cyrusstoller.com/2019/09/17/supporting-multiple-omniauth-providers-with-devise</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2019/09/17/supporting-multiple-omniauth-providers-with-devise</guid>
+      </item>
+    
+      <item>
+        <title>Guide to creating your first screencast</title>
+        <description>&lt;p&gt;These days it feels like most websites have an introductory video on their
+homepage. So, I figured it was time for me to create a short screencast to
+describe what &lt;a href=&quot;https://www.hoshon.com/&quot;&gt;Hoshon&lt;/a&gt; is and how it works. But, since I had never made
+a screencast before there were a lot of things that I needed to figure out. In
+this post, I’m sharing what I learned so that you’ll be able to get up and
+running a little faster.&lt;/p&gt;
+
+&lt;p&gt;Before you take my word for how it went, here’s the video I made:&lt;/p&gt;
+
+&lt;div class=&quot;video-border&quot;&gt;
+  &lt;div class=&quot;video-container&quot;&gt;
+    &lt;iframe src=&quot;https://player.vimeo.com/video/325965564&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;
+    &lt;/iframe&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;planning&quot;&gt;Planning&lt;/h2&gt;
+
+&lt;p&gt;To start, I needed to answer a simple question: what do I want people to learn
+from watching my video? I settled on showing viewers only the most basic
+information about &lt;a href=&quot;https://www.hoshon.com/&quot;&gt;Hoshon&lt;/a&gt;. For me, this meant focusing my video on the
+key &lt;a href=&quot;https://www.hoshon.com/&quot;&gt;Hoshon&lt;/a&gt; workflow to demonstrate the value proposition. While I
+struggled with leaving interesting features out of the video, at the end of the
+day, objectively I know that &lt;a href=&quot;http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.714.195&amp;amp;rep=rep1&amp;amp;type=pdf&quot;&gt;shorter videos are more
+effective&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This introductory video is meant to earn the right to show the viewers
+additional features during a demo call or after they sign up.&lt;/p&gt;
+
+&lt;p&gt;Knowing what I wanted to convey was helpful, but next I needed to decide &lt;em&gt;how&lt;/em&gt;
+I wanted to share it. Some videos seem to offer a laundry list of features and
+are trying to compete on “specs”. Others seem to focus on the high level value
+proposition without giving many specifics or actual screenshots. I decided to
+take the approach of telling the story of a hypothetical user. This may not be
+right for every circumstance, but it seems to be working well for me.&lt;/p&gt;
+
+&lt;p&gt;I chose to tell my story using characters from Winnie the Pooh because the cast
+of characters lent themselves to humor and most people would already be
+familiar with them. Whether you choose Winnie the Pooh, Star Wars, or Harry
+Potter, choosing a set of familiar fictional characters helps people connect
+with the story you’re telling. This allows you to show the process of your
+product actually working,  instead of telling users how your product works.
+Even if the substantive content is the same, showing viewers something is more
+powerful than telling them the same thing.&lt;/p&gt;
+
+&lt;p&gt;After deciding to use a story to introduce users to &lt;a href=&quot;https://www.hoshon.com/&quot;&gt;Hoshon&lt;/a&gt;, I made a
+list of what I wanted to show and then tried to cut it in half to keep my video
+short. It was frustrating to leave off seemingly important information, but I
+kept reminding myself that I’m competing for limited time/attention. My goal is
+to get viewers interested in &lt;a href=&quot;https://www.hoshon.com/&quot;&gt;Hoshon&lt;/a&gt;, so that I would have the
+opportunity to explain more in the future, not to explain everything. Once I
+decided on what to include, I wrote a script that integrated my core content
+with Winnie the Pooh.&lt;/p&gt;
+
+&lt;p&gt;To get more concrete, a minute of voiceover is roughly equivalent to one page
+of prose that is triple spaced. This means that in effect you will have 500
+words to communicate everything. But of those 500 words, you need to reserve
+some for platitudes and transitions, and some to remind people of what you have
+already told them earlier in the video. So in essence, you should try to boil
+you message down to 250 words.&lt;/p&gt;
+
+&lt;h2 id=&quot;scripting&quot;&gt;Scripting&lt;/h2&gt;
+
+&lt;p&gt;Start your video with an introduction of who you are and a single sentence
+describing what you are going to demonstrate. Think of this as your thesis
+sentence; viewers need context on what they are about see. Your thesis needs to
+clearly communicate your key value proposition. Try to keep this as simple as
+possible. No matter how technical your product is, you should be able to
+explain it to a middle schooler.&lt;/p&gt;
+
+&lt;p&gt;For &lt;a href=&quot;https://www.hoshon.com/&quot;&gt;Hoshon&lt;/a&gt;, I wanted to make it clear that users can manage repeatable
+processes using standardized checklists. This means that each time users create
+a checklist for a given task, they are going to have the exact same steps.&lt;/p&gt;
+
+&lt;p&gt;Next, I wanted to highlight how &lt;a href=&quot;https://www.hoshon.com/&quot;&gt;Hoshon&lt;/a&gt; improves consistency and
+accountability. Then, I worked backwards and folded all of that information
+into my demo checklist.&lt;/p&gt;
+
+&lt;p&gt;After you’ve written out exactly what you want to say, show it to a friend to
+be sure it makes sense to someone who’s not thinking much about your product.&lt;/p&gt;
+
+&lt;p&gt;Lastly, practice voicing over your demo with the script so that you don’t
+stumble over your words. It’s hard to talk and give a demo at the same time!&lt;/p&gt;
+
+&lt;h2 id=&quot;recording&quot;&gt;Recording&lt;/h2&gt;
+
+&lt;p&gt;Before recording this video I had used QuickTime to record my screen, but I
+wanted to restrict the recording to just the web browser. Then I stumbled
+across this great &lt;a href=&quot;https://medium.com/@suzhinton/my-twitch-live-coding-setup-b2516672fb21&quot;&gt;blog post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I’m glad I found out about &lt;a href=&quot;https://obsproject.com/&quot;&gt;OBS&lt;/a&gt;; it does exactly what I need and, as a
+bonus, it’s open source. There are other good tools like
+&lt;a href=&quot;https://www.telestream.net/screenflow/overview.htm&quot;&gt;ScreenFlow&lt;/a&gt; or &lt;a href=&quot;https://www.techsmith.com/video-editor.html&quot;&gt;Camtasia&lt;/a&gt;, but OBS gave me all the
+functionality I was looking for, so that’s what I went with. The main things
+that you’ll need to do in OBS are: create a scene with the window you want to
+capture, and set your audio input so that as you speak it peaks around -12dB.
+I’m using a &lt;a href=&quot;https://www.bluedesigns.com/products/yeti/&quot;&gt;Blue Yeti microphone&lt;/a&gt;. If you can afford it, I’d
+recommend using a stand alone microphone. People can tell the difference in
+audio quality.&lt;/p&gt;
+
+&lt;h2 id=&quot;post-production&quot;&gt;Post Production&lt;/h2&gt;
+
+&lt;p&gt;After I recorded the video, I needed to do some editing. While I tried to get
+through my script in a single pass, I inevitably either stumbled on my words or
+forgot to move my mouse at the right time. So, for post production, I re-taught
+myself how to use Adobe Premiere. The big thing I needed from Adobe Premiere
+that I couldn’t figure out how to do in iMovie was adding annotations over the
+video (i.e. adding boxes to call attention to certain parts of the screen).&lt;/p&gt;
+
+&lt;p&gt;Going through the footage reminded me a lot of my War News Radio days. For
+example, I cut audio segments before/after breaths so that it’s harder to tell
+where I cut the footage. It also occurred to me that this may be the reason
+that a lot of video productions use multiple camera angles. While it’s pretty
+easy to cut audio in indiscernible ways, cutting video would be pretty tough.
+But, if you’re changing angles anyway, it’s easier to hide.&lt;/p&gt;
+
+&lt;p&gt;I experimented with adding some background music, but generally found it to be
+distracting. It’s amazing how hard it is to find music that strikes the right
+mood. In the end I just added some music for an outro. I was looking for a
+media equivalent of the &lt;a href=&quot;https://thenounproject.com/&quot;&gt;Noun Project&lt;/a&gt; to find music. Is there
+one? I’d love to be introduced to one, if it exists, since I’m going to be
+making more videos. I ended up using &lt;a href=&quot;https://icons8.com/music&quot;&gt;icon8&lt;/a&gt; and the &lt;a href=&quot;https://freemusicarchive.org,&quot;&gt;free music
+archive&lt;/a&gt;, which offer royalty free music. (Edit: Here’s a
+&lt;a href=&quot;https://github.com/LisaDziuba/Awesome-Design-Tools&quot;&gt;list of tools&lt;/a&gt; that I’ll consider using in the
+future.)&lt;/p&gt;
+
+&lt;h2 id=&quot;posting&quot;&gt;Posting&lt;/h2&gt;
+
+&lt;p&gt;The last decision regarding my video was about whether to host it on
+&lt;a href=&quot;https://youtube.com/&quot;&gt;YouTube&lt;/a&gt;, &lt;a href=&quot;https://vimeo.com/&quot;&gt;Vimeo&lt;/a&gt;, or directly on AWS. I ended up choosing to
+go with Vimeo because it allows me to update videos while keeping the same URL,
+while also providing a nice looking player and pro features that I can
+hopefully grow into.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Thanks for reading. Hope you have found this helpful. Writing this up has
+helped me clarify my thought process for the next time I make a screencast.
+Would love to see the videos you make. Happy hacking!&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 07 Apr 2019 00:00:00 -0700</pubDate>
+        <link>https://www.cyrusstoller.com/2019/04/07/guide-to-creating-a-screencast</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2019/04/07/guide-to-creating-a-screencast</guid>
+      </item>
+    
+  </channel>
+</rss>
