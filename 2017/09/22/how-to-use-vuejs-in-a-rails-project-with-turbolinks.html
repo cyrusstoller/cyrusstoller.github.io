@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | How to use Vue.js in a Rails project with Turbolinks</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2017/09/22/how-to-use-vuejs-in-a-rails-project-with-turbolinks">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>How to use Vue.js in a Rails project with Turbolinks</h1>
+
+<div id="post">
+  <p>Since the web is moving away from building interactive webpages with plain
+<a href="http://jquery.com/">jQuery</a>, I figured it’s time to incorporate one of the new javascript
+frameworks into a Rails project I’m working on. I’ve tried making sample
+applications using <a href="https://emberjs.com/">Ember</a> and <a href="https://facebook.github.io/react/">React</a>, but found both frameworks
+to have relatively steep learning curves. <a href="https://vuejs.org/">Vue.js</a>, on the other hand, was
+simple and straight forward to add to a sample application.</p>
+
+<p>In fact, I could include a link to <a href="https://en.wikipedia.org/wiki/Content_delivery_network">CDN</a> just like I could with
+<a href="http://jquery.com/">jQuery</a>. There was no need to install <a href="https://en.wikipedia.org/wiki/Source-to-source_compiler">transpilers</a> or other system
+dependencies. Because all I’m looking for is a library to allow me to add some
+interactive components (e.g. <a href="https://gorails.com/episodes/using-vuejs-for-nested-forms-part-1?autoplay=1">nested forms</a>, <a href="https://en.wikipedia.org/wiki/Wizard_(software)">wizards</a>, and
+interactive selections), <a href="https://vuejs.org/">Vue.js</a> feels like the right tool for the job.
+For more reasons to choose <a href="https://vuejs.org/">Vue.js</a> over the alternatives, you may want to
+check out <a href="https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163">this
+post</a>.</p>
+
+<p><a href="https://github.com/rails/webpacker">Webpacker</a> is still relatively new to Rails (v5.1+), so I wanted to
+share how I resolved a couple gotchas that I ran into when setting up my Rails
+project that uses both <a href="https://github.com/turbolinks/turbolinks">Turbolinks</a> and <a href="https://vuejs.org/">Vue.js</a>.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>Create a new Rails project:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>rails new vue_example_app <span class="nt">--webpack</span><span class="o">=</span>vue
+</code></pre></div></div>
+
+<p>Or if you have an existing Rails app that has Webpacker installed run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle <span class="nb">exec </span>rails webpacker:install:vue
+</code></pre></div></div>
+
+<p>This creates an <code class="language-plaintext highlighter-rouge">app/javascripts</code> directory where you will put your Vue
+components, but these components won’t be add included in the asset pipeline,
+so you’ll need to add them to your application layout file.</p>
+
+<div class="language-erb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- app/views/layouts/application.html.erb --&gt;</span>
+<span class="cp">&lt;%=</span> <span class="n">javascript_pack_tag</span> <span class="s1">'application'</span> <span class="cp">%&gt;</span>
+<span class="cp">&lt;%=</span> <span class="n">stylesheet_pack_tag</span> <span class="s1">'application'</span> <span class="cp">%&gt;</span>
+</code></pre></div></div>
+
+<p>Once you’ve added that, be sure to start up the webpack dev server with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bin/webpack-dev-server
+</code></pre></div></div>
+
+<p>For simplicity you may want to consider a tool like
+<a href="https://github.com/ddollar/foreman">Foreman</a> to manage spinning up both the
+Rails development server and the webpack server with a single command.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Procfile</span>
+web: bundle <span class="nb">exec </span>rails server <span class="nt">-p</span> <span class="se">\$</span>PORT <span class="nt">-e</span> <span class="se">\$</span>RACK_ENV
+webpack: bin/webpack-dev-server
+</code></pre></div></div>
+
+<p>Be sure to explicitly state the <code class="language-plaintext highlighter-rouge">RACK_ENV</code> in a <code class="language-plaintext highlighter-rouge">.env</code> file or Rails will
+complain about not being provided with a <code class="language-plaintext highlighter-rouge">secret_key_base</code>. To do this, add the
+following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># .env</span>
+<span class="nv">RACK_ENV</span><span class="o">=</span>development
+</code></pre></div></div>
+
+<p>When you go to a page rendered by this Rail application you should see the
+following message emited on the javascript console:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Hello</span> <span class="nx">World</span> <span class="k">from</span> <span class="nx">Webpacker</span>
+</code></pre></div></div>
+
+<p>This message is being generated in <code class="language-plaintext highlighter-rouge">app/javascript/packs/application.js</code>. Now,
+that we have webpacker working, let’s intialize a basic <a href="https://vuejs.org/">Vue.js</a>
+application.</p>
+
+<h2 id="initializing-vuejs">Initializing Vue.js</h2>
+
+<p>Add the following line:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/javascript/packs/application.js</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">./hello_vue.js</span><span class="dl">'</span>
+</code></pre></div></div>
+
+<p>This will append a message of “Hello Vue” to any view you render, but the
+message will not appear again if you navigate away, while using Turbolinks.
+We’ll fix this in the next section. To keep things organized, I recommend move
+<code class="language-plaintext highlighter-rouge">app/javascripts/packs/app.vue</code> into a separate <code class="language-plaintext highlighter-rouge">app/javascripts/components</code>
+directory. Once you do be sure to revise update the references in
+<code class="language-plaintext highlighter-rouge">hello_vue.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Original</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./app.vue</span><span class="dl">'</span>
+<span class="c1">// Revised</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../components/app.vue</span><span class="dl">'</span>
+</code></pre></div></div>
+
+<p>After making this change, you’ll need to restart the webpack dev server.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Depending on your use case, it may or may not make sense to use Vue and
+Turbolinks together. If you’re building one page application, you want to opt
+for <a href="https://github.com/vuejs/vue-router">vue-router</a> instead. For my application, I’m just adding a few
+Vue components for some added interaction. To make Vue and Turbolinks <a href="https://github.com/turbolinks/turbolinks/wiki/VueJs-and-Turbolinks">work
+side by side</a>, I’m using <a href="https://github.com/jeffreyguenther/vue-turbolinks">vue-turbolinks</a>. To install this package, run
+the following and then restart your webpack dev server:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>yarn add vue-turbolinks
+</code></pre></div></div>
+
+<p>Once you’ve installed <a href="https://github.com/jeffreyguenther/vue-turbolinks">vue-turbolinks</a>, you need to enable it.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/javascripts/packs/hello_vue.js</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../components/app.vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">TurbolinksAdapter</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-turbolinks</span><span class="dl">'</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">TurbolinksAdapter</span><span class="p">)</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">turbolinks:load</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">))</span>
+  <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vue</span><span class="p">(</span><span class="nx">App</span><span class="p">).</span><span class="nf">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">app</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Now, that we have code triggered whenever we navigate using Turbolinks, let’s
+create a <code class="language-plaintext highlighter-rouge">div</code> to bind our Vue application to. For sake of example, let’s use a
+DOM element with <code class="language-plaintext highlighter-rouge">id=hello</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/javascripts/packs/hello_vue.js</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../components/app.vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">TurbolinksAdapter</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-turbolinks</span><span class="dl">'</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">TurbolinksAdapter</span><span class="p">)</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">turbolinks:load</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">)</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">element</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vue</span><span class="p">({</span>
+      <span class="na">el</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#hello</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">template</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;App/&gt;</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">components</span><span class="p">:</span> <span class="p">{</span> <span class="nx">App</span> <span class="p">},</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>At this point, nothing happens even if the necessary <code class="language-plaintext highlighter-rouge">div</code> is present. This is
+because Vue package default to only including the “runtime-only” build, not the
+“standalone” build, which is necessary to target elements in existing HTML
+templates. If you’re interested in learning more about the differences, click
+<a href="https://vuejs.org/v2/guide/installation.html">here</a>. Fortunately, the fix for
+this is simple:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Old</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+<span class="c1">// New</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue/dist/vue.esm</span><span class="dl">'</span>
+</code></pre></div></div>
+
+<p>Now everthing should work as expected. Hope this helps you get up and running.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 22 Sep 2017</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">1073 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

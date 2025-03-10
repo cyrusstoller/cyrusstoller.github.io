@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Upgrading to rspec 3</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2014/07/02/upgrading-to-rspec-3">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Upgrading to rspec 3</h1>
+
+<div id="post">
+  <p>Here are some quick notes on how I upgraded my rails applications from rspec v2 to rspec v3. 
+Fortunately, I was able to convert &gt; 50 KLOC of specs from the old <code class="language-plaintext highlighter-rouge">should</code> syntax 
+to the new preferred <code class="language-plaintext highlighter-rouge">expect</code> syntax in under an hour.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>First, I followed the <a href="https://github.com/rspec/rspec-rails/tree/master/features/upgrade">instructions</a>
+in the <code class="language-plaintext highlighter-rouge">rspec-rails</code> github repository.
+This mainly involved switching from requiring a <code class="language-plaintext highlighter-rouge">spec_helper</code> to requiring a <code class="language-plaintext highlighter-rouge">rails_helper</code> and
+creating a new <code class="language-plaintext highlighter-rouge">spec/rails_helper.rb</code> file.</p>
+
+<p>To quickly change <code class="language-plaintext highlighter-rouge">require 'spec_helper'</code> to <code class="language-plaintext highlighter-rouge">require 'rails_helper'</code> in hundreds of spec files 
+without opening each one individually,
+I used the following <code class="language-plaintext highlighter-rouge">bash</code> one-liner, which I expanded to multiple lines for improved legibility.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span>find spec/ <span class="nt">-name</span> <span class="se">\*</span>.rb<span class="si">)</span>
+<span class="k">do
+  </span><span class="nb">echo</span> <span class="nv">$i</span>
+  <span class="nb">sed</span> <span class="nt">-i</span> <span class="s2">""</span> <span class="s2">"s/spec_helper/rails_helper/g"</span> <span class="nv">$i</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>If you’ve never used <a href="https://www.gnu.org/software/sed/manual/html_node/index.html">sed</a>,
+I highly recommend taking an hour to get familiar with it. 
+It will save you from doing large search/replace jobs by hand and 
+it also minimizes the impact of human error.</p>
+
+<p>At this point, my specs were still passing.</p>
+
+<p>Next, I upgraded <code class="language-plaintext highlighter-rouge">rspec-rails</code> in my <code class="language-plaintext highlighter-rouge">Gemfile</code> to <code class="language-plaintext highlighter-rouge">gem "rspec-rails", "~&gt; 3.0.1"</code>.
+Running my specs at this point gave me a lot of deprecation warnings and few errors.</p>
+
+<p>To remove the deprecation warnings, I needed to switch from using <code class="language-plaintext highlighter-rouge">should</code> to <code class="language-plaintext highlighter-rouge">expect</code>.
+Given the number of specs, I wasn’t keen on doing this manually because it would be
+tedious and highly error prone. Fortunately, there is a <a href="https://github.com/yujinakayama/transpec">gem</a> to help do this.</p>
+
+<h2 id="translating-should-to-expect">Translating ‘should’ to ‘expect’</h2>
+
+<p>Install the <a href="https://github.com/yujinakayama/transpec">transpec</a> gem outside of bundler.
+In other words, there is no need to add it to your <code class="language-plaintext highlighter-rouge">Gemfile</code>.
+The <a href="https://github.com/yujinakayama/transpec#basic-usage">instructions</a> are pretty straight foward.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> gem <span class="nb">install </span>transpec
+<span class="nv">$ </span>transpec
+<span class="nv">$ </span>git commit <span class="nt">-aeF</span> .git/COMMIT_EDITMSG
+</code></pre></div></div>
+
+<p>For most of my projects this was all I needed to do; I ran my specs again and everything was green.
+But for a few projects, I had a couple of other changes that I needed to make.</p>
+
+<h2 id="doubles-and-stubs">Doubles and stubs</h2>
+
+<p>In some places I used <code class="language-plaintext highlighter-rouge">doubles</code> and <code class="language-plaintext highlighter-rouge">stubs</code> in ways that are no longer supported in rspec v3.
+Granted, these are probably be anti-patterns that I should addresss, but in the meantime
+here is how I translated them using subclasses. Before, I would have statements like:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">before</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">User</span><span class="p">.</span><span class="nf">any_instance</span><span class="p">.</span><span class="nf">stub</span><span class="p">(</span><span class="ss">:send_confirmation_email_callback</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This syntax is no longer supported in in rspec v3. To work around this, 
+I just subclassed the <code class="language-plaintext highlighter-rouge">User</code> class in my <code class="language-plaintext highlighter-rouge">user_spec.rb</code> and tested that instead.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TestUser</span> <span class="o">&lt;</span> <span class="no">User</span>
+  <span class="k">def</span> <span class="nf">send_confirmation_email_callback</span>
+    <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>At least for now all of my specs appear to be functioning properly.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 02 Jul 2014</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">537 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

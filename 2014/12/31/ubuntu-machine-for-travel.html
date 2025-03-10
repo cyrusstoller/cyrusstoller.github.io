@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Setting up an Ubuntu machine for travel</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2014/12/31/ubuntu-machine-for-travel">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Setting up an Ubuntu machine for travel</h1>
+
+<div id="post">
+  <p>I recently bought a cheap laptop to take traveling that I would be less concerned
+about being stolen and/or damaged.
+While it’s much slower than my Macbook Pro, I’m still able to surf the web,
+write blog posts, and SSH into my servers.
+I picked the <a href="http://www.asus.com/Notebooks_Ultrabooks/X200MA/">ASUS X200MA</a> because it
+has a built-in VGA, HDMI, RJ45 (ethernet port), SD card slot, and 3 USB ports.</p>
+
+<p>I agree with the reviews I read online. The screen and keyboard 
+are less than ideal, but I’m willing to overlook these shortcomings given this
+is not intended to be my primary machine (see <a href="/2014/07/16/setting-up-my-new-laptop/">this post</a> for how I setup my Mac).</p>
+
+<p>Here are the things I installed before I left for my trip.</p>
+
+<ul>
+  <li>vim</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>vim
+</code></pre></div></div>
+
+<ul>
+  <li>Sublime Text</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>add-apt-repository ppa:webupd8team/sublime-text-2
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>sublime-text
+</code></pre></div></div>
+
+<ul>
+  <li>Dropbox</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'deb http://linux.dropbox.com/ubuntu trusty main'</span> <span class="se">\</span>
+ | <span class="nb">sudo tee</span> /etc/apt/sources.list.d/dropbox.list
+<span class="nv">$ </span><span class="nb">sudo </span>apt-key adv <span class="nt">--keyserver</span> pgp.mit.edu <span class="nt">--recv-keys</span> 5044912E
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>dropbox
+</code></pre></div></div>
+
+<p>After this I needed to launch Dropbox for the first time via the launcher,
+but after that the daemon started automatically on login.
+If you’re still having trouble you may want to try:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nautilus-dropbox
+</code></pre></div></div>
+
+<ul>
+  <li>Chrome</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wget <span class="nt">-q</span> <span class="nt">-O</span> - https://dl-ssl.google.com/linux/linux_signing_key.pub <span class="se">\</span>
+ | <span class="nb">sudo </span>apt-key add -
+<span class="nv">$ </span><span class="nb">sudo </span>sh <span class="nt">-c</span> <span class="s1">'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" \
+  &gt;&gt; /etc/apt/sources.list.d/google-chrome.list'</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>google-chrome-stable
+</code></pre></div></div>
+
+<ul>
+  <li>SSH</li>
+</ul>
+
+<p>Generate a new SSH keypair. If you need a reminder on how to do this, or have never
+done it before, check out this <a href="https://help.github.com/articles/generating-ssh-keys/">tutorial</a>
+from Github.</p>
+
+<ul>
+  <li>git</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>git-core
+</code></pre></div></div>
+
+<ul>
+  <li>rbenv</li>
+</ul>
+
+<p>Here are some prerequisites that are needed to compile <a href="https://www.ruby-lang.org/en/">ruby</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>curl
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>openssl
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>autoconf bison build-essential libc6-dev libffi-dev <span class="se">\</span>
+  libmysql++-dev libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev <span class="se">\</span>
+  libyaml-dev make zlib1g-dev
+</code></pre></div></div>
+
+<p>Next, add the following to the end of your <code class="language-plaintext highlighter-rouge">~/.bashrc</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">RBENV_ROOT</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">HOME</span><span class="k">}</span><span class="s2">/.rbenv"</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-d</span> <span class="s2">"</span><span class="k">${</span><span class="nv">RBENV_ROOT</span><span class="k">}</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">RBENV_ROOT</span><span class="k">}</span><span class="s2">/bin:</span><span class="k">${</span><span class="nv">PATH</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>rbenv init -<span class="si">)</span><span class="s2">"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>And then you can run the following</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span>
+<span class="nv">$ </span>git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+<span class="nv">$ </span>git clone git://github.com/sstephenson/ruby-build.git <span class="se">\</span>
+  ~/.rbenv/plugins/ruby-build
+<span class="nv">$ </span>rbenv <span class="nb">install </span>2.1.5
+<span class="nv">$ </span>rbenv global 2.1.5
+<span class="nv">$ </span>ruby <span class="nt">-v</span>
+</code></pre></div></div>
+
+<p>Or if this feels like too many steps, you can checkout out an rbenv installer like
+<a href="https://github.com/fesplugas/rbenv-installer">this</a> or <a href="https://gorails.com/setup/ubuntu/14.10">this</a>.</p>
+
+<p>To decrease gem installation times, I also like to run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"gem: --no-ri --no-rdoc"</span> <span class="o">&gt;</span> ~/.gemrc
+</code></pre></div></div>
+
+<ul>
+  <li>Node</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>node
+</code></pre></div></div>
+
+<ul>
+  <li>Imagemagick</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>imagemagick
+</code></pre></div></div>
+
+<ul>
+  <li>Postgresql</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>add-apt-repository ppa:pitti/postgresql
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>postgresql
+</code></pre></div></div>
+
+<ul>
+  <li>LaTex</li>
+</ul>
+
+<p>I use LaTex for invoicing. Most people probably do not need to have this installed.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>texlive-full
+</code></pre></div></div>
+<ul>
+  <li>Skype</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>sh <span class="nt">-c</span> <span class="s2">"echo 'deb http://archive.canonical.com/ubuntu/ trusty partner' </span><span class="se">\</span><span class="s2">
+  &gt;&gt; /etc/apt/sources.list.d/canonical_partner.list"</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>skype
+</code></pre></div></div>
+
+<ul>
+  <li>Thunderbird with support for exchange</li>
+</ul>
+
+<p>Open Thunderbird and install <a href="https://addons.mozilla.org/en-US/thunderbird/addon/exquilla-exchange-web-services/">ExQuilla</a>
+to enable Microsoft Exchange support.</p>
+
+<ul>
+  <li>Flash</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>flashplugin-installer
+</code></pre></div></div>
+
+<ul>
+  <li>Unity Tweak</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nt">-y</span> <span class="nb">install </span>unity-tweak-tool
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>That’s it for now. Happy New Year!</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 31 Dec 2014</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">793 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

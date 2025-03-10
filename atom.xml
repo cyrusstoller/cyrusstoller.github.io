@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description></description>
+    <link>https://www.cyrusstoller.com/</link>
+    <atom:link href="https://www.cyrusstoller.com/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Fabrication begins for production OpenTitan silicon</title>
+        <description>&lt;p&gt;Please find the content for this post on the &lt;a href=&quot;https://opensource.googleblog.com/2025/02/fabrication-begins-for-production-opentitan-silicon.html&quot;&gt;Google Open Source Blog&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 06 Feb 2025 00:00:00 -0500</pubDate>
+        <link>https://www.cyrusstoller.com/2025/02/06/fabrication-begins-for-production-opentitan-silicon</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2025/02/06/fabrication-begins-for-production-opentitan-silicon</guid>
+      </item>
+    
+      <item>
+        <title>OpenTitan RTL Freeze</title>
+        <description>&lt;p&gt;Please find content for this post on the &lt;a href=&quot;https://opensource.googleblog.com/2023/06/opentitan-rtl-freeze.html.html&quot;&gt;Google Open Source Blog&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 15 Jun 2023 00:00:00 -0400</pubDate>
+        <link>https://www.cyrusstoller.com/2023/06/15/opentitan-rtl-freeze</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2023/06/15/opentitan-rtl-freeze</guid>
+      </item>
+    
+      <item>
+        <title>Getting started with tmux</title>
+        <description>&lt;p&gt;One of the biggest benefits I’ve seen from switching to vim as my primary text
+editor is that I can use the same text editor whether I &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into a server, or
+I use any of my laptops (regardless of operating system). If you’re interested
+in learning how I use vim, please check out this &lt;a href=&quot;/2018/03/05/getting_started_with_vim&quot;&gt;old post&lt;/a&gt;. To keep my
+workflows as similar as possible, I have also started gravitating to
+&lt;a href=&quot;https://github.com/tmux/tmux/wiki&quot;&gt;tmux&lt;/a&gt;. This post should offer some tips on how to
+&lt;a href=&quot;https://github.com/tmux/tmux/wiki/Getting-Started&quot;&gt;get started&lt;/a&gt; with tmux.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#part1&quot;&gt;Part 1: Core concepts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#part2&quot;&gt;Part 2: Navigation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#part3&quot;&gt;Part 3: Configuration&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#part4&quot;&gt;Part 4: Data movement&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For this tutorial, I’ll use the following notation:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;C-b&amp;gt;&lt;/code&gt; is equivalent to pressing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;control&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; at the same time.
+    &lt;ul&gt;
+      &lt;li&gt;This is the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix&lt;/code&gt; which is used to determine whether a command
+is intended for tmux or the terminal running in the tmux session.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix q&lt;/code&gt; is equivalent to pressing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;control&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; at the same time, then
+letting them go and pressing the letter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;q&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you’ve used emacs before, you’ll find that a lot of the keybindings bear 
+some resemblance. Let’s get started.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a name=&quot;part1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;part-1-core-concepts&quot;&gt;Part 1: Core concepts&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pane&lt;/code&gt;: a pseudo terminal&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Window&lt;/code&gt;: A collection of panes that are shown on screen at the same time.
+This is similar to what you’d expect to find in a window in an application
+like &lt;a href=&quot;https://iterm2.com/&quot;&gt;iTerm&lt;/a&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;Panes can be arranged however you like within a given window and can be
+moved between windows.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Session&lt;/code&gt;: A collection of windows that are managed by tmux. Sessions can
+persist in the background if you lose your connection with the server or
+detach from the session.
+    &lt;ul&gt;
+      &lt;li&gt;tmux can manage multiple sessions. An arbitrary number of tmux instances
+can connect to a single session.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Using sessions:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ tmux new&lt;/code&gt; = Creates a new tmux session&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ tmux ls&lt;/code&gt; = View current tmux sessions
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix s&lt;/code&gt; = Navigate between sessions&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ tmux attach -t SESSION_NAME&lt;/code&gt; = Attach to an existing tmux session&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix $&lt;/code&gt; = Rename a session&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix d&lt;/code&gt; = Detach from current session&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When you start a new tmux session, a single window with a single pane is
+created.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;This is the end of Part 1 on &lt;a href=&quot;#part1&quot;&gt;core concepts&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;a name=&quot;part2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;part-2-navigation&quot;&gt;Part 2: Navigation&lt;/h1&gt;
+
+&lt;p&gt;Now that you have a tmux session, you need to setup up your work environment.&lt;/p&gt;
+
+&lt;p&gt;Managing windows:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix c&lt;/code&gt; = Creates a new window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix n&lt;/code&gt; = Navigate to the next window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix p&lt;/code&gt; = Navigate to the previous window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix NUM&lt;/code&gt; = Navigate to window at index &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NUM&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix &amp;amp;&lt;/code&gt; = Close current window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix ,&lt;/code&gt; = Rename current window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix w&lt;/code&gt; = Navigate between windows in active sessions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Managing panes:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix %&lt;/code&gt; = Creates a new pane by splitting the active pane vertically&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix &quot;&lt;/code&gt; = Creates a new pane by splitting the active pane horizontally&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix arrow&lt;/code&gt; = Move between panes in the direction of the arrow&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix x&lt;/code&gt; = Close active pane&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix z&lt;/code&gt; = Make pane full screen&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix q&lt;/code&gt; = Navigate between panes in active window&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix !&lt;/code&gt; = Split current pane into its own window&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Resizing and moving panes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix &amp;lt;M-arrow&amp;gt;&lt;/code&gt; = Resize the current pane&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix E&lt;/code&gt; = Spread out the panes evenly&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix Space&lt;/code&gt; = Select the next default layout&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix {&lt;/code&gt; = Move pane up&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix }&lt;/code&gt; = Move pane down&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;This is the end of Part 2 on &lt;a href=&quot;#part2&quot;&gt;navigation&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a name=&quot;part3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;part-3-configuration&quot;&gt;Part 3: Configuration&lt;/h1&gt;
+
+&lt;p&gt;Like with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vimrc&lt;/code&gt;, you can add configurations to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tmux.conf&lt;/code&gt;. Here are
+some that you may &lt;a href=&quot;https://github.com/cyrusstoller/dotfiles/blob/master/tmux/tmux.conf&quot;&gt;consider&lt;/a&gt; adopting when you’re getting started. To
+learn more, you can browse the &lt;a href=&quot;https://github.com/tmux/tmux/wiki/Getting-Started#list-of-useful-options&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# tmux.conf&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; mouse on           &lt;span class=&quot;c&quot;&gt;# enable mouse scrolling&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; escape-time 10     &lt;span class=&quot;c&quot;&gt;# faster command sequences&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; history-limit 5000 &lt;span class=&quot;c&quot;&gt;# boost history limit&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; allow-rename off   &lt;span class=&quot;c&quot;&gt;# don&apos;t rename windows automatically&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; mode-keys vi       &lt;span class=&quot;c&quot;&gt;# use vi keybindings for copy mode&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# display &quot;tmux.conf loaded!&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;This is the end of Part 3 on &lt;a href=&quot;#part3&quot;&gt;configuration&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a name=&quot;part4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;part-4-data-movement&quot;&gt;Part 4: Data movement&lt;/h1&gt;
+
+&lt;p&gt;A key hurdle to me adopting a tmux-based workflow was figuring out how to move
+data between panes. Now that I know how to use it, I find it much more
+expressive than using my mouse to select text, and I appreciate having easy
+access to multiple buffers.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;C-[&amp;gt;&lt;/code&gt; = Enter copy mode&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;q&lt;/code&gt; = Exit copy mode&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;C-]&amp;gt;&lt;/code&gt; = Paste buffer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;emacs mode (default)&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;C-Space&amp;gt;&lt;/code&gt; = Start selection&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;R&lt;/code&gt; = Change to rectangle selection&lt;/li&gt;
+  &lt;li&gt;Use standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;emacs&lt;/code&gt; movements&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;C-w&amp;gt;&lt;/code&gt; = Copy selection&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;vi mode (my preference)&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Space&lt;/code&gt; = Start selection&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt; = Change to visual block mode&lt;/li&gt;
+  &lt;li&gt;Use standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; movements&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Enter&lt;/code&gt; = Copy selection&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Multiple paste buffers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Copied text is placed into a buffer that you can paste later. tmux has the
+ability to manage multiple buffers. Here are the highlights of how I use them.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;C-=&amp;gt;&lt;/code&gt; = View the paste buffers&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Enter&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p&lt;/code&gt; = Paste selected buffer&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;d&lt;/code&gt; = Delete selected buffer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can read more about copy and paste in tmux
+&lt;a href=&quot;https://github.com/tmux/tmux/wiki/Getting-Started#copy-and-paste&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;This is the end of Part 4 on &lt;a href=&quot;#part4&quot;&gt;data movement&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Hope this helps get you oriented with tmux. For a quick refresher about the
+commands at your disposal, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prefix ?&lt;/code&gt;. For more details, I will sometimes
+browse through &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ tmux list-keys&lt;/code&gt; to see all of the available keybindings and
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ tmux list-commands&lt;/code&gt; to see all of the commands that can be used. I realize
+this is just scratching the surface of how tmux can help improve my workflow.
+If you have suggestions on things that I should consider trying, please let me
+know. Happy hacking.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 25 May 2023 00:00:00 -0400</pubDate>
+        <link>https://www.cyrusstoller.com/2023/05/25/getting-started-with-tmux</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2023/05/25/getting-started-with-tmux</guid>
+      </item>
+    
+      <item>
+        <title>Default to writing a doc</title>
+        <description>&lt;p&gt;As a product manager, my primary responsibility is to figure out the most
+valuable use of time for my team and then to ensure that we make forward
+progress on our goals. In this post, I want to share some of the benefits of
+developing a habit of writing ideas down by default, even when the contents
+seem obvious. While my main focus is on how this benefits business owners and
+product managers, I imagine these observations apply to most job functions.
+Of course there are also certain situations that are better handled without a
+written record, but those should be relatively infrequent.&lt;/p&gt;
+
+&lt;p&gt;While I know this idea is not novel per se, I thought I would follow my own
+suggestion of committing these thoughts to writing.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In order for your impact to scale, you need to be able to communicate with
+more people. Written communication allows you to share ideas asynchronously,
+which provides you with more reach.&lt;/li&gt;
+  &lt;li&gt;Written documents ensure that you are able to keep everyone up to date on the
+specifics of your ideas. This will help to minimize the chances of your ideas
+being recalled incorrectly, which will save you time in the long-run.
+    &lt;ul&gt;
+      &lt;li&gt;Taking the prerogative to write the first draft of documents will help you
+frame the conversation and prevent surprises (e.g., scope creep).&lt;/li&gt;
+      &lt;li&gt;When possible, give concepts / plans a name. This provides useful
+short-hand for more complicated ideas.&lt;/li&gt;
+      &lt;li&gt;The process of creating a written document will increase the likelihood of
+your internalizing, remembering, and acting on its contents. This is
+important because as a product manager, people will often come to you
+asking for clarification and they’ll expect you to be able to respond
+promptly.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Circulating a draft with your ideas offers a mechanism to collect feedback.
+    &lt;ul&gt;
+      &lt;li&gt;By putting a problem statement and solution in writing, you demonstrate
+understanding of inputs from your team. This builds trust that you are
+listening carefully and in your ability to advocate effectively for them.&lt;/li&gt;
+      &lt;li&gt;If you are having trouble understanding someone’s point of view, you can
+suggest that they contribute it to your document so that there is a shared
+source of truth that everyone can refer to. This provides a natural forcing
+function to clarify definitions, perspectives, and next steps.&lt;/li&gt;
+      &lt;li&gt;It’s natural to add links to citations or specific data points, which build
+credibility and would be awkward and inefficient to talk through in
+conversation.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The presence of a written plan of record inspires confidence. It demonstrates
+organizational abilities and gives you a tool to hold team members
+accountable.
+    &lt;ul&gt;
+      &lt;li&gt;Even if ideas feel obvious, it is helpful to write them down. At the very
+least, it may help you remember relevant context in the future when you
+memory starts to fade or you are stretched for time.&lt;/li&gt;
+      &lt;li&gt;Being able to share a document with people in the future, will help you cut
+down on the number of meetings you need to have to get people up to speed.&lt;/li&gt;
+      &lt;li&gt;Having a document also allows you to easily share your work with others who
+you may not be able to get meetings with either due seniority or scheduling
+challenges.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Share credit generously. By liberally adding people as coauthors on your
+documents, you will be gifting them artifacts that they can share with their
+management chain, customers / partners, or team. And a nice side effect of
+this is that people will feel good about collaborating with you.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’ll leave where your documents should live as an exercise for the reader. ;)&lt;/p&gt;
+</description>
+        <pubDate>Sun, 18 Dec 2022 00:00:00 -0500</pubDate>
+        <link>https://www.cyrusstoller.com/2022/12/18/default-to-writing-a-doc</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2022/12/18/default-to-writing-a-doc</guid>
+      </item>
+    
+      <item>
+        <title>Creating custom playing cards</title>
+        <description>&lt;p&gt;My family enjoys playing &lt;a href=&quot;https://en.wikipedia.org/wiki/Contract_bridge&quot;&gt;bridge&lt;/a&gt;. It’s one of the games we enjoy
+playing most with my grandmother (she still kicks our butts and can count cards
+better than us). To celebrate her 101st birthday, I thought it would be fun to
+make a custom deck of cards to share with family and friends since we couldn’t
+host an in-person celebration this year due to COVID. In this post, I want to
+share how I went about creating a small run of playing cards that incorporated
+some fun family jokes and symbology while being of high enough quality that we
+would still want to play bridge with them.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-print-a-small-run-of-playing-cards&quot;&gt;How to print a small run of playing cards&lt;/h2&gt;
+
+&lt;p&gt;YouTube is full of wisdom. I was lucky to stumble upon &lt;a href=&quot;https://www.youtube.com/watch?v=TKvGM5-F0D8&quot;&gt;this video&lt;/a&gt;
+created by &lt;a href=&quot;https://www.youtube.com/channel/UCnbSssjaMs0ZYTfAemM4LWg&quot;&gt;Rise Magic&lt;/a&gt; where they explained their process to
+create the prototype for &lt;a href=&quot;https://rise-magic.com/store/rise-playing-cards&quot;&gt;their deck of cards&lt;/a&gt;. After watching their
+video, I had a good sense of the defaults I should use when printing the decks
+with &lt;a href=&quot;https://www.makeplayingcards.com/&quot;&gt;MakePlayingCards&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here are some cliff notes when selecting the type of cards to have printed so
+that they’re of a quality that you’d actually want to play with:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Poker size game cards (&lt;a href=&quot;https://www.makeplayingcards.com/design/custom-blank-card.html&quot;&gt;custom blank&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Use the M31 Linen card stock&lt;/li&gt;
+  &lt;li&gt;Beta finish&lt;/li&gt;
+  &lt;li&gt;You may want to use &lt;a href=&quot;https://drive.google.com/drive/folders/1fM_Mwpf5lENqGGFaZ7ZozDLaYy-Jk5NH&quot;&gt;these Illustrator files&lt;/a&gt; that look like the
+standard &lt;a href=&quot;https://en.wikipedia.org/wiki/United_States_Playing_Card_Company&quot;&gt;USPCC&lt;/a&gt; card faces instead of the standard faces provided by
+MakePlayingCards&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once I had an idea of logistically how to get the cards printed, I needed
+some help designing three main elements:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The back design&lt;/li&gt;
+  &lt;li&gt;Tuck case&lt;/li&gt;
+  &lt;li&gt;A custom card face for the Queen of Hearts that featured my grandmother’s
+face&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;With my level of Illustrator skills, I was able to handle a few other areas of
+design:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Jokers in the shape of maple leaves since my grandmother was born in
+Vancouver.&lt;/li&gt;
+  &lt;li&gt;Ace of Spades that incorporates an outline of San Francisco with a Spade cut
+out of it.&lt;/li&gt;
+  &lt;li&gt;An “Ad” card where my brother and I added a Haiku. In hindsight, I would
+have left this out, since we only really needed this for the version that we
+gave to our grandmother.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;finding-a-designer&quot;&gt;Finding a designer&lt;/h2&gt;
+
+&lt;p&gt;I posted a job listing on three sites: &lt;a href=&quot;https://dribbble.com/freelance-jobs&quot;&gt;Dribbble&lt;/a&gt;, &lt;a href=&quot;https://www.upwork.com/&quot;&gt;UpWork&lt;/a&gt;,
+and &lt;a href=&quot;https://www.fiverr.com/&quot;&gt;Fiverr&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s what I listed:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Title&lt;/strong&gt;: Custom tuck case for deck of cards&lt;/p&gt;
+
+  &lt;p&gt;My grandma is turning 101 at the end of the month. She loves playing bridge
+and I thought that it’d be fun to celebrate her birthday with a custom deck
+of cards for her and the rest of our family. I’m looking for some help
+designing a custom tuck case for the deck of cards.&lt;/p&gt;
+
+  &lt;p&gt;I’m hoping for some help designing the tuck case (and potentially a custom
+face of the Queen of hearts).&lt;/p&gt;
+
+  &lt;p&gt;Here’s the rough concept I have in mind:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;I would like the tuck case to look similar to the
+&lt;a href=&quot;https://cdn.shopify.com/s/files/1/0047/0768/0291/products/IMG_8200_d000d623-ece3-4b59-baee-1c516de547f2.jpg&quot;&gt;Tally-Ho tuck case&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;Instead of it saying “A Dougherty” across the top I would like it to say
+“Chez Lopez”&lt;/li&gt;
+    &lt;li&gt;Where it says “Tally-Ho” I would like it to say “Takako”&lt;/li&gt;
+    &lt;li&gt;Where it says “Linoid Finish” I would like it to say “AKA BUBS”&lt;/li&gt;
+    &lt;li&gt;And then instead of saying “No. 9” I would like it to say “No. 101”&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;If this is something that you’d be interested in helping me create, please
+reach out. I’d like to get started ASAP.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Between these three sites, I received 35+ replies within 24 hours. I started
+conversations with 12 designers whose responses indicated that they had read my
+post. After a little back and forth, I ultimately talked on the phone with 4
+designers and then decided to work with &lt;a href=&quot;https://dribbble.com/TimesNewAlli&quot;&gt;Alli Elster&lt;/a&gt;, whom I
+found on Dribbble. Part of what excited me about working with Alli was her past
+experience with designs &lt;a href=&quot;https://dribbble.com/shots/6173524-Deadbolt-Bar-deck-of-cards&quot;&gt;involving playing cards&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Given that this brief was pretty concrete, I appreciated that Alli was willing
+to offer a fixed price quote. Alli did great work and the cards turned out
+exactly as I had hoped! I’ve started working on another project with her. If
+you are looking for a talented, personable designer, I highly recommend working
+with Alli!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/takako-cards.jpg&quot; class=&quot;centered-image&quot; style=&quot;max-width: 100%;&quot; /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/images/bubs-queen-of-hearts.png&quot; class=&quot;centered-image&quot; style=&quot;max-width: 50%; border: 1px solid #ccc; border-radius: 15px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;potential-gotchas-when-uploading-images&quot;&gt;Potential gotchas when uploading images&lt;/h2&gt;
+
+&lt;p&gt;When I uploaded images to &lt;a href=&quot;https://www.makeplayingcards.com/&quot;&gt;MakePlayingCards&lt;/a&gt;, I wasn’t sure what
+resolution would be necessary for the images not to be fuzzy because the
+previews were pretty small. If you have the option, export the images you want
+to use at a much higher resolution than you think you need to ensure that
+everything comes out crisply when it’s printed. I exported images that are 4x
+larger than required.&lt;/p&gt;
+
+&lt;p&gt;The other area where I made a mistake was in uploading the box design.
+You may want to print out the pdf template with your design on it and try
+folding it before you finalize your order. I found that I should have rotated
+one of the face designs 180º from what I had added initially.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I found this process pretty fun. And the cards have gone over well with the
+family. I hope this blog post can help speed up your learning process if you
+decide to try something similar.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 27 Mar 2021 00:00:00 -0400</pubDate>
+        <link>https://www.cyrusstoller.com/2021/03/27/creating-custom-playing-cards</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2021/03/27/creating-custom-playing-cards</guid>
+      </item>
+    
+      <item>
+        <title>Using WhatsApp for political organizing</title>
+        <description>&lt;p&gt;A friend was recently sending messages to voters in Georgia before the upcoming
+&lt;a href=&quot;https://en.wikipedia.org/wiki/2020%E2%80%9321_United_States_Senate_election_in_Georgia&quot;&gt;runoff&lt;/a&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/2020%E2%80%9321_United_States_Senate_special_election_in_Georgia&quot;&gt;elections&lt;/a&gt; using &lt;a href=&quot;https://www.whatsapp.com/&quot;&gt;WhatsApp&lt;/a&gt;
+and he had an experience that reminded me of the power &lt;a href=&quot;https://www.facebook.com/&quot;&gt;Facebook&lt;/a&gt; holds over
+our ability to effectively and freely communicate. In this case, the support
+team’s resolution seemed appropriate, but nevertheless unsettling.&lt;/p&gt;
+
+&lt;p&gt;To be clear, this post is &lt;em&gt;not&lt;/em&gt; meant to be about Facebook and its policies;
+it’s a broader reflection on our dependence on private companies to exercise our
+democratic rights. This same scenario could have easily occurred using any
+messaging service, not just WhatsApp.&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;For the sake of this story, we’ll call my friend Paul.
+Here’s some background information:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Paul has a WhatsApp account, but had not used it in a long time (3+ months).&lt;/li&gt;
+  &lt;li&gt;Most of Paul’s WhatsApp messages are in English, but there are also a
+significant number of messages with people written in Spanish from when Paul
+lived in Latin America.&lt;/li&gt;
+  &lt;li&gt;A political organizer had reached out to Paul about texting registered voters
+in Spanish to ensure that they had a plan to vote in the upcoming
+election.&lt;/li&gt;
+  &lt;li&gt;Paul installed the &lt;a href=&quot;https://www.whatsapp.com/download/?lang=en&quot;&gt;desktop WhatsApp application for Mac OS&lt;/a&gt; for
+the first time.&lt;/li&gt;
+  &lt;li&gt;Paul sent ~100 messages written in Spanish using the WhatsApp desktop
+application to registered voters that followed a similar template, but that
+were personalized with the voter’s name.
+These messages were all sent over the course of ~1 hour.&lt;/li&gt;
+  &lt;li&gt;Paul received a message from WhatsApp that his account had been
+banned for violating the &lt;a href=&quot;https://www.whatsapp.com/legal/?lang=en&amp;amp;doc=terms-of-service&amp;amp;version=20200128&quot;&gt;Terms of Service&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Your phone number +1 (XYZ) XYZ-WXYZ is banned from using WhatsApp. Please
+contact customer support for assistance.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;After providing a pdf of his latest phone bill to prove ownership of his phone
+number, Paul was able to reactivate his WhatsApp account.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;reflection-on-the-situation-and-the-nature-of-spam&quot;&gt;Reflection on the situation and the nature of spam&lt;/h2&gt;
+
+&lt;p&gt;I imagine that Paul’s relatively sudden change in behavior triggered an
+automated system that flagged his account for spam activity.
+This was likely due to the dramatic increase in messages being sent, message
+similarity, messages being sent from the desktop application for the first time,
+or a number of recipients flagging the messages as unwanted.&lt;/p&gt;
+
+&lt;p&gt;From WhatsApp’s point of view, it’s &lt;em&gt;hard to distinguish&lt;/em&gt;
+between unwanted messages being sent en masse and unwanted messages
+being sent on a relatively small scale to strangers for political outreach.
+Given that both types of messages are between parties that have never
+communicated together before and where the recipients may not want to be
+receiving the messages in the first place, there’s no obvious heuristic to tell
+the difference between these use cases.&lt;/p&gt;
+
+&lt;h2 id=&quot;resolution-paths&quot;&gt;Resolution paths&lt;/h2&gt;
+
+&lt;p&gt;In this situation, I think WhatsApp could have sent Paul an automated
+warning to say that he could not longer send messages to accounts who had not
+responded to him for 72 hours while they assessed whether or not he was a real
+person. Or, the automated message could share that Paul’s account had been
+flagged for suspcious activity and would be shut off if the activity continued.
+The automated messaged would have had the desired effect of limiting spam while
+continuing to allow Paul to access his account.&lt;/p&gt;
+
+&lt;p&gt;Instead of taking this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;warning&lt;/code&gt; approach, Paul received a notification
+that his account had been banned. Not only could he no longer
+send messages, but he also could not look at previous messages that he had sent.
+Understandably, some of the exchanges he’d had with his host family in Latin
+America had sentimental value. So, the prospect of having his account banned in
+trying to help a political cause he cared about seemed particularly stark.&lt;/p&gt;
+
+&lt;h2 id=&quot;chilling-effect&quot;&gt;Chilling effect&lt;/h2&gt;
+
+&lt;p&gt;While the net effect of WhatsApp’s current process for resolving this type of
+situation and WhatsApp sending a warning that service will shut off may be the
+same, the way in which the issue has been communicated to Paul made him worry
+that he had &lt;a href=&quot;https://en.wikipedia.org/wiki/Brick_(electronics)&quot;&gt;bricked&lt;/a&gt; his phone number.&lt;/p&gt;
+
+&lt;p&gt;In other words, he could continue to use his phone, but if he ever
+wanted to use WhatsApp again, he’d need to get a new phone number. This would be
+a huge hassle because it would require reaching out to each of Paul’s contacts
+and figuring out all of the services that use his phone number for
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Multi-factor_authentication&quot;&gt;multifactor authentication&lt;/a&gt;, so that he wouldn’t inadvertently lock
+himself out of other services.&lt;/p&gt;
+
+&lt;p&gt;Paul was also worried about how he’d handle future travel in Latin America.
+Having WhatsApp is key for communication, so before the issue was resolved, Paul
+started thinking about whether he’d need to get a “disposable” phone number the
+next time he went on a trip to communicate with friends and AirBnB hosts.&lt;/p&gt;
+
+&lt;p&gt;The risk of having to resolve this kind of hassle was not what Paul bargained
+for when he signed up to help the political organizer in Georgia.
+The result of this experience is that Paul does &lt;strong&gt;not&lt;/strong&gt; want to use his personal
+WhatsApp again when helping to advance political causes he believes in.&lt;/p&gt;
+
+&lt;h2 id=&quot;technology-and-political-campaigns&quot;&gt;Technology and political campaigns&lt;/h2&gt;
+
+&lt;p&gt;Right now, poltical campaigns routinely ask volunteers to use their own
+technology when reaching out to potential supporters. For phone calls, they
+typically use an online &lt;a href=&quot;https://www.thrutalk.io/&quot;&gt;dialer&lt;/a&gt; &lt;a href=&quot;https://www.hubdialer.com/&quot;&gt;service&lt;/a&gt; that does not
+require the volunteer to use their personal phone number. And for many
+&lt;a href=&quot;https://www.thrutext.io/&quot;&gt;text message campaigns&lt;/a&gt;, the same is true.&lt;/p&gt;
+
+&lt;p&gt;But, there’s another significant portion of outreach where volunteers and staff
+members &lt;em&gt;do&lt;/em&gt; use their personal phone numbers. Paul’s experience makes me
+wonder whether campaign related outreach should go through registered
+phone numbers (similar to &lt;a href=&quot;https://en.wikipedia.org/wiki/Short_code&quot;&gt;short codes&lt;/a&gt;) that would identify
+themselves as associated with political campaigns so that recipients can decide
+to opt out of if they’re not interested it receiving campaign calls and texts.
+This seems like a system that would be better for voters not interested in being
+bombarded before election day and for volunteers eager to engage in the
+political system without the risk of unintended hassles related to their
+personal phone subscriptions.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This was a scenario where both Paul and WhatsApp were well-intentioned, but
+has left Paul less enthusiastic about volunteering for political causes he
+believes in. In the future, I hope political campaigns will work with service
+providers to make it easier for volunteers to engage without this risk. I also
+hope that private companies that facilitate communication will give users
+warnings before making them feel like they’ve been banned for life.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 24 Dec 2020 00:00:00 -0500</pubDate>
+        <link>https://www.cyrusstoller.com/2020/12/24/using-whatsapp-for-political-organizing</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/12/24/using-whatsapp-for-political-organizing</guid>
+      </item>
+    
+      <item>
+        <title>Using Rails templates</title>
+        <description>&lt;p&gt;One of the hardest parts of starting a new project (of any kind) is the initial
+setup. Code generators have helped me to overcome this mental friction when
+working with software. In this tutorial, I’ll share how I’ve constructed
+my Rails template to jumpstart my development process and quickly start digging
+into the features that make a particular project unique instead of getting
+bogged down writing boilerplate code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Rule of thumb&lt;/strong&gt;: if I find myself doing the same thing for the third time, I
+automate it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you haven’t used Rails templates before, I highly recommend reading the
+&lt;a href=&quot;https://guides.rubyonrails.org/rails_application_templates.html&quot;&gt;official guide&lt;/a&gt;. I wish someone had told me to read this
+when I was first learning Rails.&lt;/p&gt;
+
+&lt;h2 id=&quot;structuring-my-template-file&quot;&gt;Structuring my template file&lt;/h2&gt;
+
+&lt;p&gt;When setting up a new Rails project I have a checklist of things I need to do
+regardless of what makes the project unique:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#installing-dependencies&quot;&gt;Installing dependencies&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-basic-layouts-and-font-awesome&quot;&gt;Setting up basic layouts and adding font awesome&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#adding-js-to-power-disappearing-flash-messages-and-hamburger-menus&quot;&gt;Adding js to power disappearing flash messages and hamburger menus&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configuring-user-authentication&quot;&gt;Configuring user authentication&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#adding-user-authorization&quot;&gt;Adding user authorization / permissioning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#adding-pagination&quot;&gt;Adding pagination&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-transactional-email&quot;&gt;Setting up transactional email&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-workers-for-background-jobs&quot;&gt;Setting up workers for background jobs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configuring-vuejs-with-webpacker&quot;&gt;Configuring Vue.js with webpacker&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#updating-the-scaffold-generator&quot;&gt;Updating the scaffold generator to match my layout&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Fortunately, a Rails template is just a plain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ruby&lt;/code&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/Domain-specific_language&quot;&gt;DSL&lt;/a&gt;. The one I’ll
+show you uses &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fileutils&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shellwords&lt;/code&gt;, so it can be loaded locally or from
+the web, which is a trick I learned from
+&lt;a href=&quot;https://github.com/mattbrictson/rails-template&quot;&gt;mattbrictson/rails-template&lt;/a&gt;
+on Github. In effect, the template will clone its own git repo into a temp
+directory if it’s being loaded from the web, so the file structure of the
+repository can be used by Thor actions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;copy_file&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_template_repository_to_source_path&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;__FILE__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;%r{&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\A&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;https?://}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;git_repo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;&amp;lt;LINK TO YOUR TEMPLATE REPO&amp;gt;&amp;gt;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tmpdir&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;source_paths&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;unshift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempdir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mktmpdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jumpstart-&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;at_exit&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FileUtils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;remove_entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;clone: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;--quiet&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;git_repo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tempdir&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:shellescape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;%r{&amp;lt;&amp;lt;REPO_NAME&amp;gt;&amp;gt;/(.+)/template.rb}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;checkout: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;source_paths&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;unshift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;basic-file-structure&quot;&gt;Basic file structure&lt;/h2&gt;
+
+&lt;p&gt;If you’ve worked with Rails, this file structure should look familiar. By
+closely mirroring the standard Rails file structure, it’s easy to keep files up
+to date.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── Procfile &lt;span class=&quot;c&quot;&gt;# To make it easy to deploy to Heroku&lt;/span&gt;
+├── README.md
+├── app
+│   ├── assets &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── helpers &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── javascript &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── models &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── policies &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   └── views &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+├── config
+│   ├── cable.yml
+│   ├── initializers &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   ├── locales &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   └── sidekiq.yml
+├── &lt;span class=&quot;nb&quot;&gt;env&lt;/span&gt;
+├── lib
+│   └── templates &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+├── ruby-version
+├── template.rb &lt;span class=&quot;c&quot;&gt;# Where the main logic lives&lt;/span&gt;
+└── &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+    ├── controllers &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    ├── fixtures &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    └── policies &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Subdirectories in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lib&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test&lt;/code&gt; will be copied directly
+into the new Rails project. In this tutorial, I’ll go through some examples
+to give you an idea of how to do this, but since these are a matter of
+preference, you’ll probably be best served writing these yourself.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;installing-dependencies&quot;&gt;Installing dependencies&lt;/h2&gt;
+
+&lt;p&gt;Here are some methods that I’ve written in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;template.rb&lt;/code&gt; to install common
+dependencies for my Rails projects.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_root_directory_files&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;copy_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.env&quot;&lt;/span&gt; 
+  &lt;span class=&quot;n&quot;&gt;copy_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Procfile&quot;&lt;/span&gt; 
+
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ruby-version.tt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.ruby-version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;append_to_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.gitignore&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.env*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;!.env.example&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_dependencies&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;devise&apos;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;font-awesome-sass&apos;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;friendly_id&apos;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;kaminari&apos;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;pundit&apos;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;sidekiq&apos;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;yarn add bulma&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’ve found that I prefer the following included in my local &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env&lt;/code&gt; file. I
+imagine you’ll find that you have preferences you’ll want included as well.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# env&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;RACK_ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;development
+&lt;span class=&quot;nv&quot;&gt;RUBYOPT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;-W:no-deprecated -W:no-experimental&apos;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once these files are in place, the gems need to be installed and the remaining
+commands will be run inside the following block:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;after_bundle&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# add code generators described below here&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;rails_command&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;db:create&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rails_command&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;db:migrate&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:init&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;add: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;commit: &lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;%Q{ -m &apos;Initial commit&apos; }&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;setting-up-basic-layouts-and-font-awesome&quot;&gt;Setting up basic layouts and font awesome&lt;/h2&gt;
+
+&lt;p&gt;For every Rails project that I work on, I find that I start by adding these
+files.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;copy_templates&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rm app/assets/stylesheets/application.css&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;lib&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;directory&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;force: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# These templates incorporate the name of the project&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/helpers/shared_helper.rb.tt&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/views/layouts/_header.html.erb.tt&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/views/layouts/_social_headers.html.erb.tt&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/views/users/mailer/confirmation_instructions.html.erb.tt&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, I always add a couple static pages: one to serve as a landing page and
+one to explain what the web application does.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_pages_controller&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;controller pages home about&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;route&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;get &apos;home&apos;, to: &apos;pages#home&apos;&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;route&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;get &apos;about&apos;, to: &apos;pages#about&apos;&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;get &apos;pages/home&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;get &apos;pages/about&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;adding-js-to-power-disappearing-flash-messages-and-hamburger-menus&quot;&gt;Adding js to power disappearing flash messages and hamburger menus&lt;/h2&gt;
+
+&lt;p&gt;This is included in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/javascript/packs/&lt;/code&gt; directory that was copied over in
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;copy_templates&lt;/code&gt; described above.&lt;/p&gt;
+
+&lt;h2 id=&quot;configuring-user-authentication&quot;&gt;Configuring user authentication&lt;/h2&gt;
+
+&lt;p&gt;With &lt;a href=&quot;https://github.com/heartcombo/devise&quot;&gt;Devise&lt;/a&gt; already installed above, this code ensures that it’s been
+configured properly. I’ve found that I often customize the controller logic and
+want the ability to designate certain users as admins. &lt;em&gt;Note:&lt;/em&gt; The production
+mail url options still need to be configured once a domain has been
+procured.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_user_model_and_controllers&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Install Devise&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;devise:install&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Configure Devise&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config.action_mailer.default_url_options =&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot; { host: &apos;localhost&apos;, port: 5000 }&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;env: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;development&apos;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;#config.action_mailer.default_url_options =&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+    &lt;span class=&quot;s2&quot;&gt;&quot; { host: &apos;localhost&apos; }&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;env: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;production&apos;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;route&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;root to: &apos;pages#home&apos;&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Create Devise User&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:devise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;User&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;admin:integer&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Set admin default to false&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;in_root&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;glob&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;db/migrate/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;max_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/:admin/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;:admin, default: 0&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/\# t/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;t&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# uncommenting columns&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/\# a/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;a&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# uncommenting indices&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Using explicit controllers&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;devise:controllers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;users&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;devise_for :users&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;sx&quot;&gt;%Q(devise_for :users, controllers: {
+    confirmations: &apos;users/confirmations&apos;,
+    invitations: &apos;users/invitations&apos;,
+    # omniauth_callbacks: &apos;users/omniauth_callbacks&apos;,
+    passwords: &apos;users/passwords&apos;,
+    registrations: &apos;users/registrations&apos;,
+    sessions: &apos;users/sessions&apos;,
+    unlocks: &apos;users/unlocks&apos;
+  })&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;adding-user-authorization&quot;&gt;Adding user authorization&lt;/h2&gt;
+
+&lt;p&gt;This logic configures &lt;a href=&quot;https://github.com/varvet/pundit&quot;&gt;Pundit&lt;/a&gt; to check user permissions and adds 
+helper methods to make writing tests easier.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install_pundit&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/controllers/application_controller.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;  include Pundit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;after: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;class ApplicationController &amp;lt; ActionController::Base&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app/controllers/application_controller.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;  protect_from_forgery&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;after: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;include Pundit&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;pundit:install&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Add convenience methods to the test_helper&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;convenience_class&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%q{
+class PolicyTest &amp;lt; ActiveSupport::TestCase
+  def permit(current_user, record, action)
+    self.class.to_s.gsub(/Test/, &apos;&apos;).constantize
+      .new(current_user, record).public_send(&quot;#{action.to_s}?&quot;)
+  end
+
+  def forbid(current_user, record, action)
+    !permit(current_user, record, action)
+  end
+end}&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;append_to_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;test/test_helper.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;convenience_class&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;adding-pagination&quot;&gt;Adding pagination&lt;/h2&gt;
+
+&lt;p&gt;For my installation, all of the customization is present in
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/views/kaminari/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-transactional-email&quot;&gt;Setting up transactional email&lt;/h2&gt;
+
+&lt;p&gt;To support Sendgrid, I add the following so that I can easily use the Heroku
+Add-on:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# config/initializers/setup_mail.rb&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;ActionMailer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;smtp_settings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:user_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;SENDGRID_USERNAME&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;SENDGRID_PASSWORD&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;localhost&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;smtp.sendgrid.net&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;587&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:authentication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:plain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:enable_starttls_auto&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;setting-up-workers-for-background-jobs&quot;&gt;Setting up workers for background jobs&lt;/h2&gt;
+
+&lt;p&gt;This will configure &lt;a href=&quot;https://github.com/mperham/sidekiq&quot;&gt;Sidekiq&lt;/a&gt; with
+ActiveJob and mount the dashboard in the routes file.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_sidekiq&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config.active_job.queue_adapter = :sidekiq&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;require &apos;sidekiq/web&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;before: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Rails.application.routes.draw do&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/routes.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;  authenticate :user, lambda { |u| u.admin? } do&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;    mount Sidekiq::Web =&amp;gt; &apos;/sidekiq&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;  end&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;after: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://guides.rubyonrails.org/routing.html&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update_test_helper&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;test/test_helper.rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;require &apos;minitest/autorun&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;require &apos;sidekiq/testing&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;before: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;class ActiveSupport::TestCase&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;configuring-vuejs-with-webpacker&quot;&gt;Configuring Vue.js with webpacker&lt;/h2&gt;
+
+&lt;p&gt;This adds &lt;a href=&quot;https://vuejs.org/&quot;&gt;Vue.js&lt;/a&gt; to webpacker and supports it working in conjunction
+with &lt;a href=&quot;https://github.com/turbolinks/turbolinks&quot;&gt;Turbolinks&lt;/a&gt;. You can learn more about the split chunks
+configuration
+&lt;a href=&quot;https://github.com/rails/webpacker/blob/master/docs/v4-upgrade.md#splitchunks-configuration&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_vuejs&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rails_command&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;webpacker:install:vue&apos;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Remove base files&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rm app/javascript/app.vue&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rm app/javascript/packs/application.js&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rm app/javascript/packs/hello_vue.js&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;yarn add vue vue-loader vue-turbolinks&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/webpack/environment.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;const WebpackAssetsManifest = require(&apos;webpack-assets-manifest&apos;)&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;before: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;module.exports = environment&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insert_into_file&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;config/webpack/environment.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;environment.splitChunks()&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;before: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;module.exports = environment&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To make Vue.js play nice with Turbolinks, &lt;a href=&quot;/2017/09/22/how-to-use-vuejs-in-a-rails-project-with-turbolinks&quot;&gt;I add the following&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// app/javascripts/packs/vue_container.js&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// import axios from &apos;axios&apos;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;vue/dist/vue.esm&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TurbolinksAdapter&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;vue-turbolinks&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;TurbolinksAdapter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;productionTip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Vue.prototype.$http = axios&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;turbolinks:load&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// const csrfTokenEl = document.querySelector(&apos;meta[name=&quot;csrf-token&quot;]&apos;)&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// axios.defaults.headers.common = {&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//   &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//   &quot;X-CSRF-Token&quot;: csrfTokenEl.getAttribute(&apos;content&apos;),&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//   &quot;X-Requested-With&quot;: &quot;XMLHttpRequest&quot;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// }&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;[vue-enabled]&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$mount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;updating-the-scaffold-generator&quot;&gt;Updating the scaffold generator&lt;/h2&gt;
+
+&lt;p&gt;Add the relevant template files in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lib/templates/erb/scaffold/&lt;/code&gt;. In my case,
+I’ve written some files to make it so that the generated forms make use of
+&lt;a href=&quot;https://bulma.io/&quot;&gt;Bulma&lt;/a&gt; CSS classes.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This isn’t a lot of code. But, it makes it much easier to start building a
+prototype that may still be a fragile idea in my head. I think this type of
+setup without automation used to take me a couple hours. Now it’s just a few
+minutes. I hope this will help you feel more inclined to experiment and spend
+more time building. Happy hacking.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 21 Oct 2020 00:00:00 -0400</pubDate>
+        <link>https://www.cyrusstoller.com/2020/10/21/using-rails-templates</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/10/21/using-rails-templates</guid>
+      </item>
+    
+      <item>
+        <title>When does data become identifiable?</title>
+        <description>&lt;p&gt;Issues regarding data privacy have become increasingly important as tech
+companies continue to develop new ways of monetizing the information they have
+gathered about their users. In response, many new privacy regulations are being
+instituted around the world, from &lt;a href=&quot;https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act&quot;&gt;CCPA&lt;/a&gt; in California to &lt;a href=&quot;https://en.wikipedia.org/wiki/General_Data_Protection_Regulation&quot;&gt;GDPR&lt;/a&gt;
+in Europe. At the heart of these laws is what constitutes personally
+identifiable information.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt; The legal definition of personal information is vague and difficult to
+apply.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;CCPA defines “&lt;a href=&quot;https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201720180AB375&quot;&gt;personal information&lt;/a&gt;” as “information that
+identifies, relates to, describes, is capable of being associated with, or
+could reasonably be linked, directly or indirectly, with a particular
+consumer or household.” And, GDPR defines “&lt;a href=&quot;https://gdpr-info.eu/art-4-gdpr/&quot;&gt;personal data&lt;/a&gt;” as “any
+information relating to an identified or identifiable natural person (‘data
+subject’); an identifiable natural person is one who can be identified,
+directly or indirectly, in particular by reference to an identifier such as a
+name, an identification number, location data, an online identifier or to one
+or more factors specific to the physical, physiological, genetic, mental,
+economic, cultural or social identity of that natural person.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Determining identifiability in some cases is obvious. For example, if a user
+provides their social security number, because each number is associated with a
+specific individual, then it’s pretty clear that that’s personal information.
+On the other hand, if a user fills out a multiple choice survey that is
+submitted anonymously without any attached metadata, then it’s reasonably safe
+to assume that it’s not personally identifiable (presuming there are a
+sufficient number of survey-takers). But, most cases fall somewhere in between
+these two extremes.&lt;/p&gt;
+
+&lt;p&gt;In this post, I’ll highlight a distinction that seems to be missing between
+these two extremes. The current definitions have an inadequate level of
+specificity regarding personal information. This means that many types of data
+may not receive necessary protections (leaving some data vulnerable) and some
+may receive unnecessary protection (potentially impeding beneficial
+innovation). All of this is to say that different levels of identifiability
+aren’t black and white. We need to shift our mindset to evaluate
+identifiability on a spectrum.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: The harms of data misuse or lack of protection are well documented. This
+post is focused on exploring how to answer the question of whether given data
+is identifiable.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;inferred-data&quot;&gt;Inferred data&lt;/h2&gt;
+
+&lt;p&gt;Data can be used to infer information that you’d reasonably expect to be kept
+private, including sensitive data (e.g., health status and credit-worthiness)
+and information about race, sex, religion etc … (which are protected classes in
+the American legal system). This is important because sensitive data, “suspect
+class” data, or other seemingly-benign data can be used in discriminatory ways.
+&lt;a href=&quot;https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418831/&quot;&gt;Here&lt;/a&gt; &lt;a href=&quot;https://www.amazon.com/Algorithms-Oppression-Search-Engines-Reinforce/dp/1479837245/&quot;&gt;are&lt;/a&gt; &lt;a href=&quot;https://nypost.com/2019/05/18/chinas-new-social-credit-system-turns-orwells-1984-into-reality/&quot;&gt;some&lt;/a&gt; &lt;a href=&quot;https://www.theguardian.com/technology/2017/sep/07/new-artificial-intelligence-can-tell-whether-youre-gay-or-straight-from-a-photograph&quot;&gt;examples&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In other words, data can implicitly be used to identify characteristics about a
+user that they may not have intended or wanted to share. In isolation a single
+data point may not be useful in identifying someone, but when taken together, a
+constellation of data points can create a recognizable pattern. This should not
+be surprising anymore as we have all become accustomed to ad targeting being
+eerily in sync with our interests. Read more &lt;a href=&quot;https://www.forbes.com/sites/kashmirhill/2012/02/16/how-target-figured-out-a-teen-girl-was-pregnant-before-her-father-did/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;example-of-the-challenge-of-identifiability-voice-data&quot;&gt;Example of the challenge of identifiability: voice data&lt;/h3&gt;
+
+&lt;p&gt;With the rise of personal assistants like Siri, Alexa, Google Assistant, Portal
+etc … we are handing over more voice data than ever before. Should a short
+voice recording (that is unlabeled and unmorphed) be considered personally
+identifiable? If this kind of short audio recording were shared with the
+broader organization collecting the data (e.g., Apple, Amazon, Google,
+Facebook, etc …, or a hacker), it would be hard to match this audio recording
+to a specific person. However, if I heard a short recording of my own voice, I
+would likely be able to identify it as my own.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, a longer audio clip where users provide context clues that
+can be used to identify them would be a different story. It seems clear that
+the broader organization collecting the data (e.g., Apple, Amazon, Google,
+Facebook, etc …, or a hacker) would be able to easily identify the user who
+created the recording with minimal effort.&lt;/p&gt;
+
+&lt;p&gt;It seems inappropriate for there to be a one size fits all approach to these
+two voice recordings. Both voice files can be personally identified, given the
+right contextual information and technological capabilities. The challenge is
+that big tech companies, non-tech companies, and other potential adversaries
+have different capabilities to identify people based on their voices. Because
+of this, regulations should strive to incorporate nuance between these
+different types of identifiability.&lt;/p&gt;
+
+&lt;h2 id=&quot;proposed-distinction-p-vs-np-style-data&quot;&gt;Proposed distinction: P vs NP-style data&lt;/h2&gt;
+
+&lt;p&gt;In describing these different types of information, it reminded me of the
+distinction between what computer scientists refer to as &lt;a href=&quot;https://en.wikipedia.org/wiki/P_versus_NP_problem&quot;&gt;P and NP
+problems&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In layman’s terms, the solution to a P problem can be found in polynomial time.
+In other words, given a set of inputs, I can use a simple algorithm to find a
+solution. In the case of personally identifiable data, that would mean, if I am
+given a data sample, I can run a reasonably straightforward model to determine
+who the data belongs to. In its simplest form, this would mean looking at the
+unique identifier associated with it. In a slightly more complicated example,
+this may mean computing a faceprint from an image and then comparing that to a
+database of faceprints to identify the person in the photo. There may be some
+margin for error, but this process should never devolve into a brute force
+exercise.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, with an NP problem, I can identify whether a proposed
+solution is valid in polynomial time. The key distinction here is that for an
+NP problem, I cannot necessarily find a solution in polynomial time, but I can
+verify that a solution is valid in polynomial time. For example, I can easily
+tell when a &lt;a href=&quot;http://erikdemaine.org/papers/Jigsaw_GC/paper.pdf&quot;&gt;jigsaw puzzle&lt;/a&gt; has been solved correctly, but I cannot
+easily solve a jigsaw puzzle by simply looking at the pieces. Alternatively,
+presume that a model can detect that the same person is speaking in two
+recordings. Then, you can quickly identify that there is a match. But, if you
+only have one recording it’s much harder to determine who is speaking in the
+recording.&lt;/p&gt;
+
+&lt;p&gt;While both types of information may be personally identifiable, I would argue
+that in my analogy, personally identifiable information in the “P-style
+problem” space should be granted a heightened level of privacy protection. In
+other words, whether under CCPA or GDPR, there should be an expectation for
+consumers that this type of personally identifiable information be deleted upon
+request. On the other hand, if data is “NP personally identifiable” I think
+that companies should be granted more slack if they lack the necessary
+contextual information and technological capability to make the match.&lt;/p&gt;
+
+&lt;p&gt;When thinking about the risk profile for these different types of information,
+it seems clear that “P-style personally identifiable information” can be easily
+linked to a specific person even with limited sophistication. This is
+particularly worrisome since this type of data may be divulged as part of data
+breach to the open internet. This means that an individual with a vendetta
+could weaponize this data relatively anonymously, meaning that those who
+suffered harm would be less likely to find a remedy through the justice system
+for this harm.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, for “NP-style personally identifiable information” to be
+used, an organization would need to be able to contextualize that data. For a
+given data set, due to practicalities, only a limited number of companies and
+state actors have these capabilities. Oftentimes, these organizations will be
+large companies that have a large corpus of data; but, there may also be small
+companies that have the necessary data for contextualization (e.g., a data set
+about a company’s employees).&lt;/p&gt;
+
+&lt;p&gt;The current critiques of big tech companies regarding data protection are
+warranted, but identifiability isn’t only contingent on having large data sets.
+As discussed earlier, an organization only needs to have the right contextual
+information to identify the data.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Currently, personally identifiable information is generally treated as a single
+classification. How to treat P-style data within this framework is clear; &lt;strong&gt;the
+question is how to approach NP-style data&lt;/strong&gt;. With greater nuance, regulations
+can be more impactful and enforceable, giving individuals more control of their
+data.&lt;/p&gt;
+
+&lt;p&gt;In the absence of clear guidance, a likely default is for companies to adopt
+the least restrictive approach since they have a clear incentive to minimize
+risk by labeling as little data as possible as “personally identifiable” and
+therefore avoiding regulatory requirements.&lt;/p&gt;
+
+&lt;p&gt;I’d love to hear your thoughts on whether this distinction would be helpful in
+crafting your internal data practices.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 05 Aug 2020 00:00:00 -0400</pubDate>
+        <link>https://www.cyrusstoller.com/2020/08/05/when-does-data-become-identifiable</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/08/05/when-does-data-become-identifiable</guid>
+      </item>
+    
+      <item>
+        <title>Pro-bono work offer in response to COVID-19</title>
+        <description>&lt;p&gt;Many businesses, non-profits, and individuals are suffering economically due to
+COVID-19. With limited cash flow, organizations must adapt and innovate to
+survive.&lt;/p&gt;
+
+&lt;p&gt;If you work for an organization (large or small) or are an individual with a
+need for which some software would be helpful, I want to see if I can support
+you. For example, do you need help putting up a website, writing custom
+software, or setting up a system to take remote orders?&lt;/p&gt;
+
+&lt;p&gt;Please send an email to &lt;a href=&quot;mailto:pro-bono@hoshon.com&quot;&gt;pro-bono@hoshon.com&lt;/a&gt; with
+the following information and I’ll get back to you as soon as I can about
+whether I can be of help.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Some background on you or your organization&lt;/li&gt;
+  &lt;li&gt;A link to your current website or Yelp/Google profile (if you have one)&lt;/li&gt;
+  &lt;li&gt;Information about the specific problem that you need help solving&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’m grateful to those who are putting themselves on the front lines to protect
+our communities during this time. What I have to offer doesn’t compare, but I
+want to contribute how I can.&lt;/p&gt;
+
+&lt;p&gt;Please share this post with anyone who you think could benefit.&lt;/p&gt;
+
+&lt;p&gt;I look forward to hearing from you.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 01 Apr 2020 00:00:00 -0400</pubDate>
+        <link>https://www.cyrusstoller.com/2020/04/01/pro-bono-work-offer-in-response-to-covid-19</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/04/01/pro-bono-work-offer-in-response-to-covid-19</guid>
+      </item>
+    
+      <item>
+        <title>Managing loneliness during COVID-19</title>
+        <description>&lt;p&gt;Yesterday the San Francisco Bay Area &lt;a href=&quot;https://www.sfdph.org/dph/alerts/files/HealthOrderC19-07-%20Shelter-in-Place.pdf&quot;&gt;was ordered to shelter in place&lt;/a&gt; due
+to growing concerns about the spread of &lt;a href=&quot;https://en.wikipedia.org/wiki/Coronavirus_disease_2019&quot;&gt;COVID-19&lt;/a&gt;. I’m fully supportive of
+the government putting measures in place to ensure that people are &lt;a href=&quot;https://en.wikipedia.org/wiki/Social_distancing&quot;&gt;social
+distancing&lt;/a&gt; themselves to help ease the load on our health care system
+during this pandemic. While this may feel drastic now, I’m proud of our local
+government for proactively responding to this public health emergency. If
+anything, I worry that this measure may be too late.&lt;/p&gt;
+
+&lt;p&gt;This post isn’t about &lt;a href=&quot;https://en.wikipedia.org/wiki/Coronavirus_disease_2019&quot;&gt;COVID-19&lt;/a&gt; itself. It’s about some of the side effects
+that we may encounter from our response to this disease. In particular, I’m
+concerned about social isolation and loneliness during this 3 week period of
+sheltering in place. I can only imagine what this experience must be like for
+people who live by themselves or live with people who they are not particularly
+close to (e.g., a questionable Craigslist roommate).&lt;/p&gt;
+
+&lt;p&gt;Last night, my girlfriend and I tried an experiment. We posted a link to an
+open Google Hangout and told our friends that we were going to be online for a
+couple hours hosting a virtual happy hour / dinner / dessert party. We weren’t
+sure if anyone was going to show up or if it would be awkward for friends who
+didn’t know each other to be on the same video chat. There were certainly some
+momements that were a little awkward, but all in all, I think it was a
+success and I plan on doing it again.&lt;/p&gt;
+
+&lt;p&gt;After we signed off of the Google Hangout, I couldn’t help but reflect on the
+impact that sheltering in place will have on our collective mental health.
+Regardless of how introverted we are (myself included), we all need some social
+interaction. For many people, seeing colleagues at work, or sitting next to
+people on public transit is a reminder that we are part of a greater community.
+When we stay at home it’s easy to lose touch with those around us.&lt;/p&gt;
+
+&lt;p&gt;My concern is that many people will face mental health challenges, or at least
+bouts of loneliness, during this period of isolation.&lt;/p&gt;
+
+&lt;p&gt;Those of us who have the privilege of being surrounded by people who we care
+about (and who care about us) should make concerted efforts to reach out. &lt;strong&gt;If
+you’re willing, I’d encourage you to consider calling friends who you think may
+be spending significant amounts of time alone, even if you haven’t talked to
+them in a long time.&lt;/strong&gt; Even a short conversation (10-15 minutes) will go a long
+way. It’s good for you and it’s good for them.&lt;/p&gt;
+
+&lt;p&gt;Anyway, food for thought as we enter uncharted territory. Stay safe and wash
+your hands.&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 17 Mar 2020 00:00:00 -0400</pubDate>
+        <link>https://www.cyrusstoller.com/2020/03/17/managing-loneliness-during-covid-19</link>
+        <guid isPermaLink="true">https://www.cyrusstoller.com/2020/03/17/managing-loneliness-during-covid-19</guid>
+      </item>
+    
+  </channel>
+</rss>

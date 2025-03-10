@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Fun One Liners</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/oneliners.html">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Fun One Liners</h1>
+
+<div id="post">
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat</span> /dev/urandom | hexdump <span class="nt">-C</span> | <span class="nb">grep</span> <span class="s2">"ca fe"</span>
+<span class="nv">$ </span>python <span class="nt">-m</span> SimpleHTTPServer <span class="c"># python 2</span>
+<span class="nv">$ </span>python3 <span class="nt">-m</span> http.server 9000 <span class="c"># python 3</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="o">{</span>a,b,c<span class="o">}{</span>a,b,c<span class="o">}{</span>a,b,c<span class="o">}</span>
+<span class="nv">$ </span>man ascii
+</code></pre></div></div>
+
+<p>Move all files in a directory into their own directories.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>f <span class="k">in</span> <span class="k">*</span>
+<span class="k">do
+  </span><span class="nv">y</span><span class="o">=</span><span class="k">${</span><span class="nv">f</span><span class="p">/.*/</span><span class="k">}</span>
+  <span class="nb">mkdir</span> <span class="s2">"</span><span class="nv">$y</span><span class="s2">"</span>
+  <span class="nb">mv</span> <span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$y</span><span class="s2">"</span>/
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>Change all file names in a directory to be lowercase.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>SRC <span class="k">in</span> <span class="sb">`</span>find <span class="nb">.</span> <span class="nt">-depth</span><span class="sb">`</span>
+<span class="k">do
+  </span><span class="nv">DST</span><span class="o">=</span><span class="sb">`</span><span class="nb">dirname</span> <span class="s2">"</span><span class="k">${</span><span class="nv">SRC</span><span class="k">}</span><span class="s2">"</span><span class="sb">`</span>/<span class="sb">`</span><span class="nb">basename</span> <span class="s2">"</span><span class="k">${</span><span class="nv">SRC</span><span class="k">}</span><span class="s2">"</span> | <span class="nb">tr</span> <span class="s1">'[A-Z]'</span> <span class="s1">'[a-z]'</span><span class="sb">`</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">SRC</span><span class="k">}</span><span class="s2">"</span> <span class="o">!=</span> <span class="s2">"</span><span class="k">${</span><span class="nv">DST</span><span class="k">}</span><span class="s2">"</span> <span class="o">]</span>
+  <span class="k">then
+    </span><span class="nb">mv</span> <span class="s2">"</span><span class="k">${</span><span class="nv">SRC</span><span class="k">}</span><span class="s2">"</span> <span class="s2">"</span><span class="k">${</span><span class="nv">DST</span><span class="k">}</span><span class="s2">"</span>
+  <span class="k">fi
+done</span>
+</code></pre></div></div>
+
+</div>
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

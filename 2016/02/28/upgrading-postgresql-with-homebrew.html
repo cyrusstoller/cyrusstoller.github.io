@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Upgrading Postgresql with Homebrew</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2016/02/28/upgrading-postgresql-with-homebrew">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Upgrading Postgresql with Homebrew</h1>
+
+<div id="post">
+  <p><a href="http://brew.sh/">Homebrew</a> makes it easy to keep packages up to date on Mac OS X, but sometimes upgrades
+take a few more steps than a simple <code class="language-plaintext highlighter-rouge">brew update &amp;&amp; brew upgrade</code>.
+For example, upgrading <a href="http://www.postgresql.org/">Postgresql</a> requires you to unload and load the
+<a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/DesigningDaemons.html">LaunchAgent</a> to get the binaries to load and start properly after minor upgrades.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+<span class="nv">$ </span>launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+</code></pre></div></div>
+
+<p>After a major upgrade (e.g. from <code class="language-plaintext highlighter-rouge">8.4.x</code> to <code class="language-plaintext highlighter-rouge">9.5.x</code> or <code class="language-plaintext highlighter-rouge">9.4.x</code> to <code class="language-plaintext highlighter-rouge">9.5.x</code>), 
+you also need to run <a href="http://www.postgresql.org/docs/9.5/static/pgupgrade.html">pg_upgrade</a>
+to keep the internal data storage up to date. 
+But, unfortunately this is easy to miss because it isn’t shown in the
+<a href="http://brew.sh/">Homebrew</a> output.</p>
+
+<p>Here’s <a href="https://gist.github.com/eoinkelly/fd80465942c8ca4bd5c0">how to do it</a>. 
+<code class="language-plaintext highlighter-rouge">$OLDPG</code> and <code class="language-plaintext highlighter-rouge">$NEWPG</code> are just placeholders for version identifiers.</p>
+
+<h2 id="1-stop-postgres">1) Stop Postgres</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+</code></pre></div></div>
+
+<h2 id="2-backup-your-data">2) Backup your data</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mv</span> /usr/local/var/postgres/ /usr/local/var/postgres-<span class="nv">$OLDPG</span>
+</code></pre></div></div>
+
+<h2 id="3-initialize-a-new-database">3) Initialize a new database</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>initdb /usr/local/var/postgres <span class="nt">-E</span> utf8 <span class="nt">--locale</span><span class="o">=</span>C
+</code></pre></div></div>
+
+<h2 id="4-run-pg_upgrade-to-load-your-data-into-the-new-database">4) Run <code class="language-plaintext highlighter-rouge">pg_upgrade</code> to load your data into the new database</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pg_upgrade <span class="nt">-d</span> /usr/local/var/postgres-<span class="nv">$OLDPG</span>/ <span class="se">\</span>
+    <span class="nt">-D</span> /usr/local/var/postgres <span class="se">\</span>
+    <span class="nt">-b</span> /usr/local/Cellar/postgresql/<span class="nv">$OLDPG</span>/bin <span class="se">\</span>
+    <span class="nt">-B</span> /usr/local/Cellar/postgresql/<span class="nv">$NEWPG</span>/bin
+</code></pre></div></div>
+
+<h2 id="5-start-postgres">5) Start Postgres</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+</code></pre></div></div>
+
+<p>If you forget this last step, Postgres won’t start running automatically the
+next time you restart your computer.</p>
+
+<p>This process was confusing when I was just getting started with web development.
+It’s hard enough to figure out how to write your application, let alone making sure
+your computer is configured properly.
+Hope this helps keep you up to date.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 28 Feb 2016</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">312 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

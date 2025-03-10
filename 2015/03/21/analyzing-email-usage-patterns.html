@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Analyzing my email usage patterns</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2015/03/21/analyzing-email-usage-patterns">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Analyzing my email usage patterns</h1>
+
+<div id="post">
+  <p>Recently, I was curious about who sends me the most emails and who I send the most emails to.
+In this post, I’m going to walk through how to find answers to these types of questions.</p>
+
+<p>I know there have been companies that have offered similar analyses, but
+I’ve always been hesitant to give someone I don’t know authorization to
+read all of my email. By working through <a href="https://www.apple.com/osx/apps/#mail">Apple Mail</a> instead of through
+Gmail or Exchange directly, you can be 100% sure that I will never have
+access to your private emails.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>First thing you need to do is find the sqlite database that <a href="https://www.apple.com/osx/apps/#mail">Mail</a> uses to populate
+your user interface. I’d recommend making a copy, so you don’t accidentally corrupt it.
+The sqlite database can be found at:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/Library/Mail/V2/MailData/Envelope<span class="se">\ </span>Index
+</code></pre></div></div>
+
+<p>I copied the database file to a folder on my desktop and queried it from
+the command line.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir</span> <span class="nt">-p</span> ~/Desktop/mail_experiment
+<span class="nv">$ </span><span class="nb">cp</span> ~/Library/Mail/V2/MailData/Envelope<span class="se">\ </span>Index <span class="se">\</span>
+  ~/Desktop/mail_experiment/mail_database.sqlite
+<span class="nv">$ </span><span class="nb">cd</span> ~/Desktop/mail_experiment
+<span class="nv">$ </span>sqlite3 mail_database.sqlite
+</code></pre></div></div>
+
+<p>If you’re less comfortable using the command line, you may want to try using
+this open source <a href="http://www.sqlitebrowser.org/">Database Browser for SQLite</a>.</p>
+
+<h2 id="questions-i-am-interested-in"><em>Questions I am interested in</em></h2>
+
+<h3 id="who-sends-me-the-most-emails">Who sends me the most emails?</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">a</span><span class="p">.</span><span class="n">address</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="k">comment</span>
+<span class="k">from</span> <span class="n">messages</span> <span class="n">m</span> 
+<span class="k">inner</span> <span class="k">join</span> <span class="n">addresses</span> <span class="n">a</span> 
+<span class="k">on</span> <span class="n">m</span><span class="p">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span> 
+<span class="k">group</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">address</span>
+<span class="k">order</span> <span class="k">by</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">desc</span>  
+<span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="who-do-i-send-the-most-emails-to">Who do I send the most emails to?</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">a</span><span class="p">.</span><span class="n">address</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="k">comment</span>
+<span class="k">from</span> <span class="n">messages</span> <span class="n">m</span>
+<span class="k">inner</span> <span class="k">join</span> <span class="n">recipients</span> <span class="n">r</span>
+<span class="k">on</span> <span class="n">m</span><span class="p">.</span><span class="n">ROWID</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">message_id</span>
+<span class="k">inner</span> <span class="k">join</span> <span class="n">addresses</span> <span class="n">a</span>
+<span class="k">on</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">address_id</span>
+<span class="k">where</span> <span class="n">m</span><span class="p">.</span><span class="n">sender</span> <span class="k">in</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span> <span class="k">from</span> <span class="n">addresses</span> <span class="n">a</span> <span class="k">where</span> <span class="n">address</span> <span class="k">like</span> <span class="s1">'%cstoller%'</span><span class="p">)</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">address</span>
+<span class="k">order</span> <span class="k">by</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">desc</span>
+<span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="who-receives-the-most-emails-that-i-also-receive">Who receives the most emails that I also receive?</h3>
+
+<p>In other words, if I receive an email (either via <code class="language-plaintext highlighter-rouge">to</code> or <code class="language-plaintext highlighter-rouge">cc</code>), which people are most likely to also
+be in the <code class="language-plaintext highlighter-rouge">to</code> or <code class="language-plaintext highlighter-rouge">cc</code> fields.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">a</span><span class="p">.</span><span class="n">address</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="k">comment</span>
+<span class="k">from</span> <span class="n">recipients</span> <span class="n">r1</span>
+<span class="k">inner</span> <span class="k">join</span> <span class="n">recipients</span> <span class="n">r2</span>
+<span class="k">on</span> <span class="n">r1</span><span class="p">.</span><span class="n">message_id</span> <span class="o">=</span> <span class="n">r2</span><span class="p">.</span><span class="n">message_id</span> <span class="k">AND</span> <span class="n">r1</span><span class="p">.</span><span class="n">address_id</span> <span class="o">!=</span> <span class="n">r2</span><span class="p">.</span><span class="n">address_id</span>
+<span class="k">inner</span> <span class="k">join</span> <span class="n">addresses</span> <span class="n">a</span>
+<span class="k">on</span> <span class="n">r2</span><span class="p">.</span><span class="n">address_id</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span>
+<span class="k">where</span> <span class="n">r1</span><span class="p">.</span><span class="n">address_id</span> <span class="k">in</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span> <span class="k">from</span> <span class="n">addresses</span> <span class="n">a</span> <span class="k">where</span> <span class="n">address</span> <span class="k">like</span> <span class="s1">'%cstoller%'</span><span class="p">)</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">address</span>
+<span class="k">order</span> <span class="k">by</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">desc</span>
+<span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="who-sends-me-the-most-attachments">Who sends me the most attachments?</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">a</span><span class="p">.</span><span class="n">address</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="k">comment</span>
+<span class="k">from</span> <span class="n">messages</span> <span class="n">m</span> 
+<span class="k">inner</span> <span class="k">join</span> <span class="n">attachments</span> <span class="k">at</span>
+<span class="k">on</span> <span class="k">at</span><span class="p">.</span><span class="n">message_id</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">ROWID</span>
+<span class="k">inner</span> <span class="k">join</span> <span class="n">addresses</span> <span class="n">a</span> 
+<span class="k">on</span> <span class="n">m</span><span class="p">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">address</span>
+<span class="k">order</span> <span class="k">by</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">desc</span>  
+<span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="how-many-emails-do-i-get-by-day-of-the-week">How many emails do I get by day of the week?</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">case</span> <span class="k">cast</span> <span class="p">(</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%w'</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">date_sent</span><span class="p">)</span> <span class="k">as</span> <span class="nb">integer</span><span class="p">)</span>
+  <span class="k">when</span> <span class="mi">0</span> <span class="k">then</span> <span class="s1">'Sunday'</span>
+  <span class="k">when</span> <span class="mi">1</span> <span class="k">then</span> <span class="s1">'Monday'</span>
+  <span class="k">when</span> <span class="mi">2</span> <span class="k">then</span> <span class="s1">'Tuesday'</span>
+  <span class="k">when</span> <span class="mi">3</span> <span class="k">then</span> <span class="s1">'Wednesday'</span>
+  <span class="k">when</span> <span class="mi">4</span> <span class="k">then</span> <span class="s1">'Thursday'</span>
+  <span class="k">when</span> <span class="mi">5</span> <span class="k">then</span> <span class="s1">'Friday'</span>
+  <span class="k">else</span> <span class="s1">'Saturday'</span> <span class="k">end</span> <span class="k">as</span> <span class="n">weekday</span>
+<span class="k">from</span> <span class="n">messages</span> <span class="n">m</span>
+<span class="k">where</span> <span class="n">m</span><span class="p">.</span><span class="n">sender</span> <span class="k">NOT</span> <span class="k">in</span> 
+  <span class="p">(</span><span class="k">select</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span> <span class="k">from</span> <span class="n">addresses</span> <span class="n">a</span> <span class="k">where</span> <span class="n">address</span> <span class="k">like</span> <span class="s1">'%cstoller%'</span><span class="p">)</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">weekday</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">strftime</span><span class="p">(</span><span class="s1">'%w'</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">date_sent</span><span class="p">)</span> <span class="k">asc</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>I receive the most emails on Tuesdays and Wednesdays.
+I expected to see more on Mondays.</p>
+
+<h3 id="which-days-do-i-send-the-most-emails">Which days do I send the most emails?</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">case</span> <span class="k">cast</span> <span class="p">(</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%w'</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">date_sent</span><span class="p">)</span> <span class="k">as</span> <span class="nb">integer</span><span class="p">)</span>
+  <span class="k">when</span> <span class="mi">0</span> <span class="k">then</span> <span class="s1">'Sunday'</span>
+  <span class="k">when</span> <span class="mi">1</span> <span class="k">then</span> <span class="s1">'Monday'</span>
+  <span class="k">when</span> <span class="mi">2</span> <span class="k">then</span> <span class="s1">'Tuesday'</span>
+  <span class="k">when</span> <span class="mi">3</span> <span class="k">then</span> <span class="s1">'Wednesday'</span>
+  <span class="k">when</span> <span class="mi">4</span> <span class="k">then</span> <span class="s1">'Thursday'</span>
+  <span class="k">when</span> <span class="mi">5</span> <span class="k">then</span> <span class="s1">'Friday'</span>
+  <span class="k">else</span> <span class="s1">'Saturday'</span> <span class="k">end</span> <span class="k">as</span> <span class="n">weekday</span>
+<span class="k">from</span> <span class="n">messages</span> <span class="n">m</span>
+<span class="k">where</span> <span class="n">m</span><span class="p">.</span><span class="n">sender</span> <span class="k">in</span> 
+  <span class="p">(</span><span class="k">select</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span> <span class="k">from</span> <span class="n">addresses</span> <span class="n">a</span> <span class="k">where</span> <span class="n">address</span> <span class="k">like</span> <span class="s1">'%cstoller%'</span><span class="p">)</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">weekday</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">strftime</span><span class="p">(</span><span class="s1">'%w'</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">date_sent</span><span class="p">)</span> <span class="k">asc</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>For my email I was surprised that I send fewer emails on Thursday than Saturday.
+On the other hand, I was less surprised that I send the most emails on Monday and Friday.</p>
+
+<h3 id="how-many-emails-do-i-get-by-time-of-day">How many emails do I get by time of day?</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="n">strftime</span><span class="p">(</span><span class="nv">"%H"</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">date_sent</span><span class="p">,</span> <span class="s1">'unixepoch'</span><span class="p">,</span> <span class="s1">'localtime'</span><span class="p">)</span> <span class="n">hour</span>
+<span class="k">from</span> <span class="n">messages</span> <span class="n">m</span>
+<span class="k">where</span> <span class="n">m</span><span class="p">.</span><span class="n">sender</span> <span class="k">not</span> <span class="k">in</span> 
+  <span class="p">(</span><span class="k">select</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span> <span class="k">from</span> <span class="n">addresses</span> <span class="n">a</span> <span class="k">where</span> <span class="n">address</span> <span class="k">like</span> <span class="s1">'%cstoller%'</span><span class="p">)</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">hour</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">hour</span> <span class="k">asc</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="how-many-email-addresses-have-come-through-my-inbox-either-in-to-or-cc-fields">How many email addresses have come through my inbox? Either in <code class="language-plaintext highlighter-rouge">to</code> or <code class="language-plaintext highlighter-rouge">cc</code> fields.</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">case</span> <span class="n">r</span><span class="p">.</span><span class="k">type</span>
+  <span class="k">when</span> <span class="mi">0</span> <span class="k">then</span> <span class="s1">'To'</span>
+  <span class="k">when</span> <span class="mi">1</span> <span class="k">then</span> <span class="s1">'Cc'</span>
+  <span class="k">else</span> <span class="s1">'NA'</span><span class="k">end</span> <span class="k">as</span> <span class="n">mtype</span>
+<span class="k">from</span> <span class="n">recipients</span> <span class="n">r</span>
+<span class="k">where</span> <span class="n">r</span><span class="p">.</span><span class="n">address_id</span> <span class="k">in</span> 
+  <span class="p">(</span><span class="k">select</span> <span class="n">a</span><span class="p">.</span><span class="n">ROWID</span> <span class="k">from</span> <span class="n">addresses</span> <span class="n">a</span> <span class="k">where</span> <span class="n">address</span> <span class="k">like</span> <span class="s1">'%cstoller%'</span><span class="p">)</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">mtype</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">r</span><span class="p">.</span><span class="k">type</span> <span class="k">asc</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="is-this-useful">Is this useful?</h2>
+
+<p>Unclear. This was a curiosity that was pretty easy to itch.</p>
+
+<hr />
+
+<p>I want to give credit to two authors who inspired this blog post - <a href="http://www.javarants.com/2008/12/26/build-your-own-mail-analyzer-for-mac-mailapp/">Sam Pullara</a>
+and <a href="https://github.com/BKJackson/MacMailAnalytics">J. S. Floyd</a>.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 21 Mar 2015</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">1322 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

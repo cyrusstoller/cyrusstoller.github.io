@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Installing node on a mac</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2017/02/20/installing-node-on-a-mac">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Installing node on a mac</h1>
+
+<div id="post">
+  <p>In general, I love the simplicity of installing software with <a href="https://brew.sh/">Homebrew</a> on a mac.
+But, when installing programming languages, I’ve found that it often leads to more
+complications when I later want to use or test a particular version for compatibility
+with particular libraries.
+Because Homebrew makes it difficult (and often impossible) to install older versions
+of a package, I often have difficulty isolating points of failure when troubleshooting.</p>
+
+<p>For example, recently I was trying to quickly install <a href="http://emberjs.com/">Ember.js</a> on a friend’s computer.
+To get up and running as quickly as possible, I ran the following commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew <span class="nb">install </span>node watchman
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">-g</span> ember-cli
+<span class="nv">$ </span>ember new example
+<span class="nv">$ </span><span class="nb">cd </span>example
+<span class="nv">$ </span>ember server
+</code></pre></div></div>
+
+<p>Then, the server was unresponsive unless I uninstalled <a href="https://facebook.github.io/watchman/">watchman</a>,
+which was strange because I had the same version numbers installed on my machine
+and they were working fine.
+At this point, I decided to uninstall everything and install everything the same way I had before.
+And then after installing the same software, everything worked as expected.</p>
+
+<p>Instead of installing <code class="language-plaintext highlighter-rouge">node</code> through Homebrew, I installed it with <a href="https://github.com/creationix/nvm">nvm</a>.
+Here’s how I did it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew uninstall <span class="nt">--force</span> node
+<span class="c"># https://github.com/creationix/nvm#manual-install</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.nvm"</span> <span class="o">&amp;&amp;</span> <span class="o">(</span>
+  git clone https://github.com/creationix/nvm.git <span class="s2">"</span><span class="nv">$NVM_DIR</span><span class="s2">"</span>
+  <span class="nb">cd</span> <span class="s2">"</span><span class="nv">$NVM_DIR</span><span class="s2">"</span>
+  git checkout <span class="sb">`</span>git describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span> <span class="nt">--match</span> <span class="s2">"v[0-9]*"</span> origin<span class="sb">`</span>
+<span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="nb">.</span> <span class="s2">"</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh"</span>
+</code></pre></div></div>
+
+<p>Then add the following to your <code class="language-plaintext highlighter-rouge">.bashrc</code> or <code class="language-plaintext highlighter-rouge">.zshrc</code> like you do with <a href="https://github.com/rbenv/rbenv">rbenv</a> for ruby.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">NVM_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.nvm"</span>
+<span class="o">[</span> <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">.</span> <span class="s2">"</span><span class="nv">$NVM_DIR</span><span class="s2">/nvm.sh"</span> <span class="c"># This loads nvm</span>
+</code></pre></div></div>
+
+<p>Once you have <code class="language-plaintext highlighter-rouge">nvm</code> installed, you can install a particular version of node.
+I ran the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew <span class="nb">install </span>watchman
+<span class="nv">$ </span>nvm <span class="nb">install</span> <span class="nt">--lts</span>
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">-g</span> ember-cli
+<span class="nv">$ </span>ember new example
+<span class="nv">$ </span><span class="nb">cd </span>example
+<span class="nv">$ </span>ember server
+</code></pre></div></div>
+
+<p>Anyway, I hope this will help save you some from unnecessary head scratching when
+trying to get a dev environment setup. Happy hacking!</p>
+
+<hr />
+
+<p>My understanding is that you can do something <a href="http://yoember.com/nodejs/the-best-way-to-install-node-js/">similar when installing node on Linux</a>.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 20 Feb 2017</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">433 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Getting started with vim</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2018/03/05/getting_started_with_vim">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Getting started with vim</h1>
+
+<div id="post">
+  <p>Choosing a text editor is intensely personal; it’s all about preference. This
+post isn’t meant to persuade you that <a href="https://en.wikipedia.org/wiki/Vim_(text_editor)">vim</a> is better than other text
+editors. Instead, view this post as a practical guide for getting started with
+<a href="https://en.wikipedia.org/wiki/Vim_(text_editor)">vim</a> if you decide that you want to give it a try.</p>
+
+<p>As background, I’ve tried a lot of text editors. In college, I used
+<a href="https://en.wikipedia.org/wiki/Emacs">emacs</a> for my CS courses. And later, I switched to <a href="https://en.wikipedia.org/wiki/TextMate">TextMate</a>
+and then <a href="https://en.wikipedia.org/wiki/Sublime_Text">Sublime v2 and v3</a> during the long TextMate v2 release
+cycle. With friends trying to convince me to try <a href="https://en.wikipedia.org/wiki/Visual_Studio_Code">VS Code</a>, I decided
+to give vim another try instead. The goal of this post is help you to start
+feeling productive using vim. I’m not a vim expert, but understanding the
+commands described below has helped me understand why people get so excited
+about vim.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>I started by completing the <a href="https://vim-adventures.com/">vim adventures</a> game, which piqued
+my interested. I was surprised by how much faster I could move by avoiding the
+arrows on my keyboard. The game does a great job of making the process of
+learning a new way of thinking about text fun and engaging. Next I read through
+<code class="language-plaintext highlighter-rouge">vimtutor</code> and this <a href="https://www.digitalocean.com/community/tutorials/how-to-use-vim-for-advanced-editing-of-plain-text-or-code-on-a-vps--2">high level tutorial</a> on how to get
+started with vim, both of which helped me see how to do most of the things I
+took for granted when using emacs. But even with these resources, it was hard
+to internalize such a different way of interacting with text. I wish someone
+would have shown me this <a href="http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html">cheatsheet</a> and this <a href="http://i.imgur.com/YLInLlY.png">poster</a>
+earlier. Both were valuable resources that helped me to avoid the temptation of
+going back to one of the other text editors that I’m more familiar with.</p>
+
+<p>It’s true that the vim docs are surprisingly detailed and clear when you type
+<code class="language-plaintext highlighter-rouge">:help</code>, but I was looking for a more structured approach to my learning than
+people just telling me to <a href="https://en.wikipedia.org/wiki/RTFM">RTFM</a>. So, that’s what I’ve tried to put
+together here. This is far from comprehensive, but it should be enough to help
+you feel comfortable with the basics and help you understand what makes vim
+different from other text editors.</p>
+
+<ul>
+  <li><a href="#part0">Part 0: Concepts and notation</a></li>
+  <li><a href="#part1">Part 1: Basic navigation</a></li>
+  <li><a href="#part2">Part 2: Making changes</a></li>
+  <li><a href="#part3">Part 3: Arranging your workspace</a></li>
+  <li><a href="#part4">Part 4: Manipulating text</a></li>
+  <li><a href="#part5">Part 5: My vimrc</a></li>
+  <li><a href="#part6">Part 6: Installing plugins</a></li>
+</ul>
+
+<p>Let’s get started. I’d recommend starting by using <a href="https://github.com/macvim-dev/macvim">macvim</a>, so you
+can still use the mouse and other operating system shortcuts. As you get more
+comfortable, I’d recommend transitioning to using vim directly in the terminal
+so that your experience is the same when you’re using vim on your local machine
+and when using it over ssh, but don’t feel a need to rush that.</p>
+
+<hr />
+
+<p><a name="part0"></a></p>
+<h1 id="part-0-concepts-and-notation">Part 0: Concepts and notation</h1>
+
+<p>For this tutorial, I’ll use the following notation:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code> is equivalent to pressing <code class="language-plaintext highlighter-rouge">control</code> and <code class="language-plaintext highlighter-rouge">w</code> at the same time.</li>
+  <li><code class="language-plaintext highlighter-rouge">diw</code> is equivalent to typing <code class="language-plaintext highlighter-rouge">d</code> then <code class="language-plaintext highlighter-rouge">i</code> then <code class="language-plaintext highlighter-rouge">w</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;ESC&gt;</code> is equivalent to pressing <code class="language-plaintext highlighter-rouge">escape</code>.</li>
+</ul>
+
+<h2 id="modes">Modes</h2>
+
+<p>In vim there are 4 main modes that I use:</p>
+
+<ol>
+  <li><strong>Normal mode</strong> - this is what sets vim apart from other text editors and
+what I’ll be focusing on in this tutorial. This is the default mode that vim
+opens with and the mode that I’ll assume you will spend the majority of your
+time in. If you’re ever unsure about how to get back to normal mode, press
+<code class="language-plaintext highlighter-rouge">&lt;ESC&gt;</code>.</li>
+  <li><strong>Insert mode</strong> - this is the typing experience that most people are
+accustomed to. When you press letters, they show up on the screen. Below
+I’ll describe the many ways to enter insert mode from normal mode.</li>
+  <li><strong>Visual mode</strong> - this is where you can use the navigation from normal mode
+to select text. This is probably the mode that I understand how to make use
+of the least so far.
+    <ul>
+      <li>Visual <code class="language-plaintext highlighter-rouge">v</code> - typical text selection</li>
+      <li>Visual Line <code class="language-plaintext highlighter-rouge">V</code> - select one line at a time</li>
+      <li>Visual Block <code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code> - select one column at a time</li>
+    </ul>
+  </li>
+  <li><strong>Commandline mode</strong> - this is where you can search and replace, save and
+quit, and execute other commandline utilities. Generally to enter
+commandline mode, type <code class="language-plaintext highlighter-rouge">:</code>.</li>
+</ol>
+
+<h2 id="file-io-and-closing-vim">File I/O and closing vim</h2>
+
+<ul>
+  <li>Opening files
+    <ul>
+      <li>You can type <code class="language-plaintext highlighter-rouge">$ vim FILE</code> to open a file from the commandline.</li>
+      <li>If you’re already in vim, you can type <code class="language-plaintext highlighter-rouge">:e FILE</code>. This will open the file
+if it exists and if it doesn’t, it will create a file with that name.</li>
+    </ul>
+  </li>
+  <li>Saving and quitting
+    <ul>
+      <li>To save changes to a file, use <code class="language-plaintext highlighter-rouge">:w</code>. This will write the changes to disk.</li>
+      <li>To close a file without saving changes, use <code class="language-plaintext highlighter-rouge">:q!</code> or <code class="language-plaintext highlighter-rouge">ZQ</code>. If this is the
+last file that you have open in vim, it will also close vim.</li>
+      <li>To save and quit, you have a few options: <code class="language-plaintext highlighter-rouge">:x</code>, <code class="language-plaintext highlighter-rouge">:wq</code>, or <code class="language-plaintext highlighter-rouge">ZZ</code>.</li>
+    </ul>
+  </li>
+  <li>Reloading a file
+    <ul>
+      <li>After changing branches in a git repository, you’ll notice that the files
+don’t always reflect changes immediately. To pick them up, use: <code class="language-plaintext highlighter-rouge">:edit</code></li>
+      <li>This isn’t an issue with <a href="https://github.com/macvim-dev/macvim">macvim</a>, but you’ll notice this if you’re
+using vim in the terminal.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Now that you have a basic understanding of how to open and close vim, I’ll
+explain how to get started in four parts. First, we’ll go over basic
+navigation, then we’ll go over how to arrange your workspace, how to manipulate
+text, and finally how to install plugins.</p>
+
+<p><em>This is the end of Part 0 on <a href="#part0">concepts and notation</a>.</em></p>
+
+<hr />
+<p><a name="part1"></a></p>
+<h1 id="part-1-basic-navigation">Part 1: Basic navigation</h1>
+
+<p>To get started, you need to know how to move the cursor in normal mode. This is
+well covered in the <a href="https://vim-adventures.com/">vim adventures</a> and in <code class="language-plaintext highlighter-rouge">:h navigation</code>.</p>
+
+<h2 id="cursor-movement">Cursor movement</h2>
+
+<ul>
+  <li>By character
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">h</code> = LEFT one character</li>
+      <li><code class="language-plaintext highlighter-rouge">j</code> = DOWN one line</li>
+      <li><code class="language-plaintext highlighter-rouge">k</code> = UP one line</li>
+      <li><code class="language-plaintext highlighter-rouge">l</code> = RIGHT one character</li>
+    </ul>
+  </li>
+  <li>By word
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">w</code> = beginning of the next word</li>
+      <li><code class="language-plaintext highlighter-rouge">W</code> = beginning of the next WORD</li>
+      <li><code class="language-plaintext highlighter-rouge">b</code> = beginning of the previous word</li>
+      <li><code class="language-plaintext highlighter-rouge">B</code> = beginning of the previous WORD</li>
+      <li><code class="language-plaintext highlighter-rouge">e</code> = end of the word</li>
+      <li><code class="language-plaintext highlighter-rouge">E</code> = end of the WORD</li>
+    </ul>
+  </li>
+  <li>Relative to the line
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">0</code> = beginning of the line</li>
+      <li><code class="language-plaintext highlighter-rouge">^</code> = first non-whitespace character on the line</li>
+      <li><code class="language-plaintext highlighter-rouge">$</code> = end of the line</li>
+    </ul>
+  </li>
+  <li>Relative to the file
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">:N</code> or <code class="language-plaintext highlighter-rouge">NG</code> = go to line number N</li>
+      <li><code class="language-plaintext highlighter-rouge">gg</code> = go to line 1</li>
+      <li><code class="language-plaintext highlighter-rouge">G</code> = go to the last line of the file</li>
+    </ul>
+  </li>
+  <li>You can also navigate by sentence, paragraph, HTML/XML tag, and code block,
+  but I haven’t found a big need for that.</li>
+</ul>
+
+<h2 id="search-by-character">Search by character</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">fx</code> = move the cursor forward until it finds <code class="language-plaintext highlighter-rouge">x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">tx</code> = move the cursor forward up to the character before <code class="language-plaintext highlighter-rouge">x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Fx</code> = move the cursor backward until it finds <code class="language-plaintext highlighter-rouge">x</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Tx</code> = move the cursor backward up to the character before <code class="language-plaintext highlighter-rouge">x</code></li>
+</ul>
+
+<h2 id="search-by-pattern">Search by pattern</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">/PATTERN</code> = forward search for a regex pattern</li>
+  <li><code class="language-plaintext highlighter-rouge">?PATTERN</code> = backward search for a regex pattern</li>
+  <li><code class="language-plaintext highlighter-rouge">n</code> = move the cursor to the next search result</li>
+  <li><code class="language-plaintext highlighter-rouge">N</code> = move the cursor to the previous search result</li>
+  <li><code class="language-plaintext highlighter-rouge">:noh</code> to remove the highlighted search results</li>
+</ul>
+
+<h2 id="scrolling">Scrolling</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-d&gt;</code> = scroll up a half screen. You can remember this because “d” is for
+“down”.</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-u&gt;</code> = scroll down a half screen. You can remember this because “u” is for
+“up”.</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-e&gt;</code> = scroll down by one line.</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-y&gt;</code> = scroll up by one line.</li>
+</ul>
+
+<h2 id="scrolling-relative-to-the-cursor">Scrolling relative to the cursor</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">zz</code> = position the line that the cursor is on in middle of the screen.</li>
+  <li><code class="language-plaintext highlighter-rouge">zt</code> = position the line that the cursor is on at the top of the screen. You
+can remember this because “t” is for “top”.</li>
+  <li><code class="language-plaintext highlighter-rouge">zb</code> = position the line that the cursor is on at the bottom of the screen.
+You can remember this because “b” is for “bottom”.</li>
+  <li><code class="language-plaintext highlighter-rouge">H</code> = position the cursor on the top most visible line on the screen. You can
+remember this because “H” is for “high”.</li>
+  <li><code class="language-plaintext highlighter-rouge">M</code> = position the cursor on the middle visible line on the screen. You can
+remember this because “M” is for “middle”.</li>
+  <li><code class="language-plaintext highlighter-rouge">L</code> = position the cursor on the bottom most visible line on the screen. You
+can remember this because “L” is for “low”.</li>
+</ul>
+
+<h2 id="transitioning-to-insert-mode-from-normal-mode">Transitioning to insert mode from normal mode</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">i</code> = switch to insert mode before the cursor</li>
+  <li><code class="language-plaintext highlighter-rouge">I</code> = switch to insert mode before the beginning of the line</li>
+  <li><code class="language-plaintext highlighter-rouge">a</code> = switch to insert mode after the cursor</li>
+  <li><code class="language-plaintext highlighter-rouge">A</code> = switch to insert mode after the end of the line</li>
+  <li><code class="language-plaintext highlighter-rouge">o</code> = insert a line below the cursor and enter insert mode</li>
+  <li><code class="language-plaintext highlighter-rouge">O</code> = insert a line above the cursor and enter insert mode</li>
+</ul>
+
+<p><em>This is the end of Part 1 on <a href="#part1">basic navigation</a>.</em></p>
+
+<hr />
+
+<p><a name="part2"></a></p>
+<h1 id="part-2-making-changes">Part 2: Making changes</h1>
+
+<p>To make the most of normal mode in vim, you need to compose <code class="language-plaintext highlighter-rouge">operators</code> and
+<code class="language-plaintext highlighter-rouge">motions</code>. In general, <code class="language-plaintext highlighter-rouge">motions</code> are what we discussed above, but there are a
+couple more useful ones that I’ll share once we’ve covered the common
+<code class="language-plaintext highlighter-rouge">operators</code>.</p>
+
+<blockquote>
+  <p><strong>[operator] [count] [motion]</strong></p>
+</blockquote>
+
+<p>Before learning about <code class="language-plaintext highlighter-rouge">operators</code>, let’s look at who we can use this with the
+<code class="language-plaintext highlighter-rouge">motions</code> we already know. If I type <code class="language-plaintext highlighter-rouge">3j</code>, vim will interpret this as <code class="language-plaintext highlighter-rouge">jjj</code>, in
+other words moving down three lines. Similarly, if I type <code class="language-plaintext highlighter-rouge">5w</code>, vim will move
+forward 5 words. And to move forward to the second “x”, I would type <code class="language-plaintext highlighter-rouge">2fx</code>. At
+this point, I had my first “aha!” moment. Even with just this amount of
+knowledge under my belt, I was able to move around text files much faster than
+before.</p>
+
+<p><strong>Operators</strong> can be thought of as verbs in language that describes how you
+want to edit text. For more information go to <code class="language-plaintext highlighter-rouge">:h operator</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">d</code> = delete, which is also a version of cutting text</li>
+  <li><code class="language-plaintext highlighter-rouge">y</code> = yank, which is a more powerful version of copying text</li>
+  <li><code class="language-plaintext highlighter-rouge">c</code> = change, which deletes the text from the motion and puts you into insert
+mode.</li>
+</ul>
+
+<p>Now that you know about operators, you can combine them to uncover the power of
+normal mode. For example, to delete 3 words, you would type <code class="language-plaintext highlighter-rouge">d3w</code>. But, if
+you’re combining operators with motions, there are two more types of motions
+at your disposal.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">iw</code> = inner word, so <code class="language-plaintext highlighter-rouge">diw</code> would delete the word that the cursor is on.</li>
+  <li><code class="language-plaintext highlighter-rouge">aw</code> = a word, which includes the surrounding whitespace, so <code class="language-plaintext highlighter-rouge">daw</code> would
+delete the word that the cursor is on and the surrounding whitespace.</li>
+</ul>
+
+<p>This type of motion can be used with words, brackets, parenthesis, quotes,
+etc… So you could type <code class="language-plaintext highlighter-rouge">ci"</code> to change the text between two <code class="language-plaintext highlighter-rouge">"</code> marks,
+assuming that the cursor in the text between the quotes, or <code class="language-plaintext highlighter-rouge">yi(</code> to yank the
+text inside a pair of parentheses. Once I started to get comfortable with this,
+I started to understand why people get obsessive about learning vim.</p>
+
+<h2 id="copy-and-paste">Copy and paste</h2>
+
+<p>At this point in my learning, I could quickly move around a document, but I
+couldn’t move text around. Vim has a more advanced version of copy and paste in
+that you can have many registers that can store text. In other words, you’re
+not constrained to a single clipboard like you are in a typical text editor.
+But, to get you started here’s how you can accomplish the familiar version of
+copy and paste.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">yy</code> or <code class="language-plaintext highlighter-rouge">Y</code> = yank the current line, which is like a powerful version of
+“copy”</li>
+  <li><code class="language-plaintext highlighter-rouge">dd</code>= delete / cut the current line</li>
+  <li><code class="language-plaintext highlighter-rouge">p</code> = paste after</li>
+  <li><code class="language-plaintext highlighter-rouge">P</code> = paste before</li>
+  <li>Often I’ll select the text I want in visual mode and then press <code class="language-plaintext highlighter-rouge">y</code> to copy
+  or <code class="language-plaintext highlighter-rouge">d</code> to delete / cut.</li>
+</ul>
+
+<h2 id="quick-changes-to-text">Quick changes to text</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">r</code> = will replace the character that the cursor is on with the next
+character that’s pressed and then return to normal mode. This is particularly
+useful when fixing typos.</li>
+  <li><code class="language-plaintext highlighter-rouge">x</code> = delete the current character while staying in normal mode</li>
+  <li><code class="language-plaintext highlighter-rouge">C</code> = will delete the rest of the line and put you into insert mode</li>
+  <li><code class="language-plaintext highlighter-rouge">D</code> = will delete the rest of the line and keep you in normal mode</li>
+  <li><code class="language-plaintext highlighter-rouge">s</code> = will delete the current character and place you into insert mode</li>
+  <li><code class="language-plaintext highlighter-rouge">S</code> = will delete the current line and place you into insert mode</li>
+</ul>
+
+<h2 id="autocomplete">Autocomplete</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-n&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;C-p&gt;</code> in insert mode will provide a dropdown of autocomplete
+options. <code class="language-plaintext highlighter-rouge">&lt;C-n&gt;</code> moves you to the next selection and <code class="language-plaintext highlighter-rouge">&lt;C-p&gt;</code> moves you to the
+previous selection. Without further configuration the dropdown is based on
+the words that are already present in the file that is being edited.</li>
+</ul>
+
+<h2 id="following-a-code-path">Following a code path</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">gd</code> = highlights all instances of the word under the cursor. You can move
+between them by pressing <code class="language-plaintext highlighter-rouge">n</code> and <code class="language-plaintext highlighter-rouge">p</code>. This is particularly helpful when
+looking for function definitions.</li>
+  <li><code class="language-plaintext highlighter-rouge">gf</code> = follows the path that the cursor is on. When looking at a series of
+include statements, this allows you to quickly open the relevant dependency.</li>
+</ul>
+
+<p><em>This is the end of Part 2 on <a href="#part2">making changes</a>.</em></p>
+
+<hr />
+
+<p><a name="part3"></a></p>
+<h1 id="part-3-arranging-your-workspace">Part 3: Arranging your workspace</h1>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A buffer is the in-memory text of a file.
+A window is a viewport on a buffer.
+A tab page is a collection of windows.
+</code></pre></div></div>
+
+<p>As described in the vim docs <code class="language-plaintext highlighter-rouge">:h window</code>, these are the three main concepts
+that need to be understood to arrange your workspace.</p>
+
+<h2 id="buffers">Buffers</h2>
+
+<p>Vim allows you to open multiple files at a time, each being put into its own
+buffer. Before I understood how to work with buffers, I would quit vim each
+time I needed to work on a different file, which was highly inefficient. Even
+though I could move around files faster than I had been able to before, the
+benefits didn’t seem worth it.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">:e FILE</code> = open a file into a new buffer - we discussed this command before</li>
+  <li><code class="language-plaintext highlighter-rouge">:ls</code> = list all of the open buffers</li>
+  <li><code class="language-plaintext highlighter-rouge">:bn</code> = switches to the next buffer</li>
+  <li><code class="language-plaintext highlighter-rouge">:3b</code> = switch to buffer number 3</li>
+</ul>
+
+<h2 id="windows">Windows</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">:sp</code> = split the current window horizontally</li>
+  <li><code class="language-plaintext highlighter-rouge">:vs</code> = split the current window vertically</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code> + direction <code class="language-plaintext highlighter-rouge">hjkl</code> = to move to the next pane</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-w&gt; =</code> = make the windows equally high and wide</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-w&gt; o</code> = close all other windows except for the current one on the page</li>
+</ul>
+
+<h2 id="tabs">Tabs</h2>
+
+<p>You can use tabs like in other text editors (e.g. Sublime). To learn more about
+how to reorder tabs, check out <code class="language-plaintext highlighter-rouge">:h tabmove</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">:tabnew FILE</code> = create a new tab by opening the following file</li>
+  <li><code class="language-plaintext highlighter-rouge">:tabc</code> = close the current tab</li>
+  <li><code class="language-plaintext highlighter-rouge">gt</code> = go to the next tab</li>
+  <li><code class="language-plaintext highlighter-rouge">gT</code> = go to the previous tab</li>
+</ul>
+
+<p><em>This is the end of Part 3 on <a href="#part3">arranging your workspace</a>.</em></p>
+
+<hr />
+
+<p><a name="part4"></a></p>
+<h1 id="part-4-manipulating-text">Part 4: Manipulating text</h1>
+
+<h2 id="common-manipulations">Common manipulations</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">gU</code> followed by a motion = will capitalize every letter in that motion. For
+example, <code class="language-plaintext highlighter-rouge">gU$</code> would capitalize every letter until the end of the line.</li>
+  <li><code class="language-plaintext highlighter-rouge">gu</code> followed by a motion = will make every letter in that motion lower case.</li>
+  <li><code class="language-plaintext highlighter-rouge">~</code> = will change the case of the current letter.</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;&lt;</code> and <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> = will shift the current line by a shiftwidth while in normal
+mode.</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-t&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;C-d&gt;</code> = will shift the current line by a shiftwidth while in
+insert mode.</li>
+</ul>
+
+<h2 id="registers">Registers</h2>
+
+<p>Like the <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Kill-Ring.html">kill ring</a> in emacs, vim allows users to hold
+multiple strings of text in registers to be used later. There are registers
+for every character on the keyboard, but a couple of them have special
+properties. For more info, read <code class="language-plaintext highlighter-rouge">:h registers</code>, but the basics are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">"xyy</code> = to copy the current line into the <code class="language-plaintext highlighter-rouge">x</code> register</li>
+  <li><code class="language-plaintext highlighter-rouge">"xp</code> = to paste from the <code class="language-plaintext highlighter-rouge">x</code> register</li>
+  <li><code class="language-plaintext highlighter-rouge">:reg</code> = to see the contents of each of the registers</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-r&gt;</code> + <code class="language-plaintext highlighter-rouge">k</code> = to paste the contents of a register <code class="language-plaintext highlighter-rouge">k</code> while in insert mode</li>
+</ul>
+
+<h2 id="macros">Macros</h2>
+
+<p>Macros allow you to program an arbitrary sequence of keystrokes that you can
+repeat whenever you’d like, allowing you to repeat complicated text
+manipulations on multiple lines of text in quick succession. Since macros are
+just recorded keystrokes, you can make revisions to the macro and then store it
+back into the same register.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">qk</code> + arbitrary keystrokes + <code class="language-plaintext highlighter-rouge">q</code> = record a macro in register <code class="language-plaintext highlighter-rouge">k</code></li>
+  <li><code class="language-plaintext highlighter-rouge">@k</code> = play back the macro stored in register <code class="language-plaintext highlighter-rouge">k</code></li>
+</ul>
+
+<p>For me, macros are one of the key features that sets vim apart. Because they’re
+so quick and easy to write, I use them regularly, allowing me to accurately
+refactor code and make what would otherwise be tedious changes without
+mistakes.</p>
+
+<h2 id="repeated-commands">Repeated commands</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.</code> = repeat the previous command. This includes commands that are of the
+“operator count motion” variety or a macro. This is what allows you to make
+lots of changes in quick succession. To learn more about this, go to <code class="language-plaintext highlighter-rouge">:h
+single-repeat</code>.</li>
+</ul>
+
+<h2 id="abbreviations">Abbreviations</h2>
+
+<p>This is a great way to avoid having to type long words and to automatically
+correct common misspellings in vim. To learn more about this read <code class="language-plaintext highlighter-rouge">:h
+abbreviations</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">:ab hh hello</code> = expand “hh” into “hello” when typing in insert mode</li>
+  <li><code class="language-plaintext highlighter-rouge">:una hh</code> = remove the “hh” as an abbreviation</li>
+  <li><code class="language-plaintext highlighter-rouge">:abc</code> = clear all abbreviations</li>
+  <li><code class="language-plaintext highlighter-rouge">:ab</code> = list all of the current abbreviations</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code> before typing an abbreviation in insert mode and vim will
+ignore the abbreviation expansion, allowing you to type “hh” without it
+expanding to “hello”</li>
+</ul>
+
+<h2 id="marks">Marks</h2>
+
+<p>Marks allow you to quickly move the cursor back to a specified location. Lower
+case letters are used for marks that are local to a particular file, while
+capitalized letters are used for global marks. For more information go to <code class="language-plaintext highlighter-rouge">:h
+mark-motions</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">mk</code> = locally set the mark <code class="language-plaintext highlighter-rouge">k</code> to the current location in the current file</li>
+  <li><code class="language-plaintext highlighter-rouge">mK</code> = globally set the mark <code class="language-plaintext highlighter-rouge">K</code> to the current location in the current file,
+making it easy to switch back and forth between files</li>
+  <li><code class="language-plaintext highlighter-rouge">`k</code> = go to mark <code class="language-plaintext highlighter-rouge">k</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'k</code> = go to the first non-whitespace character on the line containing the
+mark <code class="language-plaintext highlighter-rouge">k</code></li>
+</ul>
+
+<h2 id="commenting-multiple-lines-of-code">Commenting multiple lines of code</h2>
+
+<p>One of the harder parts of transitioning to vim has been getting used to the
+fact that there isn’t a built-in command for commenting multiple lines of text
+like <code class="language-plaintext highlighter-rouge">CMD+/</code>l in <a href="https://en.wikipedia.org/wiki/TextMate">TextMate</a> or <a href="https://en.wikipedia.org/wiki/Sublime_Text">Sublime</a>. Here’s how I
+comment out multiple lines of code in a language like Ruby.</p>
+
+<ol>
+  <li>Go to the column I want to insert my comment character(s) in (e.g. in Ruby,
+a <code class="language-plaintext highlighter-rouge">#</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code> to switch into visual mode</li>
+  <li>Select as many lines as I’d like to comment out</li>
+  <li><code class="language-plaintext highlighter-rouge">I</code> to switch into insert mode</li>
+  <li>Type the comment character(s), in this case <code class="language-plaintext highlighter-rouge"># </code></li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;ESC&gt;</code> to return to normal mode</li>
+</ol>
+
+<p>To uncomment multiple lines of code I use a similar process:</p>
+
+<ol>
+  <li>Go to the column with the comment characters</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-v&gt;</code> to switch into visual mode</li>
+  <li>Select as many of the comment characters as I want to delete</li>
+  <li><code class="language-plaintext highlighter-rouge">x</code> to delete the selected characters and return to normal mode</li>
+</ol>
+
+<p>This works well for many languages, but is a pain when trying to comment code
+in languages like HTML/XML that require opening and closing tags. There are vim
+plugins to make this process easier, but this is the best solution I’ve found
+for plain vim.</p>
+
+<h2 id="shell-commands">Shell commands</h2>
+
+<p>It was a pleasant surprise for me to learn that I can use shell commands to
+edit text in vim. For example, if I want to sort an unordered list into
+alphabetical order, I can do the following:</p>
+
+<ol>
+  <li>Select the lines that I’d like to modify: enter visual mode by using <code class="language-plaintext highlighter-rouge">V</code> and
+then move the cursor until the desired lines are highlighted</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">!</code> followed by the shell command to execute a shell command with the
+selected lines as an input. In this example, I would type <code class="language-plaintext highlighter-rouge">! sort</code></li>
+</ol>
+
+<h2 id="spellcheck">Spellcheck</h2>
+
+<p>When editing markdown files, it’s nice to be able to check that there aren’t
+any spelling errors. To do this, you can use the following:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">:set spell</code> = to highlight words that are spelled incorrectly</li>
+  <li><code class="language-plaintext highlighter-rouge">:set nospell</code> = disable spellcheck</li>
+  <li><code class="language-plaintext highlighter-rouge">]s</code> = move to the next misspelled word</li>
+  <li><code class="language-plaintext highlighter-rouge">[s</code> = move to the previous misspelled word</li>
+  <li><code class="language-plaintext highlighter-rouge">z=</code> = when on top of a misspelled word, this shows the possible corrections</li>
+  <li><code class="language-plaintext highlighter-rouge">zg</code> = to add the word under the cursor to the dictionary. You can remember
+this because “g” stands for “good”.</li>
+  <li><code class="language-plaintext highlighter-rouge">zw</code> = to remove a word from the dictionary. You can remember this because
+“w” stands for “wrong”.</li>
+</ul>
+
+<p>To learn more about spell check in vim, read <code class="language-plaintext highlighter-rouge">:h spell</code>.</p>
+
+<h2 id="discovering-new-commands">Discovering new commands</h2>
+
+<ul>
+  <li>Press <code class="language-plaintext highlighter-rouge">&lt;C-d&gt;</code> while in commandline mode to show the possible autocomplete
+commands</li>
+</ul>
+
+<p><em>This is the end of Part 4 on <a href="#part4">manipulating text</a>.</em></p>
+
+<hr />
+
+<p><a name="part5"></a></p>
+<h1 id="part-5-my-vimrc">Part 5: My vimrc</h1>
+
+<p>For those who are unfamiliar, you specify your vim customizations in a file
+called <code class="language-plaintext highlighter-rouge">.vimrc</code> that you put in your home directory. While I’m still far from
+an expert on how to customize vim, I have made some modifications that have
+eased my transition process and saved me from unnecessary keystrokes. For
+convenience, I keep <a href="https://github.com/cyrusstoller/dotfiles/blob/master/vimrc">my vimrc</a> on github, so it’s the same on every
+computer and server I use. Instead of just copying mine, I’d recommend building
+your own from scratch. The process will help you to solidify your understanding
+of how vim works.</p>
+
+<p>There are three main things that I do in <a href="https://github.com/cyrusstoller/dotfiles/blob/master/vimrc">my vimrc</a>.</p>
+
+<ol>
+  <li><strong>Setting variables</strong>
+    <ul>
+      <li>For example: I’ve added <code class="language-plaintext highlighter-rouge">set hlsearch</code> to highlight all of the  search
+ results.</li>
+    </ul>
+  </li>
+  <li><strong>Mapping keystrokes</strong>
+    <ul>
+      <li>For example: I’ve added <code class="language-plaintext highlighter-rouge">inoremap &lt;C-e&gt; &lt;esc&gt;$a</code> to add some of my emacs
+ muscle memory to insert mode.</li>
+    </ul>
+  </li>
+  <li><strong>Installing plugins</strong> to bring some of the niceties that I’ve come to
+expect from other text editors, like colorschemes and automatching
+parentheses.</li>
+</ol>
+
+<p>Be patient as you build your vimrc; it’s a highly iterative process that’ll
+never <em>really</em> be finished. I’d recommend asking others what they’ve put in
+theirs and searching through github for sample vimrc files. It’s a great way to
+learn.</p>
+
+<p>Once you’ve established certain settings like your <code class="language-plaintext highlighter-rouge">textwidth</code>, you can make
+use of commands like <code class="language-plaintext highlighter-rouge">gq</code>, which reformats your text to fit within a specified
+number of columns. I used to grumble about how tedious it is to make text fit
+within the 79 character limit to comply with the team styleguide, but with this
+command, it’s just a matter of a few keystrokes.</p>
+
+<p><em>This is the end of Part 5 on <a href="#part5">my vimrc</a>.</em></p>
+
+<hr />
+
+<p><a name="part6"></a></p>
+<h1 id="part-6-installing-plugins">Part 6: Installing plugins</h1>
+
+<p>Like with other text editors, vim has a vibrant community of plugins. These
+range from easier methods of file navigations (e.g. <a href="https://github.com/scrooloose/nerdtree">NERDTree</a>, and
+<a href="https://github.com/ctrlpvim/ctrlp.vim">Ctrl-p</a>) to colorschemes to syntax highlighting. As with building your
+vimrc, I’d recommend adding them slowly, instead of adding them all at once. To
+manage the process of installing, updating, and removing plugins, I’d recommend
+that you use a plugin manager. I happened to settle on <a href="https://github.com/VundleVim/Vundle.vim">Vundle</a>, but
+there are others (e.g. <a href="https://github.com/tpope/vim-pathogen">Pathogen</a>, <a href="https://github.com/junegunn/vim-plug">Plug</a>, and
+<a href="https://github.com/Shougo/neobundle.vim">NeoBundle</a>) that I’m sure work just as well. Each allows you to
+define the plugins you want to use in your vimrc file.</p>
+
+<p>As with many things on the internet, there’s basically a plugin for anything
+you can imagine. Before you spend too long customizing your vimrc, check that a
+plugin doesn’t already exist. I often add a new plugin when I’m starting to
+work on a programming project in a new programming language so I can pick up
+syntax highlighting. For example, after installing <a href="https://github.com/leafgarland/typescript-vim">typescript-vim</a> and
+<a href="https://github.com/Quramy/tsuquyomi">tsuquyomi</a>, getting started with typescript was pretty painless.</p>
+
+<p><em>This is the end of Part 6 on <a href="#part6">installing plugins</a>.</em></p>
+
+<hr />
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>I hope that this post has helped you understand how to think about vim and
+given you an overview of the things you’ll need to learn to start feeling
+productive using it. Be patient; the learning curve is pretty steep. While I
+still have a long way to go, I feel like the effort has been worth it. If you
+have suggestions for things I can clarify or things that I should add, please
+get in touch. Happy hacking.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 05 Mar 2018</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">4531 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

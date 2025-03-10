@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | When does data become identifiable?</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2020/08/05/when-does-data-become-identifiable">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>When does data become identifiable?</h1>
+
+<div id="post">
+  <p>Issues regarding data privacy have become increasingly important as tech
+companies continue to develop new ways of monetizing the information they have
+gathered about their users. In response, many new privacy regulations are being
+instituted around the world, from <a href="https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act">CCPA</a> in California to <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation">GDPR</a>
+in Europe. At the heart of these laws is what constitutes personally
+identifiable information.</p>
+
+<p><strong>tl;dr</strong> The legal definition of personal information is vague and difficult to
+apply.</p>
+
+<blockquote>
+  <p>CCPA defines “<a href="https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201720180AB375">personal information</a>” as “information that
+identifies, relates to, describes, is capable of being associated with, or
+could reasonably be linked, directly or indirectly, with a particular
+consumer or household.” And, GDPR defines “<a href="https://gdpr-info.eu/art-4-gdpr/">personal data</a>” as “any
+information relating to an identified or identifiable natural person (‘data
+subject’); an identifiable natural person is one who can be identified,
+directly or indirectly, in particular by reference to an identifier such as a
+name, an identification number, location data, an online identifier or to one
+or more factors specific to the physical, physiological, genetic, mental,
+economic, cultural or social identity of that natural person.”</p>
+</blockquote>
+
+<p>Determining identifiability in some cases is obvious. For example, if a user
+provides their social security number, because each number is associated with a
+specific individual, then it’s pretty clear that that’s personal information.
+On the other hand, if a user fills out a multiple choice survey that is
+submitted anonymously without any attached metadata, then it’s reasonably safe
+to assume that it’s not personally identifiable (presuming there are a
+sufficient number of survey-takers). But, most cases fall somewhere in between
+these two extremes.</p>
+
+<p>In this post, I’ll highlight a distinction that seems to be missing between
+these two extremes. The current definitions have an inadequate level of
+specificity regarding personal information. This means that many types of data
+may not receive necessary protections (leaving some data vulnerable) and some
+may receive unnecessary protection (potentially impeding beneficial
+innovation). All of this is to say that different levels of identifiability
+aren’t black and white. We need to shift our mindset to evaluate
+identifiability on a spectrum.</p>
+
+<p><em>Note: The harms of data misuse or lack of protection are well documented. This
+post is focused on exploring how to answer the question of whether given data
+is identifiable.</em></p>
+
+<h2 id="inferred-data">Inferred data</h2>
+
+<p>Data can be used to infer information that you’d reasonably expect to be kept
+private, including sensitive data (e.g., health status and credit-worthiness)
+and information about race, sex, religion etc … (which are protected classes in
+the American legal system). This is important because sensitive data, “suspect
+class” data, or other seemingly-benign data can be used in discriminatory ways.
+<a href="https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418831/">Here</a> <a href="https://www.amazon.com/Algorithms-Oppression-Search-Engines-Reinforce/dp/1479837245/">are</a> <a href="https://nypost.com/2019/05/18/chinas-new-social-credit-system-turns-orwells-1984-into-reality/">some</a> <a href="https://www.theguardian.com/technology/2017/sep/07/new-artificial-intelligence-can-tell-whether-youre-gay-or-straight-from-a-photograph">examples</a>.</p>
+
+<p>In other words, data can implicitly be used to identify characteristics about a
+user that they may not have intended or wanted to share. In isolation a single
+data point may not be useful in identifying someone, but when taken together, a
+constellation of data points can create a recognizable pattern. This should not
+be surprising anymore as we have all become accustomed to ad targeting being
+eerily in sync with our interests. Read more <a href="https://www.forbes.com/sites/kashmirhill/2012/02/16/how-target-figured-out-a-teen-girl-was-pregnant-before-her-father-did/">here</a>.</p>
+
+<h3 id="example-of-the-challenge-of-identifiability-voice-data">Example of the challenge of identifiability: voice data</h3>
+
+<p>With the rise of personal assistants like Siri, Alexa, Google Assistant, Portal
+etc … we are handing over more voice data than ever before. Should a short
+voice recording (that is unlabeled and unmorphed) be considered personally
+identifiable? If this kind of short audio recording were shared with the
+broader organization collecting the data (e.g., Apple, Amazon, Google,
+Facebook, etc …, or a hacker), it would be hard to match this audio recording
+to a specific person. However, if I heard a short recording of my own voice, I
+would likely be able to identify it as my own.</p>
+
+<p>On the other hand, a longer audio clip where users provide context clues that
+can be used to identify them would be a different story. It seems clear that
+the broader organization collecting the data (e.g., Apple, Amazon, Google,
+Facebook, etc …, or a hacker) would be able to easily identify the user who
+created the recording with minimal effort.</p>
+
+<p>It seems inappropriate for there to be a one size fits all approach to these
+two voice recordings. Both voice files can be personally identified, given the
+right contextual information and technological capabilities. The challenge is
+that big tech companies, non-tech companies, and other potential adversaries
+have different capabilities to identify people based on their voices. Because
+of this, regulations should strive to incorporate nuance between these
+different types of identifiability.</p>
+
+<h2 id="proposed-distinction-p-vs-np-style-data">Proposed distinction: P vs NP-style data</h2>
+
+<p>In describing these different types of information, it reminded me of the
+distinction between what computer scientists refer to as <a href="https://en.wikipedia.org/wiki/P_versus_NP_problem">P and NP
+problems</a>.</p>
+
+<p>In layman’s terms, the solution to a P problem can be found in polynomial time.
+In other words, given a set of inputs, I can use a simple algorithm to find a
+solution. In the case of personally identifiable data, that would mean, if I am
+given a data sample, I can run a reasonably straightforward model to determine
+who the data belongs to. In its simplest form, this would mean looking at the
+unique identifier associated with it. In a slightly more complicated example,
+this may mean computing a faceprint from an image and then comparing that to a
+database of faceprints to identify the person in the photo. There may be some
+margin for error, but this process should never devolve into a brute force
+exercise.</p>
+
+<p>On the other hand, with an NP problem, I can identify whether a proposed
+solution is valid in polynomial time. The key distinction here is that for an
+NP problem, I cannot necessarily find a solution in polynomial time, but I can
+verify that a solution is valid in polynomial time. For example, I can easily
+tell when a <a href="http://erikdemaine.org/papers/Jigsaw_GC/paper.pdf">jigsaw puzzle</a> has been solved correctly, but I cannot
+easily solve a jigsaw puzzle by simply looking at the pieces. Alternatively,
+presume that a model can detect that the same person is speaking in two
+recordings. Then, you can quickly identify that there is a match. But, if you
+only have one recording it’s much harder to determine who is speaking in the
+recording.</p>
+
+<p>While both types of information may be personally identifiable, I would argue
+that in my analogy, personally identifiable information in the “P-style
+problem” space should be granted a heightened level of privacy protection. In
+other words, whether under CCPA or GDPR, there should be an expectation for
+consumers that this type of personally identifiable information be deleted upon
+request. On the other hand, if data is “NP personally identifiable” I think
+that companies should be granted more slack if they lack the necessary
+contextual information and technological capability to make the match.</p>
+
+<p>When thinking about the risk profile for these different types of information,
+it seems clear that “P-style personally identifiable information” can be easily
+linked to a specific person even with limited sophistication. This is
+particularly worrisome since this type of data may be divulged as part of data
+breach to the open internet. This means that an individual with a vendetta
+could weaponize this data relatively anonymously, meaning that those who
+suffered harm would be less likely to find a remedy through the justice system
+for this harm.</p>
+
+<p>On the other hand, for “NP-style personally identifiable information” to be
+used, an organization would need to be able to contextualize that data. For a
+given data set, due to practicalities, only a limited number of companies and
+state actors have these capabilities. Oftentimes, these organizations will be
+large companies that have a large corpus of data; but, there may also be small
+companies that have the necessary data for contextualization (e.g., a data set
+about a company’s employees).</p>
+
+<p>The current critiques of big tech companies regarding data protection are
+warranted, but identifiability isn’t only contingent on having large data sets.
+As discussed earlier, an organization only needs to have the right contextual
+information to identify the data.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Currently, personally identifiable information is generally treated as a single
+classification. How to treat P-style data within this framework is clear; <strong>the
+question is how to approach NP-style data</strong>. With greater nuance, regulations
+can be more impactful and enforceable, giving individuals more control of their
+data.</p>
+
+<p>In the absence of clear guidance, a likely default is for companies to adopt
+the least restrictive approach since they have a clear incentive to minimize
+risk by labeling as little data as possible as “personally identifiable” and
+therefore avoiding regulatory requirements.</p>
+
+<p>I’d love to hear your thoughts on whether this distinction would be helpful in
+crafting your internal data practices.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 05 Aug 2020</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">1452 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Reflection/">Reflection</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

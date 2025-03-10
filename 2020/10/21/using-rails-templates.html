@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Using Rails templates</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2020/10/21/using-rails-templates">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Using Rails templates</h1>
+
+<div id="post">
+  <p>One of the hardest parts of starting a new project (of any kind) is the initial
+setup. Code generators have helped me to overcome this mental friction when
+working with software. In this tutorial, I’ll share how I’ve constructed
+my Rails template to jumpstart my development process and quickly start digging
+into the features that make a particular project unique instead of getting
+bogged down writing boilerplate code.</p>
+
+<blockquote>
+  <p><strong>Rule of thumb</strong>: if I find myself doing the same thing for the third time, I
+automate it.</p>
+</blockquote>
+
+<p>If you haven’t used Rails templates before, I highly recommend reading the
+<a href="https://guides.rubyonrails.org/rails_application_templates.html">official guide</a>. I wish someone had told me to read this
+when I was first learning Rails.</p>
+
+<h2 id="structuring-my-template-file">Structuring my template file</h2>
+
+<p>When setting up a new Rails project I have a checklist of things I need to do
+regardless of what makes the project unique:</p>
+
+<ul>
+  <li><a href="#installing-dependencies">Installing dependencies</a></li>
+  <li><a href="#setting-up-basic-layouts-and-font-awesome">Setting up basic layouts and adding font awesome</a></li>
+  <li><a href="#adding-js-to-power-disappearing-flash-messages-and-hamburger-menus">Adding js to power disappearing flash messages and hamburger menus</a></li>
+  <li><a href="#configuring-user-authentication">Configuring user authentication</a></li>
+  <li><a href="#adding-user-authorization">Adding user authorization / permissioning</a></li>
+  <li><a href="#adding-pagination">Adding pagination</a></li>
+  <li><a href="#setting-up-transactional-email">Setting up transactional email</a></li>
+  <li><a href="#setting-up-workers-for-background-jobs">Setting up workers for background jobs</a></li>
+  <li><a href="#configuring-vuejs-with-webpacker">Configuring Vue.js with webpacker</a></li>
+  <li><a href="#updating-the-scaffold-generator">Updating the scaffold generator to match my layout</a></li>
+</ul>
+
+<p>Fortunately, a Rails template is just a plain <code class="language-plaintext highlighter-rouge">ruby</code> <a href="https://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>. The one I’ll
+show you uses <code class="language-plaintext highlighter-rouge">fileutils</code> and <code class="language-plaintext highlighter-rouge">shellwords</code>, so it can be loaded locally or from
+the web, which is a trick I learned from
+<a href="https://github.com/mattbrictson/rails-template">mattbrictson/rails-template</a>
+on Github. In effect, the template will clone its own git repo into a temp
+directory if it’s being loaded from the web, so the file structure of the
+repository can be used by Thor actions like <code class="language-plaintext highlighter-rouge">copy_file</code>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add_template_repository_to_source_path</span>
+  <span class="k">if</span> <span class="kp">__FILE__</span> <span class="o">=~</span> <span class="sr">%r{</span><span class="se">\A</span><span class="sr">https?://}</span>
+    <span class="n">git_repo</span> <span class="o">=</span> <span class="s2">"&lt;&lt;LINK TO YOUR TEMPLATE REPO&gt;&gt;"</span>
+
+    <span class="nb">require</span> <span class="s2">"tmpdir"</span>
+    <span class="n">source_paths</span><span class="p">.</span><span class="nf">unshift</span><span class="p">(</span><span class="n">tempdir</span> <span class="o">=</span> <span class="no">Dir</span><span class="p">.</span><span class="nf">mktmpdir</span><span class="p">(</span><span class="s2">"jumpstart-"</span><span class="p">))</span>
+    <span class="nb">at_exit</span> <span class="p">{</span> <span class="no">FileUtils</span><span class="p">.</span><span class="nf">remove_entry</span><span class="p">(</span><span class="n">tempdir</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">git</span> <span class="ss">clone: </span><span class="p">[</span>
+      <span class="s2">"--quiet"</span><span class="p">,</span>
+      <span class="n">git_repo</span><span class="p">,</span>
+      <span class="n">tempdir</span>
+    <span class="p">].</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:shellescape</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s2">" "</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">branch</span> <span class="o">=</span> <span class="kp">__FILE__</span><span class="p">[</span><span class="sr">%r{&lt;&lt;REPO_NAME&gt;&gt;/(.+)/template.rb}</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+      <span class="no">Dir</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="n">tempdir</span><span class="p">)</span> <span class="p">{</span> <span class="n">git</span> <span class="ss">checkout: </span><span class="n">branch</span> <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">else</span>
+    <span class="n">source_paths</span><span class="p">.</span><span class="nf">unshift</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="basic-file-structure">Basic file structure</h2>
+
+<p>If you’ve worked with Rails, this file structure should look familiar. By
+closely mirroring the standard Rails file structure, it’s easy to keep files up
+to date.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">.</span>
+├── Procfile <span class="c"># To make it easy to deploy to Heroku</span>
+├── README.md
+├── app
+│   ├── assets <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+│   ├── helpers <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+│   ├── javascript <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+│   ├── models <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+│   ├── policies <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+│   └── views <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+├── config
+│   ├── cable.yml
+│   ├── initializers <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+│   ├── locales <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+│   └── sidekiq.yml
+├── <span class="nb">env</span>
+├── lib
+│   └── templates <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+├── ruby-version
+├── template.rb <span class="c"># Where the main logic lives</span>
+└── <span class="nb">test</span>
+    ├── controllers <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+    ├── fixtures <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+    └── policies <span class="o">(</span><span class="k">*</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Subdirectories in <code class="language-plaintext highlighter-rouge">app</code>, <code class="language-plaintext highlighter-rouge">config</code>, <code class="language-plaintext highlighter-rouge">lib</code>, and <code class="language-plaintext highlighter-rouge">test</code> will be copied directly
+into the new Rails project. In this tutorial, I’ll go through some examples
+to give you an idea of how to do this, but since these are a matter of
+preference, you’ll probably be best served writing these yourself.</p>
+
+<hr />
+
+<h2 id="installing-dependencies">Installing dependencies</h2>
+
+<p>Here are some methods that I’ve written in <code class="language-plaintext highlighter-rouge">template.rb</code> to install common
+dependencies for my Rails projects.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add_root_directory_files</span>
+  <span class="n">copy_file</span> <span class="s2">"env"</span><span class="p">,</span> <span class="s2">".env"</span> 
+  <span class="n">copy_file</span> <span class="s2">"Procfile"</span> 
+
+  <span class="n">template</span> <span class="s2">"ruby-version.tt"</span><span class="p">,</span> <span class="s2">".ruby-version"</span><span class="p">,</span> <span class="ss">force: </span><span class="kp">true</span>
+  <span class="n">append_to_file</span> <span class="s2">".gitignore"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">.env*</span><span class="se">\n</span><span class="s2">!.env.example"</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">add_dependencies</span>
+  <span class="n">gem</span> <span class="s1">'devise'</span>
+  <span class="n">gem</span> <span class="s1">'font-awesome-sass'</span>
+  <span class="n">gem</span> <span class="s1">'friendly_id'</span>
+  <span class="n">gem</span> <span class="s1">'kaminari'</span>
+  <span class="n">gem</span> <span class="s1">'pundit'</span>
+  <span class="n">gem</span> <span class="s1">'sidekiq'</span>
+
+  <span class="n">run</span> <span class="s2">"yarn add bulma"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>I’ve found that I prefer the following included in my local <code class="language-plaintext highlighter-rouge">.env</code> file. I
+imagine you’ll find that you have preferences you’ll want included as well.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># env</span>
+<span class="nv">RACK_ENV</span><span class="o">=</span>development
+<span class="nv">RUBYOPT</span><span class="o">=</span><span class="s1">'-W:no-deprecated -W:no-experimental'</span>
+</code></pre></div></div>
+
+<p>Once these files are in place, the gems need to be installed and the remaining
+commands will be run inside the following block:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">after_bundle</span> <span class="k">do</span>
+  <span class="c1"># add code generators described below here</span>
+
+  <span class="n">rails_command</span> <span class="s2">"db:create"</span>
+  <span class="n">rails_command</span> <span class="s2">"db:migrate"</span>
+  <span class="n">git</span> <span class="ss">:init</span>
+  <span class="n">git</span> <span class="ss">add: </span><span class="s2">"."</span>
+  <span class="n">git</span> <span class="ss">commit: </span><span class="sx">%Q{ -m 'Initial commit' }</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="setting-up-basic-layouts-and-font-awesome">Setting up basic layouts and font awesome</h2>
+
+<p>For every Rails project that I work on, I find that I start by adding these
+files.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">copy_templates</span>
+  <span class="n">run</span> <span class="s2">"rm app/assets/stylesheets/application.css"</span>
+
+  <span class="n">directory</span> <span class="s2">"app"</span><span class="p">,</span> <span class="ss">force: </span><span class="kp">true</span>
+  <span class="n">directory</span> <span class="s2">"config"</span><span class="p">,</span> <span class="ss">force: </span><span class="kp">true</span>
+  <span class="n">directory</span> <span class="s2">"lib"</span><span class="p">,</span> <span class="ss">force: </span><span class="kp">true</span>
+  <span class="n">directory</span> <span class="s2">"test"</span><span class="p">,</span> <span class="ss">force: </span><span class="kp">true</span>
+
+  <span class="c1"># These templates incorporate the name of the project</span>
+  <span class="n">template</span> <span class="s2">"app/helpers/shared_helper.rb.tt"</span>
+  <span class="n">template</span> <span class="s2">"app/views/layouts/_header.html.erb.tt"</span>
+  <span class="n">template</span> <span class="s2">"app/views/layouts/_social_headers.html.erb.tt"</span>
+  <span class="n">template</span> <span class="s2">"app/views/users/mailer/confirmation_instructions.html.erb.tt"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then, I always add a couple static pages: one to serve as a landing page and
+one to explain what the web application does.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_pages_controller</span>
+  <span class="n">generate</span> <span class="s2">"controller pages home about"</span>
+  <span class="n">route</span> <span class="s2">"get 'home', to: 'pages#home'"</span>
+  <span class="n">route</span> <span class="s2">"get 'about', to: 'pages#about'"</span>
+
+  <span class="n">gsub_file</span> <span class="s2">"config/routes.rb"</span><span class="p">,</span> <span class="s2">"get 'pages/home'</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">""</span>
+  <span class="n">gsub_file</span> <span class="s2">"config/routes.rb"</span><span class="p">,</span> <span class="s2">"get 'pages/about'</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">""</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="adding-js-to-power-disappearing-flash-messages-and-hamburger-menus">Adding js to power disappearing flash messages and hamburger menus</h2>
+
+<p>This is included in <code class="language-plaintext highlighter-rouge">app/javascript/packs/</code> directory that was copied over in
+<code class="language-plaintext highlighter-rouge">copy_templates</code> described above.</p>
+
+<h2 id="configuring-user-authentication">Configuring user authentication</h2>
+
+<p>With <a href="https://github.com/heartcombo/devise">Devise</a> already installed above, this code ensures that it’s been
+configured properly. I’ve found that I often customize the controller logic and
+want the ability to designate certain users as admins. <em>Note:</em> The production
+mail url options still need to be configured once a domain has been
+procured.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_user_model_and_controllers</span>
+  <span class="c1"># Install Devise</span>
+  <span class="n">generate</span> <span class="s2">"devise:install"</span>
+
+  <span class="c1"># Configure Devise</span>
+  <span class="n">environment</span> <span class="s2">"config.action_mailer.default_url_options ="</span> <span class="o">+</span>
+    <span class="s2">" { host: 'localhost', port: 5000 }"</span><span class="p">,</span> <span class="ss">env: </span><span class="s1">'development'</span>
+  <span class="n">environment</span> <span class="s2">"#config.action_mailer.default_url_options ="</span> <span class="o">+</span> 
+    <span class="s2">" { host: 'localhost' }"</span><span class="p">,</span> <span class="ss">env: </span><span class="s1">'production'</span>
+  <span class="n">route</span> <span class="s2">"root to: 'pages#home'"</span>
+
+  <span class="c1"># Create Devise User</span>
+  <span class="n">generate</span> <span class="ss">:devise</span><span class="p">,</span> <span class="s2">"User"</span><span class="p">,</span> <span class="s2">"admin:integer"</span>
+
+  <span class="c1"># Set admin default to false</span>
+  <span class="n">in_root</span> <span class="k">do</span>
+    <span class="n">migration</span> <span class="o">=</span> <span class="no">Dir</span><span class="p">.</span><span class="nf">glob</span><span class="p">(</span><span class="s2">"db/migrate/*"</span><span class="p">).</span><span class="nf">max_by</span><span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="no">File</span><span class="p">.</span><span class="nf">mtime</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">gsub_file</span> <span class="n">migration</span><span class="p">,</span> <span class="sr">/:admin/</span><span class="p">,</span> <span class="s2">":admin, default: 0"</span>
+    <span class="n">gsub_file</span> <span class="n">migration</span><span class="p">,</span> <span class="sr">/\# t/</span><span class="p">,</span> <span class="s2">"t"</span> <span class="c1"># uncommenting columns</span>
+    <span class="n">gsub_file</span> <span class="n">migration</span><span class="p">,</span> <span class="sr">/\# a/</span><span class="p">,</span> <span class="s2">"a"</span> <span class="c1"># uncommenting indices</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Using explicit controllers</span>
+  <span class="n">generate</span> <span class="s2">"devise:controllers"</span><span class="p">,</span> <span class="s2">"users"</span>
+
+  <span class="n">gsub_file</span> <span class="s2">"config/routes.rb"</span><span class="p">,</span> <span class="s2">"devise_for :users"</span><span class="p">,</span>
+  <span class="sx">%Q(devise_for :users, controllers: {
+    confirmations: 'users/confirmations',
+    invitations: 'users/invitations',
+    # omniauth_callbacks: 'users/omniauth_callbacks',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    unlocks: 'users/unlocks'
+  })</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="adding-user-authorization">Adding user authorization</h2>
+
+<p>This logic configures <a href="https://github.com/varvet/pundit">Pundit</a> to check user permissions and adds 
+helper methods to make writing tests easier.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">install_pundit</span>
+  <span class="n">insert_into_file</span> <span class="s2">"app/controllers/application_controller.rb"</span><span class="p">,</span>
+    <span class="s2">"</span><span class="se">\n</span><span class="s2">  include Pundit"</span><span class="p">,</span>
+    <span class="ss">after: </span><span class="s2">"class ApplicationController &lt; ActionController::Base"</span>
+  <span class="n">insert_into_file</span> <span class="s2">"app/controllers/application_controller.rb"</span><span class="p">,</span>
+    <span class="s2">"</span><span class="se">\n</span><span class="s2">  protect_from_forgery"</span><span class="p">,</span>
+    <span class="ss">after: </span><span class="s2">"include Pundit"</span>
+
+  <span class="n">generate</span> <span class="s2">"pundit:install"</span>
+
+  <span class="c1"># Add convenience methods to the test_helper</span>
+
+  <span class="n">convenience_class</span> <span class="o">=</span> <span class="sx">%q{
+class PolicyTest &lt; ActiveSupport::TestCase
+  def permit(current_user, record, action)
+    self.class.to_s.gsub(/Test/, '').constantize
+      .new(current_user, record).public_send("#{action.to_s}?")
+  end
+
+  def forbid(current_user, record, action)
+    !permit(current_user, record, action)
+  end
+end}</span>
+
+  <span class="n">append_to_file</span> <span class="s2">"test/test_helper.rb"</span><span class="p">,</span> <span class="n">convenience_class</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="adding-pagination">Adding pagination</h2>
+
+<p>For my installation, all of the customization is present in
+<code class="language-plaintext highlighter-rouge">app/views/kaminari/</code>.</p>
+
+<h2 id="setting-up-transactional-email">Setting up transactional email</h2>
+
+<p>To support Sendgrid, I add the following so that I can easily use the Heroku
+Add-on:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config/initializers/setup_mail.rb</span>
+<span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">smtp_settings</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">:user_name</span> <span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'SENDGRID_USERNAME'</span><span class="p">],</span>
+  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'SENDGRID_PASSWORD'</span><span class="p">],</span>
+  <span class="ss">:domain</span> <span class="o">=&gt;</span> <span class="s1">'localhost'</span><span class="p">,</span>
+  <span class="ss">:address</span> <span class="o">=&gt;</span> <span class="s1">'smtp.sendgrid.net'</span><span class="p">,</span>
+  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="mi">587</span><span class="p">,</span>
+  <span class="ss">:authentication</span> <span class="o">=&gt;</span> <span class="ss">:plain</span><span class="p">,</span>
+  <span class="ss">:enable_starttls_auto</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h2 id="setting-up-workers-for-background-jobs">Setting up workers for background jobs</h2>
+
+<p>This will configure <a href="https://github.com/mperham/sidekiq">Sidekiq</a> with
+ActiveJob and mount the dashboard in the routes file.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add_sidekiq</span>
+  <span class="n">environment</span> <span class="s2">"config.active_job.queue_adapter = :sidekiq"</span>
+
+  <span class="n">insert_into_file</span> <span class="s2">"config/routes.rb"</span><span class="p">,</span>
+    <span class="s2">"require 'sidekiq/web'</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span>
+    <span class="ss">before: </span><span class="s2">"Rails.application.routes.draw do"</span>
+
+  <span class="n">insert_into_file</span> <span class="s2">"config/routes.rb"</span><span class="p">,</span>
+    <span class="s2">"  authenticate :user, lambda { |u| u.admin? } do</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span>
+    <span class="s2">"    mount Sidekiq::Web =&gt; '/sidekiq'</span><span class="se">\n</span><span class="s2">  end</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span>
+    <span class="ss">after: </span><span class="s2">"https://guides.rubyonrails.org/routing.html</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">update_test_helper</span>
+  <span class="n">insert_into_file</span> <span class="s2">"test/test_helper.rb"</span><span class="p">,</span> <span class="s2">"require 'minitest/autorun'</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span>
+    <span class="s2">"require 'sidekiq/testing'</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span>
+    <span class="ss">before: </span><span class="s2">"class ActiveSupport::TestCase"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="configuring-vuejs-with-webpacker">Configuring Vue.js with webpacker</h2>
+
+<p>This adds <a href="https://vuejs.org/">Vue.js</a> to webpacker and supports it working in conjunction
+with <a href="https://github.com/turbolinks/turbolinks">Turbolinks</a>. You can learn more about the split chunks
+configuration
+<a href="https://github.com/rails/webpacker/blob/master/docs/v4-upgrade.md#splitchunks-configuration">here</a>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add_vuejs</span>
+  <span class="n">rails_command</span> <span class="s1">'webpacker:install:vue'</span>
+
+  <span class="c1"># Remove base files</span>
+  <span class="n">run</span> <span class="s2">"rm app/javascript/app.vue"</span>
+  <span class="n">run</span> <span class="s2">"rm app/javascript/packs/application.js"</span>
+  <span class="n">run</span> <span class="s2">"rm app/javascript/packs/hello_vue.js"</span>
+
+  <span class="n">run</span> <span class="s2">"yarn add vue vue-loader vue-turbolinks"</span>
+
+  <span class="n">insert_into_file</span> <span class="s2">"config/webpack/environment.js"</span><span class="p">,</span>
+    <span class="s2">"const WebpackAssetsManifest = require('webpack-assets-manifest')</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span>
+    <span class="ss">before: </span><span class="s2">"module.exports = environment"</span>
+  <span class="n">insert_into_file</span> <span class="s2">"config/webpack/environment.js"</span><span class="p">,</span>
+    <span class="s2">"environment.splitChunks()</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span>
+    <span class="ss">before: </span><span class="s2">"module.exports = environment"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>To make Vue.js play nice with Turbolinks, <a href="/2017/09/22/how-to-use-vuejs-in-a-rails-project-with-turbolinks">I add the following</a>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/javascripts/packs/vue_container.js</span>
+
+<span class="c1">// import axios from 'axios'</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue/dist/vue.esm</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">TurbolinksAdapter</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-turbolinks</span><span class="dl">'</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">TurbolinksAdapter</span><span class="p">)</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="c1">// Vue.prototype.$http = axios</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">turbolinks:load</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// const csrfTokenEl = document.querySelector('meta[name="csrf-token"]')</span>
+  <span class="c1">// axios.defaults.headers.common = {</span>
+  <span class="c1">//   "Accept": "application/json, text/plain, */*",</span>
+  <span class="c1">//   "X-CSRF-Token": csrfTokenEl.getAttribute('content'),</span>
+  <span class="c1">//   "X-Requested-With": "XMLHttpRequest"</span>
+  <span class="c1">// }</span>
+
+  <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">[vue-enabled]</span><span class="dl">'</span><span class="p">)</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">container</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vue</span><span class="p">({</span>
+    <span class="p">}).</span><span class="nf">$mount</span><span class="p">(</span><span class="nx">container</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="updating-the-scaffold-generator">Updating the scaffold generator</h2>
+
+<p>Add the relevant template files in <code class="language-plaintext highlighter-rouge">lib/templates/erb/scaffold/</code>. In my case,
+I’ve written some files to make it so that the generated forms make use of
+<a href="https://bulma.io/">Bulma</a> CSS classes.</p>
+
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This isn’t a lot of code. But, it makes it much easier to start building a
+prototype that may still be a fragile idea in my head. I think this type of
+setup without automation used to take me a couple hours. Now it’s just a few
+minutes. I hope this will help you feel more inclined to experiment and spend
+more time building. Happy hacking.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 21 Oct 2020</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">2070 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

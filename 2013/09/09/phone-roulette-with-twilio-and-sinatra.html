@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Building 'Phone Roulette' with Twilio & Sinatra</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2013/09/09/phone-roulette-with-twilio-and-sinatra">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Building 'Phone Roulette' with Twilio & Sinatra</h1>
+
+<div id="post">
+  <p>This weekend, I made <code class="language-plaintext highlighter-rouge">Phone Roulette</code> for fun. I wanted to experiment with the <a href="https://www.twilio.com/voice/api" title="Twilio API">Twilio API</a>, and this
+seemed like a good bite size project for me to get my feet wet. 
+I was surprised that over 200 people called the number I setup, <em>(480) 878-7813</em>.</p>
+
+<h2 id="lets-get-started">Let’s get started</h2>
+
+<p>In this blog post I’ll explain how to write a simple <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> application called <em>Phone Roulette</em> (<a href="https://github.com/cyrusstoller/phone_roulette">github repo</a>).
+Here’s the minimal spec:</p>
+
+<ol>
+  <li>Users call a designated phone number</li>
+  <li>Each user is then connected to another user who called the same phone number</li>
+  <li>Ideally, users will be able to press a button on their keypad to start talking to someone else</li>
+</ol>
+
+<p>For our application, we’re using many of the components one would use when writing the business logic for a call center.
+In a call center, you have callers who wait in queue to be connected to customer support agents.
+In our application, we have incoming calls that we need to dispatch to other callers.</p>
+
+<h2 id="installing-gems">Installing Gems</h2>
+
+<p>Here is the basic directory structure we’ll need to deploy this application for free using <a href="https://heroku.com/" title="Heroku">Heroku</a>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>phone_roulette
+├── Gemfile
+├── Gemfile.lock
+├── README.md
+├── config.ru
+├── phone_roulette.rb
+├── tmp
+└── views
+    ├── _welcome.erb
+    ├── about_to_connect.erb
+    ├── agent_call.erb
+    └── customer_call.erb
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Gemfile</code> is where you specify third party libraries, called <code class="language-plaintext highlighter-rouge">gems</code>, used in your <code class="language-plaintext highlighter-rouge">ruby</code> project.
+The <a href="https://www.ruby-toolbox.com/categories/by_name" title="Ruby Toolbox">Ruby Toolbox</a> is great place to discover new <code class="language-plaintext highlighter-rouge">gems</code>. I like that you can easily
+browse by category and see whether a project is still being actively developed.</p>
+
+<p>Put the following into your <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## Gemfile ##</span>
+<span class="n">source</span> <span class="s1">'https://rubygems.org'</span> <span class="c1"># where should bundler look for these gems</span>
+<span class="n">ruby</span> <span class="s1">'2.0.0'</span> <span class="c1"># version of ruby - not critical but I like to make it explicit</span>
+<span class="n">gem</span> <span class="s1">'sinatra'</span> <span class="c1"># installing the Sinatra framework</span>
+<span class="n">gem</span> <span class="s1">'thin'</span> <span class="c1"># a simple rack server that will receive web requests</span>
+<span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'shotgun'</span> <span class="c1"># to auto reload our app when we make changes in development</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>From inside your <code class="language-plaintext highlighter-rouge">photo_roulette</code> directory run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>If that doesn’t work, you may need to first run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> gem <span class="nb">install </span>bundler
+</code></pre></div></div>
+
+<p>Using <code class="language-plaintext highlighter-rouge">sudo</code> may be optional depending on how your system is setup. Once you have successfully run the <code class="language-plaintext highlighter-rouge">bundle</code>
+command you should see a <code class="language-plaintext highlighter-rouge">Gemfile.lock</code> file. <a href="http://bundler.io/" title="Bundler">Bundler</a> records the specific versions of the gems you are 
+using in the <code class="language-plaintext highlighter-rouge">Gemfile.lock</code>, this will prevent version incompatibilities as new versions of <code class="language-plaintext highlighter-rouge">gems</code> are released.</p>
+
+<h2 id="rack">Rack</h2>
+
+<p>Now that we have the <code class="language-plaintext highlighter-rouge">gems</code> we need installed, let’s get <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> setup to accept requests.</p>
+
+<p>Sinatra is <a href="http://en.wikipedia.org/wiki/Domain-specific_language" title="Domain Specific Language">DSL</a> for creating <a href="http://rack.github.io/" title="Rack">Rack</a>-based applications. To run <a href="http://rack.github.io/" title="Rack">Rack</a> applications on <a href="https://heroku.com/" title="Heroku">Heroku</a> 
+we need to provide a rackup file called <code class="language-plaintext highlighter-rouge">config.ru</code>. The <code class="language-plaintext highlighter-rouge">config.ru</code> is just a ruby file, but it has an <code class="language-plaintext highlighter-rouge">ru</code> extension to mark 
+that it is a rackup file. To learn more, check out the <a href="https://github.com/rack/rack/wiki/" title="Rack Wiki">rack-wiki</a>.</p>
+
+<p>Put the following in your <code class="language-plaintext highlighter-rouge">config.ru</code>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## config.ru ##</span>
+<span class="n">root</span> <span class="o">=</span> <span class="o">::</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">)</span> <span class="c1"># defining the root directory</span>
+<span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span> <span class="n">root</span><span class="p">,</span> <span class="s1">'phone_roulette'</span> <span class="p">)</span> <span class="c1"># requiring the Sinatra app</span>
+<span class="n">run</span> <span class="no">PhoneRoulette</span><span class="p">.</span><span class="nf">new</span> <span class="c1"># running the Sinatra app</span>
+</code></pre></div></div>
+
+<p>Now that we have our rackup file setup, we need to write our <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> application.</p>
+
+<h2 id="basic-sinatra-app">Basic Sinatra App</h2>
+
+<p>To start we need to define the <code class="language-plaintext highlighter-rouge">PhoneRoulette</code> application we referenced in the <code class="language-plaintext highlighter-rouge">config.ru</code>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## phone_roulette.rb ##</span>
+<span class="nb">require</span> <span class="s2">"sinatra"</span>
+<span class="k">class</span> <span class="nc">PhoneRoulette</span> <span class="o">&lt;</span> <span class="no">Sinatra</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">get</span> <span class="s2">"/"</span> <span class="k">do</span>
+    <span class="s2">"Hello World"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>To run our application we can just run <code class="language-plaintext highlighter-rouge">rackup config.ru</code>, but if we want it to auto-reload we can 
+use the <code class="language-plaintext highlighter-rouge">shotgun</code> gem that we installed by running</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>shotgun <span class="nt">-d</span> config.ru
+</code></pre></div></div>
+
+<p>If you go to <code class="language-plaintext highlighter-rouge">http://localhost:9393</code> in your browser you should see “Hello World”.
+Now change the “Hello World” line in your <code class="language-plaintext highlighter-rouge">phone_roulette.rb</code> to “Hello World 2”
+and save. If you reload <code class="language-plaintext highlighter-rouge">http://localhost:9393</code> and you should see “Hello World 2”.</p>
+
+<p>Good work! You’ve written a Hello World application using <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a>.</p>
+
+<h2 id="deploying-with-heroku">Deploying with Heroku</h2>
+
+<p>To deploy this application, you first need to add everything into a git repository. If you need help
+with that, I wrote a <a href="/2011/04/11/github-for-non-techies/" title="Github for Non-techies">blog post</a> on how to get started with git.</p>
+
+<p>Once you have a git repository for your <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> application, create a Cedar <a href="https://heroku.com/" title="Heroku">Heroku</a>
+application and push your repository to that remote. For more details on how to do this
+click <a href="https://devcenter.heroku.com/articles/git" title="Deploying to Heroku">here</a>.</p>
+
+<h2 id="configuring-twilio">Configuring Twilio</h2>
+
+<p>Sign up for a <a href="https://www.twilio.com/try-twilio" title="Twilio Sign Up">Twilio</a> account and choose the phone number you want people to be able to call.</p>
+
+<p>Once you’re signed in, click on the <code class="language-plaintext highlighter-rouge">Numbers</code> tab at the top of your screen and then click on the phone number
+that you picked when you signed up.</p>
+
+<p>In my case I clicked on the <code class="language-plaintext highlighter-rouge">+1 480-878-7813</code> link. I then set the <code class="language-plaintext highlighter-rouge">Voice Request URL</code> to point to my <a href="https://heroku.com/" title="Heroku">Heroku</a>
+application.</p>
+
+<p>I instructed <a href="http://www.twilio.com/" title="Twilio">Twilio</a> to send a <code class="language-plaintext highlighter-rouge">POST</code> whenever anyone calls <code class="language-plaintext highlighter-rouge">(480) 878-7813</code> to</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://pacific-stream-2006.herokuapp.com/roulette.xml
+</code></pre></div></div>
+
+<p>And that’s all we had to do to setup <a href="http://www.twilio.com/" title="Twilio">Twilio</a>. Super easy. We now have to tell 
+<a href="http://www.twilio.com/" title="Twilio">Twilio</a> how to respond to phone calls using our <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> application.</p>
+
+<h2 id="responding-to-twilio">Responding to Twilio</h2>
+
+<p>As you may have guessed, we need to write a new route to respond to <code class="language-plaintext highlighter-rouge">/roulette.xml</code>. 
+I’ll start by defining the higher level code and then explain the methods that I defined that make this simple code work.
+First, add the following inside the <code class="language-plaintext highlighter-rouge">PhoneRoulette</code> class:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## phone_roulette.rb ##</span>
+<span class="n">get_or_post</span> <span class="s1">'/roulette.xml'</span> <span class="k">do</span>
+  <span class="k">if</span> <span class="n">flip_even_odd</span>
+    <span class="n">erb</span> <span class="ss">:agent_call</span><span class="p">,</span> <span class="ss">:content_type</span> <span class="o">=&gt;</span> <span class="ss">:xml</span>
+  <span class="k">else</span>
+    <span class="n">erb</span> <span class="ss">:customer_call</span><span class="p">,</span> <span class="ss">:content_type</span> <span class="o">=&gt;</span> <span class="ss">:xml</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>In English, we’re telling <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> to alternate between rendering <code class="language-plaintext highlighter-rouge">agent_call</code> and <code class="language-plaintext highlighter-rouge">customer_call</code>
+<code class="language-plaintext highlighter-rouge">erb</code> templates with content-type <code class="language-plaintext highlighter-rouge">xml</code> when it receives either a <code class="language-plaintext highlighter-rouge">GET</code> or <code class="language-plaintext highlighter-rouge">POST</code> request to <code class="language-plaintext highlighter-rouge">/roulette.xml</code>.
+Essentially, we’re making a customer hotline of length one and then having the next caller act as agent to handle
+the caller on the queue.</p>
+
+<p>I added a <code class="language-plaintext highlighter-rouge">get_or_post</code> method at the top of my <code class="language-plaintext highlighter-rouge">phone_roulette.rb</code> after requiring <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a>. 
+This tells our application to respond to either <code class="language-plaintext highlighter-rouge">GET</code> or <code class="language-plaintext highlighter-rouge">POST</code> requests for a given path. 
+This makes it easier to test responses in my browser and there’s a chance that I may want <a href="http://www.twilio.com/" title="Twilio">Twilio</a> to send
+<code class="language-plaintext highlighter-rouge">GET</code> requests instead of <code class="language-plaintext highlighter-rouge">POST</code> requests in the future.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## phone_roulette.rb ##</span>
+<span class="k">def</span> <span class="nf">get_or_post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="n">post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This won’t quite work yet because we haven’t defined <code class="language-plaintext highlighter-rouge">flip_even_odd</code> and we haven’t told our <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> 
+application where to find the <code class="language-plaintext highlighter-rouge">erb</code> template files that will tell <a href="http://www.twilio.com/" title="Twilio">Twilio</a> what to do. 
+But as soon as we’ve done that, our <code class="language-plaintext highlighter-rouge">PhoneRoulette</code> application will be ready to go.</p>
+
+<h2 id="defining-flip_even_odd">Defining <code class="language-plaintext highlighter-rouge">flip_even_odd</code></h2>
+
+<p>I tried my best to see if there was a way to prevent this application from having to track any state, but alas
+I need to keep one bit of state to be sure that callers were being matched as soon as possible.
+Instead of using SQL or Redis to store one bit, I opted to just use a temp file.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## phone_roulette.rb ##</span>
+<span class="k">def</span> <span class="nf">flip_even_odd</span>
+  <span class="n">bool_file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s2">"/tmp"</span><span class="p">,</span> <span class="s2">"even_odd"</span><span class="p">)</span>
+  <span class="k">if</span> <span class="no">File</span><span class="p">.</span><span class="nf">exists?</span><span class="p">(</span><span class="n">bool_file</span><span class="p">)</span>
+    <span class="no">File</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="n">bool_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kp">true</span>
+  <span class="k">else</span>
+    <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">bool_file</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+      <span class="n">w</span><span class="p">.</span><span class="nf">puts</span> <span class="mi">1</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="kp">false</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="defining-erb-templates">Defining <code class="language-plaintext highlighter-rouge">erb</code> templates</h2>
+
+<p>To tell <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> where to find our <code class="language-plaintext highlighter-rouge">erb</code> templates we need to add the following to our <code class="language-plaintext highlighter-rouge">PhoneRoulette</code> class:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## phone_roulette.rb ##</span>
+<span class="n">set</span> <span class="ss">:root</span><span class="p">,</span> <span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">)</span>
+<span class="n">set</span> <span class="ss">:views</span><span class="p">,</span> <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">"views"</span><span class="p">)</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Next, we’ll define the templates in <code class="language-plaintext highlighter-rouge">views/agent_call.erb</code> and <code class="language-plaintext highlighter-rouge">views/customer_call.erb</code> that tell
+<a href="http://www.twilio.com/" title="Twilio">Twilio</a> how to react to our “agents” and “customers”.</p>
+
+<p>Once I figured out that I wanted to use the <a href="https://www.twilio.com/voice/features/queue" title="Twilio Queue Feature">Twilio Queue Feature</a>, 
+writing these templates was pretty straight forward. 
+My only gripe with the <a href="http://www.twilio.com/" title="Twilio">Twilio</a> documentation is that it takes too long to navigate.
+(In the interest of full disclosure, my preference would be for an ASCII man page instead something glossy.)</p>
+
+<p>For simplicity, I’ll call my queue <code class="language-plaintext highlighter-rouge">roulette</code>. You can call yours whatever you like. Just use the name of your queue 
+instead wherever I put <code class="language-plaintext highlighter-rouge">roulette</code> in these templates.</p>
+
+<p>We want our “agent” to be connected to any “callers” on our queue. To do this, we need to respond with the
+following <a href="https://www.twilio.com/docs/api/twiml" title="TwiML Reference">TwiML</a>.</p>
+
+<div class="language-erb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- views/agent_call.erb --&gt;</span>
+<span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;Response&gt;</span>
+  <span class="nt">&lt;Say</span> <span class="na">voice=</span><span class="s">"woman"</span><span class="nt">&gt;</span>Welcome to Phone Roulette<span class="nt">&lt;/Say&gt;</span>
+  <span class="nt">&lt;Dial</span> <span class="na">hangupOnStar=</span><span class="s">"true"</span> <span class="na">action=</span><span class="s">"roulette.xml"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Queue</span> <span class="na">url=</span><span class="s">"about_to_connect.xml"</span><span class="nt">&gt;</span>roulette<span class="nt">&lt;/Queue&gt;</span>
+  <span class="nt">&lt;/Dial&gt;</span>
+<span class="nt">&lt;/Response&gt;</span>
+</code></pre></div></div>
+
+<p>This tells <a href="http://www.twilio.com/" title="Twilio">Twilio</a> to answer the call and <a href="https://www.twilio.com/docs/api/twiml/say" title="TwiML &lt;Say&gt; Command">say</a>, “Welcome to Phone Roulette” with a woman’s robo voice.
+Then it should <a href="https://www.twilio.com/docs/api/twiml/dial" title="TwiML &lt;Dial&gt; Command">dial</a> the <code class="language-plaintext highlighter-rouge">roulette</code> <a href="https://www.twilio.com/docs/api/twiml/queue" title="TwiML &lt;Queue&gt; Command">queue</a>. If this user presses <code class="language-plaintext highlighter-rouge">*</code> while connected,
+<a href="http://www.twilio.com/" title="Twilio">Twilio</a> will call <code class="language-plaintext highlighter-rouge">roulette.xml</code> to figure out what it should do next.</p>
+
+<p>And here is how we place a customer on the <code class="language-plaintext highlighter-rouge">roulette</code> queue.</p>
+
+<div class="language-erb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- views/customer_call.erb --&gt;</span>
+<span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;Response&gt;</span>
+  <span class="nt">&lt;Enqueue</span> <span class="na">waitUrl=</span><span class="s">"about_to_connect.xml"</span><span class="nt">&gt;</span>roulette<span class="nt">&lt;/Enqueue&gt;</span>
+<span class="nt">&lt;/Response&gt;</span>
+</code></pre></div></div>
+
+<p>This tells <a href="http://www.twilio.com/" title="Twilio">Twilio</a> to answer the call and <a href="https://www.twilio.com/docs/api/twiml/enqueue" title="TwiML &lt;Enqueue&gt; Command">enqueue</a> the call on the <code class="language-plaintext highlighter-rouge">roulette</code> <a href="https://www.twilio.com/docs/api/twiml/queue" title="TwiML &lt;Queue&gt; Command">queue</a>.
+The <code class="language-plaintext highlighter-rouge">waitURL</code> tells <a href="http://www.twilio.com/" title="Twilio">Twilio</a> what to do while the caller is waiting for an agent to answer the call.</p>
+
+<p>Now we’ll define how <a href="http://www.sinatrarb.com/" title="Sinatra">Sinatra</a> responds to a request to <code class="language-plaintext highlighter-rouge">about_to_connect.xml</code> inside the
+<code class="language-plaintext highlighter-rouge">PhoneRoulette</code> class.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## phone_roulette.rb ##</span>
+<span class="n">get_or_post</span> <span class="s1">'/about_to_connect.xml'</span> <span class="k">do</span>
+  <span class="n">erb</span> <span class="ss">:about_to_connect</span><span class="p">,</span> <span class="ss">:content_type</span> <span class="o">=&gt;</span> <span class="ss">:xml</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>And in our last template we’ll tell <a href="http://www.twilio.com/" title="Twilio">Twilio</a> what to do while a “caller” is waiting for an agent to become available.</p>
+
+<div class="language-erb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- views/about_to_connect.erb --&gt;</span>
+<span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;Response&gt;</span>
+  <span class="nt">&lt;Say</span> <span class="na">voice=</span><span class="s">"woman"</span><span class="nt">&gt;</span>Welcome to Phone Roulette<span class="nt">&lt;/Say&gt;</span>
+  <span class="nt">&lt;Pause</span> <span class="na">length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;Say</span> <span class="na">voice=</span><span class="s">"woman"</span><span class="nt">&gt;</span>Connecting<span class="nt">&lt;/Say&gt;</span>
+  <span class="nt">&lt;Pause</span> <span class="na">length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Response&gt;</span>
+</code></pre></div></div>
+
+<p>The <a href="https://www.twilio.com/docs/api/twiml/pause" title="TwiML &lt;Pause&gt; Command">pause</a> command tells <a href="http://www.twilio.com/" title="Twilio">Twilio</a> to pause for one second before proceeding.</p>
+
+<h2 id="using-partials">Using Partials</h2>
+
+<p>It’s great that everything is working, but I don’t like that that salutation is repeated code in the
+<code class="language-plaintext highlighter-rouge">agent_call</code> and <code class="language-plaintext highlighter-rouge">about_to_connect</code> templates. Luckily, it’s easy to refactor this into a partial.</p>
+
+<p>To do this, make a new <code class="language-plaintext highlighter-rouge">views/_welcome.erb</code> file and put the repeated salutation code:</p>
+
+<div class="language-erb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- views/_welcome.erb --&gt;</span>
+<span class="nt">&lt;Say</span> <span class="na">voice=</span><span class="s">"woman"</span><span class="nt">&gt;</span>Welcome to Phone Roulette<span class="nt">&lt;/Say&gt;</span>
+<span class="nt">&lt;Pause</span> <span class="na">length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;Say</span> <span class="na">voice=</span><span class="s">"woman"</span><span class="nt">&gt;</span>Connecting<span class="nt">&lt;/Say&gt;</span>
+<span class="nt">&lt;Pause</span> <span class="na">length=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>And then change <code class="language-plaintext highlighter-rouge">views/agent_call.erb</code> to:</p>
+
+<div class="language-erb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- views/agent_call.erb --&gt;</span>
+<span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;Response&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="n">erb</span> <span class="ss">:_welcome</span><span class="p">,</span> <span class="ss">:layout</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;Dial</span> <span class="na">hangupOnStar=</span><span class="s">"true"</span> <span class="na">action=</span><span class="s">"roulette.xml"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Queue</span> <span class="na">url=</span><span class="s">"about_to_connect.xml"</span><span class="nt">&gt;</span>roulette<span class="nt">&lt;/Queue&gt;</span>
+  <span class="nt">&lt;/Dial&gt;</span>
+<span class="nt">&lt;/Response&gt;</span>
+</code></pre></div></div>
+
+<p>And <code class="language-plaintext highlighter-rouge">views/about_to_connect.erb</code> to:</p>
+
+<div class="language-erb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- views/about_to_connect.erb --&gt;</span>
+<span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="nt">&lt;Response&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="n">erb</span> <span class="ss">:_welcome</span><span class="p">,</span> <span class="ss">:layout</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;/Response&gt;</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Thanks for reading this far. Commit your code and push it up to <a href="https://heroku.com/" title="Heroku">Heroku</a>. You’re all set!</p>
+
+<p>If you’re interested in seeing a complete repository, you can clone <a href="https://github.com/cyrusstoller/phone_roulette">mine</a>.</p>
+
+<p>PS I worked on this weekend project with <a href="https://twitter.com/ameliones">Alex Meliones</a>, one of the co-founders of <a href="https://www.bitwall.io/" title="BitWall - Bitcoin Paywall">BitWall</a>.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 09 Sep 2013</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">2342 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

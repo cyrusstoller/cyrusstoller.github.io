@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | How to write a webscraper</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2011/03/22/how-to-write-a-webscraper">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>How to write a webscraper</h1>
+
+<div id="post">
+  <p>Since I get asked this a lot, here’s a basic tutorial on how to write a basic
+web scraper. I recommend that you install either ruby or python (both are
+installed by default on Macs). I’ll be going through this with ruby, but it’s
+simple enough to do it in python as well using <a href="http://docs.python.org/library/urllib2.html" title="urllib2 Documentation">urllib2</a>.</p>
+
+<p>Here are the basic steps:</p>
+
+<ol>
+  <li>Open the webpage you want to scrape information from</li>
+  <li>Select the information you want from that page using CSS selectors</li>
+  <li>Write the information you want to keep to a file so you can analyze it later</li>
+</ol>
+
+<p>Here’s an <a href="https://github.com/cyrusstoller/Initial-Tag-Library" title="Scraping from the Stanford Course Catalog">example scraper</a> I posted on <a href="http://github.com" title="Github">Github</a> to find all words used
+in course titles in the Stanford course catalog that are longer than 5
+characters.</p>
+
+<p>If looking at the source code is too intimidating for you, here are the
+highlights. First open the Terminal. By default on Macs this is in
+Applications/Utilities. I prefer using <a href="http://www.iterm2.com/#/section/home" title="iTerm2 Download Page">iTerm2</a>, but it doesn’t make a big
+difference here. Type the following at the command prompt:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>gem <span class="nb">install </span>nokogiri
+</code></pre></div></div>
+
+<p>If you have <a href="http://beginrescueend.com/" title="rvm installation page">rvm</a> installed then you can leave off the <code class="language-plaintext highlighter-rouge">sudo</code>. If you don’t
+know what <a href="http://beginrescueend.com/" title="rvm installation page">rvm</a> is, then you probably don’t have it installed.</p>
+
+<p>Next, load up a text editor (I recommend <a href="http://macromates.com/" title="Textmate Homepage">Textmate</a> or <a href="http://www.sublimetext.com/" title="Sublime Homepage">Sublime</a>, but you
+can also using <strong>emacs</strong> or if you <em>really have to</em> <strong>vim</strong>) and start a file
+called <code class="language-plaintext highlighter-rouge">&lt;&lt;YOUR APP NAME&gt;&gt;.rb</code>. If you don’t know what I’m talking about try
+reading section 4 of this <a href="http://cslibrary.stanford.edu/107/UnixProgrammingTools.pdf" title="Unix Programming Tools">cheat sheet</a>.</p>
+
+<p>First tell your computer which libraries you’re going to using to talk to the
+internet, by typing:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'open-uri'</span>
+<span class="nb">require</span> <span class="s1">'nokogiri'</span>
+</code></pre></div></div>
+
+<p>Then if you say,</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">doc</span> <span class="o">=</span> <span class="no">Nokogiri</span><span class="o">::</span><span class="no">HTML</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="o">&lt;&lt;</span><span class="no">YOUR</span> <span class="no">DESIRED</span> <span class="no">URL</span><span class="o">&gt;&gt;</span><span class="p">))</span><span class="sh">
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">doc</code> will be the HTML document that you want to extract information from. If
+you say,</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">doc</span><span class="p">.</span><span class="nf">css</span><span class="p">(</span><span class="o">&lt;&lt;</span><span class="no">NAME</span> <span class="no">OF</span> <span class="no">THE</span> <span class="no">CSS</span> <span class="no">SELECTOR</span><span class="o">&gt;&gt;</span><span class="p">)</span><span class="sh">
+</span></code></pre></div></div>
+
+<p>you’ll have easy access to all of the HTML elements that fit that CSS selector.</p>
+
+<p>If you don’t know what a CSS selector is, try using <a href="http://www.selectorgadget.com/" title="Bookmarklet to find CSS selectors">this bookmarklet</a> it
+allows you to click what you want to scrape and then it will tell you the CSS
+selector you’ll need to use to scrape that information.</p>
+
+<p>Now I’m assuming you have the appropriate CSS selector to grab the elements you
+want. So if you want all of the <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> tags, you would type <code class="language-plaintext highlighter-rouge">doc.css('p')</code>,
+which will return an array of <a href="http://nokogiri.org/" title="Nokogiri Homepage">Nokogiri</a> objects. You probably want the
+text in those elements - to get the text just call <code class="language-plaintext highlighter-rouge">.text</code> on the
+<a href="http://nokogiri.org/" title="Nokogiri Homepage">Nokogiri</a> objects. To see more in depth documentation go to the
+<a href="http://nokogiri.org/" title="Nokogiri Homepage">Nokogiri</a> Homepage.</p>
+
+<p>Once you have the text you want you can write it to a file that you can later
+analyze using programs like Excel, though honestly it’d probably be quicker to
+just write the rest of the analysis in your ruby script. To do this, type,</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output_file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'output.csv'</span><span class="p">,</span><span class="s1">'w'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">'output.csv'</code> will be your file’s title and you say <code class="language-plaintext highlighter-rouge">'w'</code>, so that you have
+writing privileges. This file will appear in the same directory that you run
+your ruby script from. Next, to write something to that file, you say,</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output_file</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="o">&lt;&lt;</span><span class="no">STRING</span> <span class="no">YOU</span> <span class="no">WANT</span> <span class="no">TO</span> <span class="no">WRITE</span><span class="o">&gt;&gt;</span><span class="p">)</span><span class="sh">
+</span></code></pre></div></div>
+
+<p>It’s that easy. Separate what you want in each cell in a row with a comma and
+then insert a newline by writing <code class="language-plaintext highlighter-rouge">\n</code> (the newline character) to start a new
+row.</p>
+
+<p>You should be all set. Good luck writing scrapers. It’s totally doable.
+Hopefully this will get you started with enough to know what to look up when
+you start writing these scripts yourself. There’s no need to hire a cheap
+hacker just to write a scraper for you.</p>
+
+<p>If you want to write a form to collect data from people, first, check to see
+how far you can get with Google Forms. They’re super easy to make and dump the
+data right into a Google Spreadsheet, making them easy to share and analyze. If
+that’s not good enough for what you need, checkout sites like <a href="http://wufoo.com/" title="Wufoo Homepage">Wufoo</a>.
+These should cover most of your needs and save you from needing to hire a cheap
+hacker.</p>
+
+<p>Let me know if this is helpful and if there’s anything else you’d like me to
+clarify.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 22 Mar 2011</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">844 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

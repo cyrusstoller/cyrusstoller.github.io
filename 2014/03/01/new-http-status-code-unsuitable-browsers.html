@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | New HTTP status code for unsuitable browsers</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2014/03/01/new-http-status-code-unsuitable-browsers">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>New HTTP status code for unsuitable browsers</h1>
+
+<div class="small-muted">
+  <a href="#" id="beeline_toggle">Click here</a> to toggle speed-enhancing color gradients.
+</div>
+
+<div id="post">
+  <p>It’s a pain to support old versions of Internet Explorer! How annoying is it?
+Even Google has dropped support for <a href="http://techcrunch.com/2012/09/14/google-apps-says-goodbye-to-internet-explorer-pulls-support-for-the-browser/">IE8</a> and then <a href="http://news.cnet.com/8301-1001_3-57610961-92/google-apps-dropkicks-support-for-ie-9/">IE9</a>. 
+Unfortunately, many institutions like hospitals and government agencies have computer systems that still 
+have not fully updated their technological infrastructure.
+Whenever I get feedback that a website I’ve made doesn’t work properly it’s usually from a user 
+who is still running an old version of Internet Explorer. 
+I feel like there should be a way to <em>strongly encourage</em> the upgrade process.</p>
+
+<blockquote>
+  <p><strong>tl;dr</strong> I want a new HTTP Status Code (212) for Unsuitable Browsers</p>
+</blockquote>
+
+<p>Some <a href="http://www.hipmunk.com/">websites</a> conditionally add a <code class="language-plaintext highlighter-rouge">div</code> instructing users to update their browser.
+I’m wondering whether to take this a step further by adding some middleware that will check if the <code class="language-plaintext highlighter-rouge">User-Agent</code> of
+incoming requests is ‘ancient’ and change the status code. 
+The irony is not lost on me that these old browsers won’t do anything with this new status code, 
+but I hope that this could help us avoid having another <code class="language-plaintext highlighter-rouge">IE6</code> problem. This new code (212) would tell browsers
+that they need to instruct users to upgrade to get the best experience.</p>
+
+<p>So, I was wondering if any of the current <a href="http://en.wikipedia.org/wiki/Http_status_codes">HTTP Status Codes</a> are suitable?
+None of the <code class="language-plaintext highlighter-rouge">2xx</code> codes indicate this information, but would probably be most appropriate since the request is
+processed successfully. So I started looking at the <code class="language-plaintext highlighter-rouge">4xx</code> codes for inspiration. Here are the candidates I looked at:</p>
+
+<ul>
+  <li><a href="https://tools.ietf.org/html/rfc2616#section-10.4.7">406 - Not Acceptable</a>: This is intended to indicate that things like MIME-type, charsets, encodings,
+or languages do not match the request <code class="language-plaintext highlighter-rouge">Accept</code> headers.</li>
+  <li><a href="https://tools.ietf.org/html/rfc2616#section-10.4.13">412 - Precondition Failed</a>: This is basically the opposite of what we’re looking for. This is saying that
+the server does not meet the requirements laid out by the client.</li>
+  <li><a href="https://tools.ietf.org/html/rfc2616#section-10.4.16">415 - Unsupported Media Type</a>: This is meant to be used in cases like when a client tries to upload
+an unsupported format. That isn’t the problem with the requests received from these pesky browsers.</li>
+  <li><a href="https://tools.ietf.org/html/rfc2616#section-10.4.18">417 - Expectation Failed</a>: This isn’t appropriate since this problem does not depend on the presence
+of an <code class="language-plaintext highlighter-rouge">Expect</code> request header.</li>
+  <li><a href="https://tools.ietf.org/html/rfc4918">422 - Unprocessable Entity</a>: This indicates that there are semantic errors in a well formed request, 
+but this is not true in the case of old browsers.</li>
+  <li><a href="https://tools.ietf.org/html/rfc2817">426 - Upgrade Required</a>: This is basically the model I was going for. But, this is intended to tell 
+users that a client needs to switch to a different protocol rather than to a different browser.</li>
+  <li><a href="http://tools.ietf.org/html/rfc6585">428 - Precondition Required</a>: This indicates that the server requires the request to be conditional to help avoid
+the ‘lost update’ problem. But with old browsers we’re not dealing with problems that would result on the server. We’re
+talking about problems that would result in the browser.</li>
+</ul>
+
+<p>Because <a href="https://tools.ietf.org/html/rfc2616#section-10.4.13">412</a> is essentially the opposite of what I’m looking for and because there does not currently
+appear to be a <code class="language-plaintext highlighter-rouge">212</code> status code, I think that we should adopt the following:</p>
+
+<ul>
+  <li><strong>212 - Valid Request with Unsuitable Client</strong>: This is intended to indicate that while the request was successfully
+processed by the server, issues may arise on the client side due to an outdated browser.</li>
+</ul>
+
+<p>Maybe this could remind people to run updates regularly.
+If not, oh well. That just leaves us with status code <a href="http://tools.ietf.org/html/rfc2324">418</a>: I am a teapot.</p>
+
+
+</div>
+
+<hr>
+
+<p>
+  <i>Note:</i> Coloring via
+  <a href="http://www.beelinereader.com/?utm_source=cyrusstoller.com">BeeLine Reader API</a>.
+  They also make browser plugins, which let you customize text and background
+  colors to help you read faster. Check them out!
+</p>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 01 Mar 2014</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">587 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+<link rel="stylesheet" href="/css/beeline.min.css" />
+<script src="/js/beeline.min.js"></script>
+
+<script>
+  var color_state = 0;
+
+  var elements = document.querySelectorAll("#post");
+  for (var i = 0; i < elements.length; i++) {
+    var beeline = new BeeLineReader(elements[i], {
+      theme: "bright",
+      skipBackgroundColor: true
+    });
+  }
+
+  document.getElementById("beeline_toggle").onclick=function(){
+    color_state += 1;
+    if (color_state % 2 == 1) {
+      beeline.color();
+    } else {
+      beeline.uncolor();
+    }
+    return false;
+  }
+</script>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Idea/">Idea</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

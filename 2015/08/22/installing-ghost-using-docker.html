@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Installing Ghost using Docker</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2015/08/22/installing-ghost-using-docker">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Installing Ghost using Docker</h1>
+
+<div id="post">
+  <p>A few days ago I decided that I wanted to start a <a href="http://chirp.cyrusstoller.com/">new blog</a>
+where I’ll be sharing a short idea everyday.
+I’ve been following the <a href="https://ghost.org/">Ghost</a> <a href="https://github.com/TryGhost/Ghost">project</a> for a while and
+thought this would be a good opportunity to try it out.
+I’ve also been interested in getting more familiar with <a href="https://www.docker.com/">Docker</a>.
+So, I decided to deploy my new <a href="https://ghost.org/">Ghost</a> blog using <a href="https://www.docker.com/">Docker</a>.
+It took me longer than expected, so I thought I’d share and hopefully spare
+you some headache. I’m not an expert on <a href="https://www.docker.com/">Docker</a>, so if you have
+suggestions on how to improve this, please let me know.</p>
+
+<h2 id="setting-up-your-vps-and-installing-docker">Setting up your VPS and installing Docker</h2>
+
+<p>I have open sourced some <a href="https://github.com/cyrusstoller/gardenbed">puppet manifests</a> that I’ve used to do this before.
+To use them follow the instructions 
+<a href="https://github.com/cyrusstoller/gardenbed/blob/master/deploy/INITIAL_INSTALL.md">here</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>deploy/puppet_apply_with_args.sh docker
+</code></pre></div></div>
+
+<p>And subsequently with</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>deploy/update.sh deployer@host /tmp/puppet docker
+</code></pre></div></div>
+
+<p>Feel free to install <a href="https://www.docker.com/">Docker</a> however you like.
+For this tutorial I’m <a href="https://github.com/docker/docker/issues/14755">using Docker version 1.6.2</a>.</p>
+
+<p>To make it so you can run <code class="language-plaintext highlighter-rouge">docker</code> commands without <code class="language-plaintext highlighter-rouge">sudo</code> you need to
+change the ownership of <code class="language-plaintext highlighter-rouge">/var/run/docker.sock</code>. 
+Or if you prefer you can create a new unix group called <code class="language-plaintext highlighter-rouge">docker</code>, but in my case I just used <code class="language-plaintext highlighter-rouge">deployer</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo chown </span>deployer:deployer /var/run/docker.sock
+</code></pre></div></div>
+
+<h2 id="installing-the-docker-image">Installing the Docker image</h2>
+
+<p>Now that <a href="https://www.docker.com/">Docker</a> is installed on your VPS, you
+need to get a Docker image to run.
+Looking on <a href="https://hub.docker.com/">Docker Hub</a>, I found the
+<a href="https://hub.docker.com/_/ghost/">official repository</a> by looking
+<a href="https://hub.docker.com/search/?q=ghost&amp;page=1&amp;isAutomated=0&amp;isOfficial=1&amp;pullCount=0&amp;starCount=0">here</a>.
+To install this, I ran:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>docker pull ghost:0.6.4
+</code></pre></div></div>
+
+<h2 id="starting-your-container">Starting your container</h2>
+
+<p>Now I have the docker image installed, but it is not running yet. To do that, I ran:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">-d</span> <span class="nt">--name</span> chirp <span class="nt">-v</span> /var/www/chirp:/var/lib/ghost <span class="nt">-p</span> 2368:2368 <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">NODE_ENV</span><span class="o">=</span>production <span class="nt">--restart</span> unless-stopped ghost
+</code></pre></div></div>
+
+<p>It took me longer than I’d like to admit that I needed explicitly set <code class="language-plaintext highlighter-rouge">NODE_ENV</code>
+to get <a href="https://ghost.org/">Ghost</a> to run in production.
+The name <code class="language-plaintext highlighter-rouge">chirp</code> is unimportant, but is descriptive for my project.
+The <code class="language-plaintext highlighter-rouge">-v</code> flag (<a href="https://docs.docker.com/reference/run/#volume-shared-filesystems">more info</a>)
+allows for a shared filesystem.
+This is important so that the <code class="language-plaintext highlighter-rouge">config.js</code> and sqlite database 
+can live outside the disposable container.
+And the <code class="language-plaintext highlighter-rouge">-p</code> flag (<a href="https://docs.docker.com/reference/run/#expose-incoming-ports">more info</a>)
+is important so that nginx can route requests to our container.</p>
+
+<p>This is where I thought I’d be done setting up ghost, but there were a couple more steps.</p>
+
+<p>First, you need to copy the <code class="language-plaintext highlighter-rouge">paths</code> section from the development section to the
+production section in your <code class="language-plaintext highlighter-rouge">config.js</code>.</p>
+
+<p>Second, you need to setup a mail service to configure your account. I used
+<a href="http://mandrill.com/">Mandrill</a> because of their generous free tier, but you can use
+which ever mail provider you like. 
+I figured this out with help from <a href="http://marshallthompson.net/using-mandrill-with-ghost/">this blog post</a>
+by Marshall Thompson.</p>
+
+<p>After these changes, here is what my production section looks like:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">production</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://chirp.cyrusstoller.com</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">mail</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">transport</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SMTP</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">smtp.mandrillapp.com</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">service</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mandrill</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">port</span><span class="p">:</span> <span class="mi">587</span><span class="p">,</span>
+        <span class="na">auth</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">user</span><span class="p">:</span> <span class="dl">'</span><span class="s1">xxx@example.com</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">pass</span><span class="p">:</span> <span class="dl">'</span><span class="s1">your api key</span><span class="dl">'</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">database</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">client</span><span class="p">:</span> <span class="dl">'</span><span class="s1">sqlite3</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">connection</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">filename</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">GHOST_CONTENT</span><span class="p">,</span> <span class="dl">'</span><span class="s1">/data/ghost.db</span><span class="dl">'</span><span class="p">)</span>
+      <span class="p">},</span>
+      <span class="na">debug</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="na">server</span><span class="p">:</span> <span class="p">{</span>
+      <span class="c1">// Host to be passed to node's `net.Server#listen()`</span>
+      <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">0.0.0.0</span><span class="dl">'</span><span class="p">,</span>
+      <span class="c1">// Port to be passed to node's `net.Server#listen()`, </span>
+      <span class="c1">// for iisnode set this to `process.env.PORT`</span>
+      <span class="na">port</span><span class="p">:</span> <span class="dl">'</span><span class="s1">2368</span><span class="dl">'</span>
+    <span class="p">},</span>
+    <span class="na">paths</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">contentPath</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">GHOST_CONTENT</span><span class="p">,</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="setting-up-nginx">Setting up nginx</h2>
+
+<p>The last step is to make it so that nginx can serve requests to
+your docker container, so visitors can see you blog on port 80,
+the default for HTTP.</p>
+
+<p>I added the following to a file in <code class="language-plaintext highlighter-rouge">/etc/nginx/sites-enabled/</code>.</p>
+
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">server</span> <span class="p">{</span>
+  <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+  <span class="kn">server_name</span> <span class="s">chirp.cyrusstoller.com</span><span class="p">;</span>
+
+  <span class="kn">access_log</span> <span class="n">/var/log/nginx/chirp_access.log</span><span class="p">;</span>
+
+  <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$http_host</span><span class="p">;</span>
+    <span class="kn">proxy_redirect</span> <span class="no">off</span><span class="p">;</span>
+    <span class="kn">proxy_pass</span> <span class="s">http://localhost:2368</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then I reload nginx with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>service reload nginx
+</code></pre></div></div>
+
+<p>The reason that I use <code class="language-plaintext highlighter-rouge">reload</code> instead of <code class="language-plaintext highlighter-rouge">restart</code> is because
+<a href="http://stackoverflow.com/questions/13525465/when-to-restart-and-not-reload-nginx">the new configuration files will be parsed before terminating the old process</a>.
+So, if you have a bad configuration file, there’s a chance that you
+will accidentally stop the nginx process.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>I’m eager to learn more about Docker best practices.
+Let me know if you have any tips.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 22 Aug 2015</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">940 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

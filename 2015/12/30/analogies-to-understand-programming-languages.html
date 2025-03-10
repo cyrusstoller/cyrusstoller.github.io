@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Analogies to understand programming languages</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2015/12/30/analogies-to-understand-programming-languages">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Analogies to understand programming languages</h1>
+
+<div id="post">
+  <p>Many non-techies have a hard time understanding why there are so many 
+<a href="https://en.wikipedia.org/wiki/Programming_language">programming languages</a>.
+In this post, I hope to show you that the tradeoffs between programming langauges
+are similar to differences between
+<a href="https://en.wikipedia.org/wiki/Natural_language">natural languages</a>.
+Hopefully these analogies will make the differences more accessible.</p>
+
+<h2 id="transportation">Transportation</h2>
+
+<p>A <a href="https://en.wikipedia.org/wiki/Toyota_Prius">Prius</a> 
+can nimbly get you from <code class="language-plaintext highlighter-rouge">point A</code> to <code class="language-plaintext highlighter-rouge">point B</code>, 
+but it won’t be effective at hauling heavy machinery.
+When you’re working at an industrial scale, you need
+more powerful vehicles like tow trucks or 18-wheelers.
+Personal vehicles and professional vehicles aren’t substitutes.</p>
+
+<p>The same is true for programming languages.
+Higher level <a href="https://en.wikipedia.org/wiki/Scripting_language">scripting languages</a>
+like <a href="https://en.wikipedia.org/wiki/Ruby_(programming_language)">Ruby</a> and <a href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> work well for everyday projects, 
+but as elements of an application face more stringent performance
+requirements, it’s often better to translate code to 
+<a href="https://en.wikipedia.org/wiki/Low-level_programming_language">lower level languages</a>
+like <a href="https://en.wikipedia.org/wiki/C%2B%2B">C/C++</a>. But, it’s all relative.
+Before <a href="https://en.wikipedia.org/wiki/Interpreted_language">interpreted languages</a>
+were commonplace, 
+C/C++ was considered a higher
+level language when compared to <a href="https://en.wikipedia.org/wiki/Assembly_language">assembly</a>
+and <a href="https://en.wikipedia.org/wiki/Machine_code">machine language</a>.</p>
+
+<p>Taking this analogy one step further,
+higher level languages are like driving an automatic transmission, while
+lower level languages are like driving manual.
+If you’re running errands, an automatic will suffice,
+but if you want to maximize control, you’d insist on driving manual.</p>
+
+<h2 id="language-families">Language families</h2>
+
+<p>Like natural languages, some programming languages are closely related.
+Because <a href="https://en.wikipedia.org/wiki/Romance_languages">Romance languages</a> 
+have a shared heritage, Italians can understand a lot of Spanish, even if they
+can’t speak it themselves. Similarly, Pythonistas can read and debug Ruby
+with relative ease even if they aren’t familiar with common idioms.
+Reading Ruby written by a Pythonista would be like listening to someone speak
+with an accent. While technically correct, they’d likely use phrases
+that seem a little odd.</p>
+
+<h2 id="alphabets-and-syntax">Alphabets and syntax</h2>
+
+<p>In the same way that there are lots of alphabets to express natural languages,
+there are different syntax structures to express programming languages.
+Even though Chinese and Japanese share <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a>,
+they are grammatically different and share no pronounciation.
+Others like Urdu and Arabic use similar alphabets and pronounciation, 
+but are different languages.</p>
+
+<p>Some typical syntax structures include:</p>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/C_syntax">C syntax</a> used in <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Prolog">Prolog</a> used in <a href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/S-expression">S-expressions</a> used in <a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">LISP</a></li>
+</ul>
+
+<p>While there are minor differences between syntaxes, you’ll be able to make out
+what’s going on in the same way that as an English speaker you’d be able to
+make out words in Spanish even though there’s the addition of the <code class="language-plaintext highlighter-rouge">ñ</code>.
+Think about syntax differences between programming languages
+like alphabet differences between natural languages.</p>
+
+<h2 id="similar-sounding-names">Similar sounding names</h2>
+
+<p>Just because programming languages have similar names doesn’t
+mean that they’re related to each other.
+Many people mistakenly believe that 
+<a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>
+is a derivative of <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>,
+when in reality they come from different language families.
+JavaScript was designed as a functional programming language,
+while Java is strictly object-oriented programming language.
+Similarly, <a href="https://en.wikipedia.org/wiki/Telugu_language">Telugu</a> 
+and <a href="https://en.wikipedia.org/wiki/Tagalog_language">Tagalog</a> 
+may have similar sounding names but originate from
+India and the Phillipines respectively and are unrelated.</p>
+
+<h2 id="types-of-ideas">Types of ideas</h2>
+
+<p>Like natural languages, programming languages shape the kinds of ideas that you think about.
+For example, Farsi doesn’t have different words for lime and lemon <code class="language-plaintext highlighter-rouge">لیموترش</code>
+and words like <code class="language-plaintext highlighter-rouge">saudade</code> in Portuguese and <code class="language-plaintext highlighter-rouge">hygge</code> in Danish have no real translations.</p>
+
+<p>There are many <a href="https://en.wikipedia.org/wiki/Programming_paradigm">programming paradigms</a>,
+each providing a preferred set of tools to solve a problem.
+As a result, <a href="https://en.wikipedia.org/wiki/Imperative_programming">imperative programming</a>, 
+<a href="https://en.wikipedia.org/wiki/Functional_programming">functional programming</a>,
+and <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">object-oriented programming</a>
+each encourage programmers to solve problems in different ways.
+One noticeable difference is the concept of <a href="https://en.wikipedia.org/wiki/Immutable_object">immutability</a>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Just because a given vehicle has four wheels, doesn’t mean that it’s the right car for the job.
+The same is true for programming languages. Just because a language is 
+<a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing Complete</a>, 
+and can techincally express any program, doesn’t mean that you should use it for everything. 
+Some languages are better designed for certain tasks. 
+You don’t always need to use the most performant language. Going to the grocery store
+doesn’t require a racecar.</p>
+
+<p>The key take away is that there isn’t a one size fits all. 
+Use the best language for the job.</p>
+
+<h2 id="some-recommendations-just-my-opinion">Some recommendations (just my opinion):</h2>
+
+<ul>
+  <li>Experimentation and disposable scripts: Ruby, Python</li>
+  <li>Server-side web programming: Ruby, Python</li>
+  <li>Client-side web programming: JavaScript / CoffeeScript</li>
+  <li>Data analysis: R, Python</li>
+  <li>Genetic algorithms: LISP</li>
+  <li>File manipulation: Bash</li>
+  <li>High availability message systems: Erlang</li>
+  <li>Parallel programming: Go</li>
+  <li>Operating systems: C</li>
+</ul>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 30 Dec 2015</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">754 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Advice/">Advice</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Deploying a Rails app to a VPS using Puppet and Capistrano</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2014/12/23/deploying-a-rails-app-to-a-vps-using-puppet-and-capistrano">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Deploying a Rails app to a VPS using Puppet and Capistrano</h1>
+
+<div id="post">
+  <p>Many web development tutorials end with deployment to <a href="https://www.heroku.com/">Heroku</a>.
+While Heroku is convenient, I prefer deploying web applications to a <a href="https://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>
+(e.g. <a href="https://www.digitalocean.com/">Digital Ocean</a> or <a href="https://www.linode.com/">Linode</a>) whenever possible for additional control
+and to avoid <a href="https://en.wikipedia.org/wiki/Vendor_lock-in">vendor lock-in</a>.
+You can host on Heroku for free, but you’ll start paying premium
+prices when you need additional dynos to handle traffic
+or when you exceed the <a href="https://devcenter.heroku.com/articles/heroku-postgres-legacy-plans#starter-tier">10,000 row limit</a> in the free postgres database.</p>
+
+<p>Deploying to a VPS gives you flexibility to easily move websites to new providers if they offer
+more competitive services (e.g. price, security, storage, or bandwidth).
+This is like driving a stick-shift. Once you’ve mastered it, you appreciate the benefits.
+It’s not for everyone, but as applications grow, you will appreciate having
+additional control.</p>
+
+<p>In this post, I will explain how to use one set of open-source tools to get a new server up and running.
+There are <a href="http://stackshare.io/server-configuration-and-automation">tons of tools</a> that allow you to accomplish the same thing
+and many people have strong preferences. This post is intended to be less about the merits of
+each of the tools and more about understanding what each of the tools are doing.</p>
+
+<p>When I was figuring this stuff out, I wanted to see all of the code someone used
+to deploy a live application to a VPS.
+I will go over how I deploy a <a href="http://rubyonrails.org/">Ruby on Rails</a> app (<a href="https://github.com/cyrusstoller/revtilt">RevTilt</a>)
+using <a href="https://docs.puppetlabs.com/references/latest/type.html">puppet</a> manifests (<a href="https://github.com/cyrusstoller/gardenbed">gardenbed</a>) and <a href="http://capistranorb.com/">capistrano</a> recipes.</p>
+
+<h2 id="my-confusion">My confusion</h2>
+
+<p>When I was first figuring this out, I was confused about why I should use both Puppet and Capistrano.
+Puppet can deploy code and Capistrano can provision servers. And vice versa.
+Personally, I find Puppet better for provisioning servers and Capistrano better for orchestrating deployment.
+Puppet agents pull new code from their master periodically, while
+Capistrano pushes code directly to your servers.</p>
+
+<p>To me, it’s more intuitive to ‘push’ code to my servers. When I deploy, I want
+my new code to be live right away. In particular if I need to push a hotfix, I’d
+like it to be up as soon as possible.</p>
+
+<h2 id="overview">Overview</h2>
+
+<ul>
+  <li><a href="#get_instance">Get an instance</a></li>
+  <li><a href="#securing_your_server">Securing your server</a></li>
+  <li><a href="#install_rbenv">Install ruby using rbenv</a></li>
+  <li><a href="#install_nginx_postgres">Install nginx and postgresql</a></li>
+  <li><a href="#s3">S3 backups (optional)</a></li>
+  <li><a href="#puppet">Automate using puppet</a></li>
+  <li><a href="#capistrano">Deploy using capistrano</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<p><a name="get_instance"></a></p>
+<h2 id="get-an-instance">Get an instance</h2>
+
+<p>While I have only tested this on <a href="http://www.ubuntu.com/server">Ubuntu 14.04 LTS</a>, this should work on many flavors of Linux.</p>
+
+<p>Select a <a href="https://en.wikipedia.org/wiki/Hostname">hostname</a> for your VPS and create a new instance with at least 512 MB of RAM.
+To minimize latency, I’d recommend selecting a region closest to the majority of your users.
+I’d also recommend explicitly setting the <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name">FQDN</a> for your server.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Edit /etc/hostname so that it has the hostname you want</span>
+<span class="c"># Add the following line to the end of /etc/hosts to set the FQDN</span>
+162.243.47.109 alpha.revtilt.com revtilt
+<span class="c"># Use your own IP address</span>
+<span class="c"># FQDN: alpha.revtilt.com</span>
+<span class="c"># Hostname: revtilt</span>
+<span class="c"># To test that everything is set properly</span>
+<span class="nv">$ </span><span class="nb">hostname
+</span>revtilt
+<span class="nv">$ </span><span class="nb">hostname</span> <span class="nt">--fqdn</span>
+alpha.revtilt.com
+</code></pre></div></div>
+
+<p>To use your FDQN, you should also setup an <a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">A Record</a> with your <a href="https://en.wikipedia.org/wiki/Domain_Name_System">DNS</a> for your VPS.</p>
+
+<blockquote>
+  <p>Subsequent steps to setup the server this will be automated using <a href="https://github.com/cyrusstoller/gardenbed">gardenbed</a>
+(a collection of puppet manifests) and capistrano.</p>
+</blockquote>
+
+<p><a name="securing_your_server"></a></p>
+<h2 id="securing-your-server">Securing your server</h2>
+
+<p>Here are a couple <a href="http://code.tutsplus.com/tutorials/ssh-what-and-how--net-25138">good</a> <a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-to-connect-to-a-remote-server-in-ubuntu">tutorials</a> on <a href="https://www.guru99.com/communication-in-linux.html">how to use</a> <a href="https://en.wikipedia.org/wiki/Secure_Shell">SSH</a>.</p>
+
+<p>Unfortunately, bad guys will frequently try to hack into your server.
+They are hoping that you will have a weak password, so they can commandeer your server
+(potentially to send spam, mine bitcoin, steal your information, or disrupt your website).
+Here are a couple things you can do to make your server a less attractive target.</p>
+
+<p>Disable SSH authentication for <code class="language-plaintext highlighter-rouge">root</code> and only permit authentication
+via SSH keys for other users.
+Hackers will typically scan through IP blocks known to be operated by VPS providers
+and try logging in as <code class="language-plaintext highlighter-rouge">root</code> with common passwords.
+If they are able to guess correctly, they will have full access to your server
+and can lock you, the legitimate owner, out.</p>
+
+<p>You should also setup a firewall to limit and block unwanted traffic.
+And, to prevent dictionary attacks on your server, you should also install <code class="language-plaintext highlighter-rouge">fail2ban</code>.
+Here’s a <a href="https://www.linode.com/docs/security/securing-your-server/">tutorial</a> on how to do all of this by Linode.</p>
+
+<blockquote>
+  <p>Perform the rest of the steps as the non-root user you have just created.</p>
+</blockquote>
+
+<p><a name="install_rbenv"></a></p>
+<h2 id="installing-ruby-using-rbenv">Installing ruby using rbenv</h2>
+
+<p>Next, we need to install ruby, so we can run our Ruby on Rails application.
+Right now, my preferred method is to use <code class="language-plaintext highlighter-rouge">rbenv</code>.
+The only dependency to install rbenv is <a href="http://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git</a> which we will also need for
+deployment using capistrano.</p>
+
+<p>On Ubuntu:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> apt-get <span class="nb">install </span>git
+</code></pre></div></div>
+
+<p>On Fedora:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> yum <span class="nb">install </span>git
+</code></pre></div></div>
+
+<p>Once you have <code class="language-plaintext highlighter-rouge">git</code> install, follow the <a href="https://github.com/sstephenson/rbenv#basic-github-checkout">rbenv installation instructions</a>.</p>
+
+<p><a name="install_nginx_postgres"></a></p>
+<h2 id="install-nginx-and-postgresql">Install nginx and postgresql</h2>
+
+<p>For our web application, <a href="https://en.wikipedia.org/wiki/Nginx">nginx</a> will process HTTP requests from the
+internet and serve static assets or pass requests through to <a href="http://unicorn.bogomips.org/">unicorn</a>.
+We will use <a href="http://www.postgresql.org/">postgresql</a> as our backend database.</p>
+
+<p>For other applications, I use <a href="https://en.wikipedia.org/wiki/Apache_HTTP_Server">apache</a> and <a href="https://en.wikipedia.org/wiki/MySQL">mysql</a>.
+Switching these tools is pretty straightforward.</p>
+
+<p><a name="s3"></a></p>
+<h2 id="s3-backups-optional">S3 backups (optional)</h2>
+
+<p>I setup automatic database backups to <a href="https://aws.amazon.com/s3/">S3</a> using <a href="https://github.com/s3tools/s3cmd">s3cmd</a>.
+Here are the <a href="https://en.wikipedia.org/wiki/Cron">cron jobs</a> I run everyday.</p>
+
+<p>First, I instruct the server to backup the contents of the postgresql database.
+Here’s a useful <a href="https://wiki.postgresql.org/wiki/Automated_Backup_on_Linux">wiki article</a> on how to do this.
+No need to examine the details too carefully, <a href="https://github.com/cyrusstoller/gardenbed">gardenbed</a> will implement this for you.</p>
+
+<p>Next, I define a <code class="language-plaintext highlighter-rouge">s3_backup_command</code>, which copies the <code class="language-plaintext highlighter-rouge">/var/db_backups</code> directory to S3.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># s3_backup_command</span>
+s3cmd <span class="nb">sync</span> <span class="nt">-r</span> <span class="nt">--no-encrypt</span> <span class="nt">--delete-removed</span> <span class="se">\</span>
+  /var/db_backups/ s3://vps_database_backups/<span class="o">{</span>FQDN<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, I instruct <code class="language-plaintext highlighter-rouge">cron</code> to run this command everyday at 4:30am.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30 4 * * * s3_backup_command
+</code></pre></div></div>
+
+<hr />
+
+<blockquote>
+  <p>From this point on I am assuming that you have done nothing except reserve a server
+from your VPS provider and setup the hostname/FQDN.
+With Digital Ocean, this is all done when you create a new droplet.</p>
+</blockquote>
+
+<hr />
+
+<p><a name="puppet"></a></p>
+<h2 id="automate-using-puppet">Automate using puppet</h2>
+
+<p>Now that we know what we want installed, we can automate this using puppet.</p>
+
+<p>First, clone the <a href="https://github.com/cyrusstoller/gardenbed">gardenbed</a> repository to your local machine.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone git@github.com:cyrusstoller/gardenbed.git
+</code></pre></div></div>
+
+<p>Next, copy the <code class="language-plaintext highlighter-rouge">common.yaml.example</code> and change the data as necessary.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cp </span>hiera/common.yaml.example hiera/common.yaml
+</code></pre></div></div>
+
+<p>For a production system, you can delete the ‘vagrant’ postgres user.
+You should change your postgresql password. There are instructions on how
+to do that in the comments of the <code class="language-plaintext highlighter-rouge">common.yaml</code> file.</p>
+
+<p>You should next change the database names that will get created based on the
+application that you will be deploying. In my case, <code class="language-plaintext highlighter-rouge">revtilt_production</code>
+is the database that will be used by RevTilt. This needs to match
+the contents of <code class="language-plaintext highlighter-rouge">database.yml</code> file in the rails application you’re planning to deploy.
+You should also change the <code class="language-plaintext highlighter-rouge">postgres_password</code> which is the password
+for the postgresql super user account <code class="language-plaintext highlighter-rouge">postgres</code>.
+With this password a user has full reign over everything stored in your
+postgresql database.</p>
+
+<p>Add the versions of ruby that you want installed with rbenv. Most ruby on rails
+applications should run on <code class="language-plaintext highlighter-rouge">2.1.2</code>, but if you have a specific
+version, you can specify that here.</p>
+
+<p>If you would like your database to be backed up to <a href="https://aws.amazon.com/s3/">Amazon S3</a>
+on a daily basis, add you credentials.</p>
+
+<p>And lastly, be sure to replace my SSH keys, with you public SSH keys.
+Github makes this really easy. For me, I would go to:</p>
+
+<blockquote>
+  <p><a href="https://github.com/cyrusstoller.keys">https://github.com/cyrusstoller.keys</a></p>
+</blockquote>
+
+<p>You can add as many SSH keys as you like to the <code class="language-plaintext highlighter-rouge">common.yaml</code>.
+Anyone with an SSH key associated with a user in the <code class="language-plaintext highlighter-rouge">deployers</code> group will be able to
+login with <code class="language-plaintext highlighter-rouge">sudo</code> privileges.</p>
+
+<h3 id="uploading-your-commonyaml">Uploading your common.yaml</h3>
+
+<p>Now that you have specified your server configurations, you need to upload your
+<code class="language-plaintext highlighter-rouge">common.yaml</code> to your server before you can apply the puppet manifests.</p>
+
+<h3 id="install-puppet">Install puppet</h3>
+
+<p>You will only be able to apply these instructions once (before you disable
+SSH for <code class="language-plaintext highlighter-rouge">root</code>).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># This installs all of the dependencies for the puppet modules</span>
+<span class="nv">$ </span>scripts/install_modules.sh
+<span class="c"># This creates a directory to put the puppet files on the server</span>
+<span class="nv">$ </span>ssh root@<span class="o">{</span>FQDN<span class="o">}</span> <span class="s1">'mkdir -p /tmp/puppet/hiera'</span>
+<span class="c"># This transfers your common.yaml to the server</span>
+<span class="nv">$ </span>scp hiera/common.yaml root@<span class="o">{</span>FQDN<span class="o">}</span>:/tmp/puppet/hiera
+<span class="c"># This sends the puppet files to the server</span>
+<span class="nv">$ </span>deploy/rsync.sh root@<span class="o">{</span>FQDN<span class="o">}</span>:/tmp/puppet
+<span class="c"># This installs the appropriate version of puppet on the server</span>
+<span class="nv">$ </span>ssh root@<span class="o">{</span>FQDN<span class="o">}</span> <span class="s1">'sudo /tmp/puppet/scripts/upgrade_debian_based_puppet.sh'</span>
+</code></pre></div></div>
+
+<h3 id="provisioning-the-server">Provisioning the server</h3>
+
+<p>Now that you have puppet installed, you need to run the puppet manifests.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh root@<span class="o">{</span>FQDN<span class="o">}</span> <span class="s1">'sudo /tmp/puppet/deploy/puppet_apply_with_args.sh'</span>
+</code></pre></div></div>
+
+<p>At this point you will no longer be able to ssh in as <code class="language-plaintext highlighter-rouge">root</code>.
+From now on you will need to SSH in as one of the users in the <code class="language-plaintext highlighter-rouge">deployers</code> group.
+In my case, that is <code class="language-plaintext highlighter-rouge">deployer</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># This copies your common.yaml to the home directory of the deployer user</span>
+<span class="nv">$ </span>scp hiera/common.yaml deployer@<span class="o">{</span>FQDN<span class="o">}</span>:~/common.yaml
+<span class="nv">$ </span>ssh deployer@<span class="o">{</span>FQDN<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You should now be logged in as the deployer on your server.
+You can check that everything is installed by running the following commands.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>psql <span class="nt">--version</span>
+<span class="nv">$ </span>ruby <span class="nt">-v</span>
+<span class="nv">$ </span>service nginx status
+</code></pre></div></div>
+
+<p>If you’ve never used puppet before, this will feel pretty mysterious.
+Here are some good resources to help you understand how puppet works:</p>
+
+<ul>
+  <li><a href="https://docs.puppetlabs.com/learning/index.html">https://docs.puppetlabs.com/learning/index.html</a></li>
+  <li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-puppet-to-manage-your-server-infrastructure">https://www.digitalocean.com/community/tutorials/how-to-install-puppet-to-manage-your-server-infrastructure</a></li>
+  <li><a href="http://www.example42.com/tutorials/PuppetTutorial/">http://www.example42.com/tutorials/PuppetTutorial/</a></li>
+</ul>
+
+<h3 id="running-updates">Running updates</h3>
+
+<p>Updating the provisioning of your server is simple.
+All you need to do is update your <code class="language-plaintext highlighter-rouge">common.yaml</code> on your server.
+You can SSH into your server and edit it with <code class="language-plaintext highlighter-rouge">nano</code> or <code class="language-plaintext highlighter-rouge">vim</code>
+or you can edit it on your local machine and then copy it back to
+the server.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>scp hiera/common.yaml deployer@<span class="o">{</span>FQDN<span class="o">}</span>:~/common.yaml
+</code></pre></div></div>
+
+<p>Once you have the updated detalis on the server, run the following bash script.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>deploy/update.sh deployer@<span class="o">{</span>FQDN<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So far, I’ve only done this to install new versions of ruby and postgresql.</p>
+
+<hr />
+
+<blockquote>
+  <p>Now that your server is provisioned it’s time to deploy your rails application.
+At this point you could also deploy other ruby based applications (e.g. <a href="http://www.sinatrarb.com/">Sinatra</a> or
+<a href="http://intridea.github.io/grape/">Grape</a>).</p>
+</blockquote>
+
+<hr />
+
+<p><a name="capistrano"></a></p>
+<h2 id="deploy-using-capistrano">Deploy using capistrano</h2>
+
+<p>If you haven’t deployed with capistrano before, be sure to check out the <a href="http://capistranorb.com/">documentation</a>.
+Most of my workflow follows what is described, except for how to handle the <code class="language-plaintext highlighter-rouge">database.yml</code>
+file in my rails project.</p>
+
+<p>I’ll go over what I do at a high level, but I’m planning on writing a post fully dedicated to
+this. In the meantime, you can look at the code in the <a href="https://github.com/cyrusstoller/revtilt">RevTilt project</a>.
+You’ll want to pay most attention to the following directories:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Capfile</code> - as generated, using <code class="language-plaintext highlighter-rouge">rbenv</code></li>
+  <li><code class="language-plaintext highlighter-rouge">config/deploy</code> - substitute your FQDN for <code class="language-plaintext highlighter-rouge">alpha.revtilt.com</code></li>
+  <li><code class="language-plaintext highlighter-rouge">lib/capistrano</code> - I’ll explain the types of tasks that are defined</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lib/capistrano/
+├── tasks
+│   ├── env.cap <span class="c"># for setting environment variables</span>
+│   ├── helper.rb <span class="c"># helper to copy template files to the server</span>
+│   ├── nginx.cap <span class="c"># setting up nginx configs and start/stop nginx</span>
+│   ├── setup.cap <span class="c"># tasks for first time setup</span>
+│   ├── unicorn.cap <span class="c"># tasks for configuring unicorn as a system service</span>
+│   └── uptime.cap <span class="c"># getting uptime stats for each server</span>
+└── templates
+    ├── database.yml.erb.example <span class="c"># create a `database.yml.erb` to use</span>
+    ├── env.example <span class="c"># create a `env` to use</span>
+    ├── nginx.conf.erb <span class="c"># nginx config - setting up unicorn via sockets</span>
+    ├── unicorn.rb.erb <span class="c"># unicorn config for zero downtime deploy</span>
+    ├── unicorn_init.sh.erb <span class="c"># unicorn service config</span>
+    └── unicorn_log_rotate.conf.erb <span class="c"># logrotation config</span>
+</code></pre></div></div>
+
+<p>Instead of adding <code class="language-plaintext highlighter-rouge">config/database.yml</code> to my <code class="language-plaintext highlighter-rouge">.gitignore</code> I separately
+copy the sensitive details in <code class="language-plaintext highlighter-rouge">lib/capistrano/tempalates/database.yml.erb</code> to my server
+when I run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cap production deploy:setup
+</code></pre></div></div>
+
+<p>I find this approach easier because it allows users to clone the project
+from Github and immediately start development.</p>
+
+<p>Once everything is setup, I push my code to Github and then run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cap production deploy
+</code></pre></div></div>
+
+<p>This will deploy the new code with zero downtime.
+If you are running a server with limited RAM, it’s possible that it will
+not restart the server properly because it will run out of memory when
+it is recompiling the assets.
+If you deploy your code and it appears to be successful, but don’t see the new code
+when you refresh your browser, run the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cap production unicorn:restart
+</code></pre></div></div>
+
+<p><a name="conclusion"></a></p>
+<h2 id="conclusion">Conclusion</h2>
+
+<p>If you have any questions, please send me
+an <a href="mailto:cyrus.stoller@gmail.com?subject=[Blog] Deploying to VPS Question">email</a>
+or submit an issue on Github for either of these projects (<a href="https://github.com/cyrusstoller/revtilt">RevTilt</a> or <a href="https://github.com/cyrusstoller/gardenbed">gardenbed</a>).</p>
+
+<p>I like using Puppet to provision my servers and Capistrano to deploy code.
+I feel I was able to write more reusable code and less code overall.
+It works for me, but you may find a different combination works better for you.
+Happy hacking.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 23 Dec 2014</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">2383 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

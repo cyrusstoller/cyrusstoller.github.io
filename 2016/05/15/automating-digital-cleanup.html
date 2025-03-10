@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Automating digital cleanup</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2016/05/15/automating-digital-cleanup">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Automating digital cleanup</h1>
+
+<div id="post">
+  <p>My desktop and downloads folders used to always feel cluttered.
+I dreaded cleaning them up in the same way that I dread doing dishes.
+But, once I realized that I was only organizing them by whether or not 
+I had used particular files recently, 
+I knew that I could easily automate this process.
+In this post, I wanted to share how I did that, so you can keep clean too.</p>
+
+<p>If you’re on a Mac, you can take advantage of <a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html#//apple_ref/doc/uid/10000172i-CH1-SW2">launchd</a> to run this job.
+Unlike <a href="https://en.wikipedia.org/wiki/Cron">cron</a>, if your computer is asleep when the agent was supposed to run,
+<a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html#//apple_ref/doc/uid/10000172i-CH1-SW2">launchd</a> will run the job at the next possible time.
+It doesn’t assume that your computer is always running.</p>
+
+<h2 id="the-script">The script</h2>
+
+<p>In this tutorial, I’m using <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a>,
+but feel free to <a href="https://en.wikipedia.org/wiki/Z_shell">zsh</a> or anything else.
+The function below looks at the contents of a target directory
+and moves all files that have not been accessed in the given duration
+to a temp directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">function </span>cleanupdir <span class="o">{</span>
+  <span class="nb">local </span><span class="nv">target_dir</span><span class="o">=</span><span class="nv">$1</span>
+  <span class="nb">local </span><span class="nv">duration</span><span class="o">=</span><span class="nv">$2</span>
+  <span class="nb">local </span><span class="nv">temp_dirname</span><span class="o">=</span><span class="nv">$3</span>
+
+  <span class="nv">old_files</span><span class="o">=</span><span class="si">$(</span>find <span class="nv">$target_dir</span> <span class="nt">-iname</span> <span class="s2">"*"</span> <span class="nt">-atime</span> <span class="nv">$duration</span> <span class="nt">-d</span> 1<span class="si">)</span>
+
+  <span class="k">if</span> <span class="o">[[</span> <span class="nt">-n</span> <span class="nv">$old_files</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">mkdir</span> <span class="nt">-p</span> <span class="nv">$target_dir</span>/<span class="nv">$temp_dirname</span>
+
+    <span class="k">for </span>f <span class="k">in</span> <span class="nv">$old_files</span><span class="p">;</span> <span class="k">do
+      if</span> <span class="o">[[</span> <span class="nv">$f</span> <span class="o">!=</span> <span class="k">*</span><span class="nv">$temp_dirname</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">[[</span> <span class="nv">$f</span> <span class="o">!=</span> <span class="k">*</span>.DS_Store <span class="o">]]</span><span class="p">;</span> <span class="k">then
+        </span><span class="nb">mv</span> <span class="nv">$f</span> <span class="nv">$target_dir</span>/<span class="nv">$temp_dirname</span>
+      <span class="k">fi
+    done
+  fi</span>
+<span class="o">}</span>
+
+cleanupdir ~/Downloads +7d old
+cleanupdir ~/Desktop +14d temp
+</code></pre></div></div>
+
+<p>Once that’s saved, make it executable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">chmod</span> +x cleanup.sh
+</code></pre></div></div>
+
+<h2 id="scheduling">Scheduling</h2>
+
+<p>Next, you need to tell <a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html#//apple_ref/doc/uid/10000172i-CH1-SW2">launchd</a> or <a href="https://en.wikipedia.org/wiki/Cron">cron</a> to run it.
+To use <a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html#//apple_ref/doc/uid/10000172i-CH1-SW2">launchd</a>, you need to create a <code class="language-plaintext highlighter-rouge">plist</code> file.
+You need to specify a unique label for the job, tell the system how
+to execute the program, and lastly tell it when to execute.
+Mine tells my agent to run this job, every morning at 03:12.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+<span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+  <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+  <span class="nt">&lt;string&gt;</span>com.cyrusstoller.cleanup<span class="nt">&lt;/string&gt;</span>
+
+  <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+  <span class="nt">&lt;array&gt;</span>
+    <span class="nt">&lt;string&gt;</span>/Users/cyrusstoller/Documents/cron_jobs/cleanup/cleanup.sh<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/array&gt;</span>
+
+  <span class="nt">&lt;key&gt;</span>StartCalendarInterval<span class="nt">&lt;/key&gt;</span>
+  <span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;integer&gt;</span>12<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;integer&gt;</span>3<span class="nt">&lt;/integer&gt;</span>
+  <span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span>
+</code></pre></div></div>
+
+<p>By convention, Apple names agents using reverse
+domain syntax (e.g. <code class="language-plaintext highlighter-rouge">com.apple.foobar</code>). While the <code class="language-plaintext highlighter-rouge">plist</code> can be named whatever you like,
+it’d be messy for it to be anything other than the name of the agent. 
+Mine is called: <code class="language-plaintext highlighter-rouge">com.cyrusstoller.cleanup.plist</code>.</p>
+
+<blockquote>
+  <p><strong><em>Warning:</em></strong> If you copy and paste this template, be sure to change the label,
+otherwise only one of the jobs will work.</p>
+</blockquote>
+
+<p>Once you’ve saved this file, you need to <a href="https://en.wikipedia.org/wiki/Symbolic_link">symlink</a>
+it to the <code class="language-plaintext highlighter-rouge">~/Library/LaunchAgents/</code> directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From the ~/Documents/cron_jobs/cleanup directory</span>
+<span class="nv">$ </span><span class="k">function </span>absolute_path <span class="o">{</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/</span><span class="nv">$1</span><span class="s2">"</span><span class="p">;</span> <span class="o">}</span>
+<span class="nv">$ </span><span class="nb">ln</span> <span class="nt">-sf</span> <span class="si">$(</span>absolute_path com.cyrusstoller.cleanup.plist<span class="si">)</span> ~/Library/LaunchAgents/
+</code></pre></div></div>
+
+<p>Then you need to load it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From the ~/Documents/cron_jobs/cleanup directory</span>
+<span class="nv">$ </span>launchctl load com.cyrusstoller.cleanup.plist
+<span class="c"># OR from elsewhere</span>
+<span class="nv">$ </span>launchctl load ~/Library/LaunchAgents/com.cyrusstoller.cleanup.plist
+
+<span class="c"># OR using the label</span>
+<span class="nv">$ </span>launchctl start com.cyrusstoller.cleanup.plist
+</code></pre></div></div>
+
+<p>If you make changes, be sure to unload your <code class="language-plaintext highlighter-rouge">plist</code> and then reload it.
+Otherwise, the changes won’t take effect.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>launchctl unload ~/Library/LaunchAgents/com.cyrusstoller.cleanup.plist
+<span class="nv">$ </span>launchctl load ~/Library/LaunchAgents/com.cyrusstoller.cleanup.plist
+
+<span class="c"># OR using the label</span>
+<span class="nv">$ </span>launchctl stop com.cyrusstoller.cleanup.plist
+<span class="nv">$ </span>launchctl start com.cyrusstoller.cleanup.plist
+</code></pre></div></div>
+
+<p>You can see the other agents loaded on your system with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>launchctl list
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>From now on, your desktop and downloads folders will clean themselves up every morning.
+This is just one of many mindless tasks that we do on our computers on a regular basis.
+Look for ways to automate them, so you can focus your energy on things that matter.</p>
+
+<hr />
+
+<h2 id="helpful-resources">Helpful resources</h2>
+
+<ul>
+  <li><a href="http://nathangrigg.net/2012/07/schedule-jobs-using-launchd/">http://nathangrigg.net/2012/07/schedule-jobs-using-launchd/</a></li>
+</ul>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 15 May 2016</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">741 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

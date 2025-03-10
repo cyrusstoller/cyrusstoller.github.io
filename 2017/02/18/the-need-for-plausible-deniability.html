@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | The need for plausible deniability</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2017/02/18/the-need-for-plausible-deniability">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>The need for plausible deniability</h1>
+
+<div id="post">
+  <p>While <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">4096-bit keys</a> can protect sensitive information from brute force attacks,
+they’re easily circumvented if you’re put in a situation like the <a href="http://www.theverge.com/2017/2/12/14583124/nasa-sidd-bikkannavar-detained-cbp-phone-search-trump-travel-ban">US-born NASA scientist</a>,
+who was pressured to divulge sensitive information <a href="https://www.nytimes.com/2017/02/14/business/border-enforcement-airport-phones.html">to customs agents</a>.
+Until recently, my security concerns have been primarily about <a href="https://en.wikipedia.org/wiki/Black_hat">black-hat</a> activities,
+but current events have shown that our government should be treated as an adversary in
+the <a href="https://en.wikipedia.org/wiki/Threat_model">threat model</a>.</p>
+
+<p>Sadly, it’s naive to expect government to play by the rules (e.g. waiting for search warrants).
+A president willing to push legal boundaries and arguably neglect his oath to
+<a href="https://en.wikipedia.org/wiki/Oath_of_office_of_the_President_of_the_United_States">preserve, protect, and defend the constitution</a> can use the tools of government to subvert
+democracy by routing out perceived opposition.
+This intimidation undermines our sense of safety in our beliefs and sabotages freedom of expression.</p>
+
+<p>The achilles heal of encryption is that adversaries typically know whether or not
+they have been given the right key.
+For example, if you provide the wrong password, the system will likely reject
+your login attempt, so your interrogator will know that you have not provided truthful information.
+This is particularly important when <a href="http://www.mit.edu/~specter/articles/17/deniability1.html">under duress</a>.
+So to be effective, privacy tools need to support <strong>both</strong> sound encryption and plausible deniability.</p>
+
+<blockquote>
+  <p>One idea to address this is for users to have two types of passwords:
+<strong>one for genuine use, and one for duress.</strong></p>
+</blockquote>
+
+<p>One of the big downsides to <a href="https://en.wikipedia.org/wiki/Biometrics">biometric</a> passwords is that you cannot hide them,
+and that you can be forced to place your thumb on a fingerprint scanner.
+So when possible, stay away from these types of passwords.
+But, because it’s hard to remember so many passwords, people often turn to
+<a href="https://en.wikipedia.org/wiki/Password_manager">password managers</a> to store your passwords to other services.
+Unfortunately, this leaves you particularly vulnerable if that password gets compromised.</p>
+
+<p>With the solution that I’m proposing, you’d have two sets of passwords.
+The first is the type that you’d use when trying to access your passwords
+for everyday use. But, the second would be a separate accepted password that
+would appear to login to a genuine account but would be full of dummy accounts and passwords.
+Depending on your level of paranoia, these could be real accounts that you use from time to
+time, but that have minimal sensitive information.</p>
+
+<p>In practice, this could mean if you’re the victim of a <a href="https://en.wikipedia.org/wiki/Robbery">mugging</a>,
+you’d be able to provide an actual bank account, but one with a smaller balance
+to help minimize your losses.</p>
+
+<p>Similarly, I want medical professionals and attorneys to have duress
+passwords to protect the privileged information of their patients and clients
+if they’re put under duress.</p>
+
+<p>Additionally, journalists traveling to countries with oppressive governments
+may be asked for login credentials to their email and social media accounts
+to check that they aren’t dissident sympathesizers and that they aren’t
+associating with rebel forces.
+It’d be great to be able to comply with their request, while concealing the
+stories they’re writing.
+In addition to using tools like <a href="https://tails.boum.org/">Tails</a> or <a href="https://www.qubes-os.org/">Qubes</a>, journalists would ideally be able to
+login to their phones and computers to show that there’s nothing of interest.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>With increased fear-mongering by politicians, we need to continue building tools
+that address the needs of law-abiding users, who are the overwhelming majority.
+Unfortunately, there will always be bad actors.
+But, this is not an excuse for the government to create loopholes in our privacy technologies, which potentially allow authorities to
+catch them, while leaving everyone else as collateral damage. This is an unreasonably high price to pay.</p>
+
+<p>We <strong>cannot</strong> abandon our legal tradition of
+protecting the rights of the innocent, even when that means
+accepting that some guilty people will walk free.
+If we’re not careful, we’ll quickly allow the powerful to revert to the dark ages of “guilty until proven innocent,”
+which run antithetical to our conception of freedom and democracy.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 18 Feb 2017</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">649 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Idea/">Idea</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

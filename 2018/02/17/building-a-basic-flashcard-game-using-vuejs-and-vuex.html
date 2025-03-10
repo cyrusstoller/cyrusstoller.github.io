@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Building a basic flashcard game with Vue.js and Vuex</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2018/02/17/building-a-basic-flashcard-game-using-vuejs-and-vuex">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Building a basic flashcard game with Vue.js and Vuex</h1>
+
+<div id="post">
+  <p>In this tutorial I’m going to show you how to create a simple statically served
+flashcard game using <a href="https://vuejs.org/">Vue.js</a> and <a href="https://vuex.vuejs.org/">Vuex</a>. One of the advantages of
+this approach is that once the page has been rendered, users can test
+themselves without internet connectivity (e.g. on the subway or on a plane).
+While it’s certainly possible to build this kind of application with fewer
+dependencies, this application is meant to demonstrate how to use
+<a href="https://vuejs.org/">Vue.js</a> and <a href="https://vuex.vuejs.org/">Vuex</a> to minimize the amount of code that needs to
+be written to achieve this functionality. When we’re done, you’ll have a
+flashcard game that will randomly select flashcards from a <code class="language-plaintext highlighter-rouge">JSON</code> file, only
+showing you questions that you have not seen before or ones that you previously
+answered incorrectly.</p>
+
+<p>Here’s a <a href="http://morse.vue.cyrusstoller.com/">demo</a> to help you learn <a href="https://en.wikipedia.org/wiki/Morse_code">morse code</a> based on what you’ll
+have built at the end of this tutorial, and a link to the <a href="https://github.com/cyrusstoller/vuex-flashcards">github
+repo</a>.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>I recommend installing <a href="https://nodejs.org/">node</a> using <a href="https://github.com/nvm/nvm">nvm</a> in case you decide to
+build applications that depend on different versions of <a href="https://nodejs.org/">node</a>. This
+tutorial was built using node LTS carbon <code class="language-plaintext highlighter-rouge">v8.9.4</code>. Once <a href="https://nodejs.org/">node</a> is
+installed, you’ll need to install the <a href="https://github.com/vuejs/vue-cli/blob/dev/docs/README.md">vuejs cli tools</a> using
+<a href="https://yarnpkg.com/lang/en/docs/install/">yarn</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>yarn global add @vue/cli
+</code></pre></div></div>
+
+<p>Then to create the application scaffold:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vue create APPLICATION-NAME
+<span class="c"># choose the default template and yarn as the package manager</span>
+<span class="nv">$ </span><span class="nb">cd </span>APPLICATION-NAME
+<span class="nv">$ </span>yarn serve
+</code></pre></div></div>
+
+<p>At this point you should see the <code class="language-plaintext highlighter-rouge">Hello World</code> vue.js application running in
+your browser. One of the benefits of this development workflow is that your
+browser will typically reload on its own to pick up changes made to your vue
+components without destroying the current state. But before we jump into
+modifying the code, let’s put together a <code class="language-plaintext highlighter-rouge">JSON</code> file with the questions and
+answers that users will be tested on. The file should look something like:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/data/questions.json</span>
+<span class="p">[</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">question</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">This is question 1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">answer</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">This is answer 1</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">question</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">This is question 2</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">answer</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">This is answer 2</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">question</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">This is question 3</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">answer</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">This is answer 3</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>It’s fine if you only add a few questions to this file at this point, but be
+sure to add at least three, so you can test whether questions that were
+answered incorrectly are being recycled in the way that you expect. Now, we’re
+ready to start building our interface. Start by deleting
+<code class="language-plaintext highlighter-rouge">src/components/HelloWorld.vue</code> and <code class="language-plaintext highlighter-rouge">src/assets/logo.png</code>, we’re not going to
+need those anymore. You’ll notice that if you try opening your application,
+you’ll see that it has a build error. To fix this, we need to change our
+<code class="language-plaintext highlighter-rouge">src/App.vue</code>.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- src/App.vue - template --&gt;</span>
+<span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"score"</span><span class="nt">&gt;</span>Score: {{ score }}<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;flashcard</span> <span class="na">:front=</span><span class="s">"question"</span> <span class="na">:back=</span><span class="s">"answer"</span><span class="nt">&gt;&lt;/flashcard&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/App.vue - script</span>
+<span class="k">import</span> <span class="nx">flashcard</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/Flashcard.vue</span><span class="dl">'</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">flashcard</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nf">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">question</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Sample question</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// This will be removed later</span>
+      <span class="na">answer</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Sample answer</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// This will be removed later</span>
+      <span class="na">score</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>And then, to render one flashcard, we need to create the skeleton of a
+Flashcard component.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- src/components/Flashcard.vue - template --&gt;</span>
+<span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flashcard"</span><span class="nt">&gt;</span>
+    Front: {{ front }}
+    <span class="nt">&lt;br&gt;</span>
+    Back: {{ back }}
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/components/Flashcard.vue - script</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">props</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">front</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+      <span class="na">default</span><span class="p">:</span> <span class="dl">'</span><span class="s1">default front</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">back</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+      <span class="na">default</span><span class="p">:</span> <span class="dl">'</span><span class="s1">default back</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now your application should show ‘Sample Question’ (instead of ‘default front’)
+and ‘Sample Answer’ (instead of ‘default back’), demonstrating that the data is
+being passed effectively from the <code class="language-plaintext highlighter-rouge">App.vue</code> component to the <code class="language-plaintext highlighter-rouge">Flashcard.vue</code>
+component. To start showing your questions in the application, we’ll use
+<a href="https://vuex.vuejs.org/">Vuex</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>yarn add vuex
+</code></pre></div></div>
+
+<h2 id="state-management">State management</h2>
+
+<p>To register <a href="https://vuex.vuejs.org/">Vuex</a> with our application, we need to add the following to
+<code class="language-plaintext highlighter-rouge">main.js</code> and create <code class="language-plaintext highlighter-rouge">store/index.js</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/main.js</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">Vuex</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vuex</span><span class="dl">'</span>
+
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App.vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">store</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store</span><span class="dl">'</span> <span class="c1">// We still need to create this file</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">Vuex</span><span class="p">)</span>
+
+<span class="k">new</span> <span class="nc">Vue</span><span class="p">({</span>
+  <span class="na">render</span><span class="p">:</span> <span class="nx">h</span> <span class="o">=&gt;</span> <span class="nf">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
+  <span class="nx">store</span><span class="p">,</span> <span class="c1">// this still hasn't been created</span>
+<span class="p">}).</span><span class="nf">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Then in <code class="language-plaintext highlighter-rouge">store/index.js</code> we’ll instruct Vuex on the state we’d like to keep
+track of. I like putting this into a separate directory, so that I can put
+different types of data into <a href="https://vuex.vuejs.org/en/modules.html">separate files that can later be
+combined</a>. This makes the code easier to read and debug later.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/store/index.js</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">Vuex</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vuex</span><span class="dl">'</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">Vuex</span><span class="p">)</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Vuex</span><span class="p">.</span><span class="nc">Store</span><span class="p">({</span>
+  <span class="na">state</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// The state that we want to track in this application</span>
+    <span class="na">unansweredQuestions</span><span class="p">:</span> <span class="p">[],</span> <span class="c1">// Pool of questions to be shown to the user</span>
+    <span class="na">answeredQuestions</span><span class="p">:</span> <span class="p">[],</span> <span class="c1">// Questions that have been correctly answered</span>
+    <span class="na">currentQuestion</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">question</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Sample question</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">answer</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Sample answer</span><span class="dl">'</span>
+    <span class="p">},</span> <span class="c1">// Will be overwritten immediately</span>
+    <span class="na">cardFlipped</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// Whether to show the question or answer</span>
+  <span class="p">},</span>
+  <span class="na">getters</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nf">currentQuestion </span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">currentQuestion</span><span class="p">.</span><span class="nx">question</span>
+    <span class="p">},</span>
+    <span class="nf">currentAnswer </span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">currentQuestion</span><span class="p">.</span><span class="nx">answer</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="na">mutations</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// The changes to the state that we'll be making</span>
+    <span class="nf">setUnanswered </span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">questions</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// To intitially load the questions from the JSON file you made earlier</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">unansweredQuestions</span> <span class="o">=</span> <span class="nx">questions</span>
+    <span class="p">},</span>
+    <span class="nf">pushUnanswered </span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// When a question was answered incorrectly</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">unansweredQuestions</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="nf">pushAnswered </span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// When a question was answered correctly</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">unansweredQuestions</span> <span class="o">=</span>
+        <span class="nx">state</span><span class="p">.</span><span class="nx">unansweredQuestions</span><span class="p">.</span><span class="nf">filter</span><span class="p">((</span><span class="nx">q</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">q</span> <span class="o">!==</span> <span class="nx">question</span><span class="p">)</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">answeredQuestions</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="nf">setCurrentQuestion </span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Setting the question to be rendered</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">currentQuestion</span> <span class="o">=</span> <span class="nx">question</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">cardFlipped</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="nf">flipCard </span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">cardFlipped</span> <span class="o">=</span> <span class="o">!</span><span class="nx">state</span><span class="p">.</span><span class="nx">cardFlipped</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="na">actions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nf">init </span><span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nf">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">setCurrentQuestion</span><span class="dl">'</span><span class="p">,</span> <span class="nf">randomQuestion</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+    <span class="p">},</span>
+    <span class="nf">correctAnswer </span><span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">question</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">currentQuestion</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nf">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">pushAnswered</span><span class="dl">'</span><span class="p">,</span> <span class="nx">question</span><span class="p">)</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nf">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">setCurrentQuestion</span><span class="dl">'</span><span class="p">,</span> <span class="nf">randomQuestion</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+    <span class="p">},</span>
+    <span class="nf">wrongAnswer </span><span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">question</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">currentQuestion</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nf">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">pushUnanswered</span><span class="dl">'</span><span class="p">,</span> <span class="nx">question</span><span class="p">)</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nf">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">setCurrentQuestion</span><span class="dl">'</span><span class="p">,</span> <span class="nf">randomQuestion</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="kd">function</span> <span class="nf">randomQuestion</span> <span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">numQuestions</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">unansweredQuestions</span><span class="p">.</span><span class="nx">length</span>
+
+  <span class="k">if </span><span class="p">(</span><span class="nx">numQuestions</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">randomIndex</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nx">numQuestions</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">unansweredQuestions</span><span class="p">[</span><span class="nx">randomIndex</span><span class="p">]</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">null</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When first getting acquainted with Vuex, I was confused by the difference
+between a <a href="https://vuex.vuejs.org/en/mutations.html">mutation</a> and an <a href="https://vuex.vuejs.org/en/actions.html">action</a>. To clarify,
+mutations are the only functions that can modify state. They don’t care about
+business logic and they’re intended to be synchronous. On the other hand,
+actions are where any potential business logic should be written and are
+intended to asynchronous. So you don’t need to rewrite your components if you
+make changes to your Vuex code, I recommend calling actions from your vue
+components whenever possible. You can think of <a href="https://vuex.vuejs.org/en/actions.html">actions</a> as
+functions that can commit multiple mutations asynchronously. This means that
+<a href="https://vuex.vuejs.org/en/actions.html">actions</a> are where you would want to make external API calls
+(typically using a library like <a href="https://github.com/axios/axios">axios</a>).</p>
+
+<p>While we’ve defined the state that needs to be stored and how that state will
+change based on user behavior, we still need to load the questions we wrote
+earlier. For this application, we only neeed to load up these questions once
+when the application is mounted. In other applications, data may be determined
+based on the current path of the page a user is on, but for this application,
+we’ll just be hard coding the question data. To do this, we’ll use the <a href="https://vuejs.org/v2/api/#mounted">mounted
+lifecycle event</a> in <code class="language-plaintext highlighter-rouge">main.js</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/main.js</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">Vuex</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vuex</span><span class="dl">'</span>
+
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">store</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">questions</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./data/questions</span><span class="dl">'</span> <span class="c1">// Manually loading the questions</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">Vuex</span><span class="p">)</span>
+
+<span class="k">new</span> <span class="nc">Vue</span><span class="p">({</span>
+  <span class="na">render</span><span class="p">:</span> <span class="nx">h</span> <span class="o">=&gt;</span> <span class="nf">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
+  <span class="nx">store</span><span class="p">,</span>
+  <span class="nf">mounted </span><span class="p">()</span> <span class="p">{</span> <span class="c1">// Added functionality</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">setUnanswered</span><span class="dl">'</span><span class="p">,</span> <span class="nx">questions</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">dispatch</span><span class="p">(</span><span class="dl">'</span><span class="s1">init</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">},</span>
+<span class="p">}).</span><span class="nf">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>At this point, Vuex knows about the questions we want to show on the
+flashcards, how they should be represented, and the state it needs to keep
+track of for the game mechanics.</p>
+
+<h2 id="vue-dev-tools">Vue dev tools</h2>
+
+<p>The <a href="https://github.com/vuejs/vue-devtools">vue dev tools</a> are fantastic. Even though we haven’t connected
+Vuex to our user interface yet, we can already examine the question and answer
+data that has been loaded without needing to write any log statements.
+Additionally, the vue dev tools allow for “time travel” through the various
+data states that have been committed in Vuex. Going forward, we’ll be able to
+check that the state of the data stored in Vuex is the same as we intend when
+implementing the game mechanics.</p>
+
+<h2 id="game-mechanics">Game mechanics</h2>
+
+<p>In the template below I added buttons for users to indicate whether they
+answered the question correctly when looking at the answer on the back. If they
+answer it correctly, then we should increment the score and, if not, then we
+should just move on to the next question, while placing the current question
+back into the pool of questions to be drawn from in the future. The business
+logic to support these game mechanics are pretty simple.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- src/App.vue - template --&gt;</span>
+<span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"score"</span><span class="nt">&gt;</span>Score: {{ score }}<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;flashcard</span> <span class="na">:front=</span><span class="s">"question"</span> <span class="na">:back=</span><span class="s">"answer"</span><span class="nt">&gt;&lt;/flashcard&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">v-if=</span><span class="s">"this.$store.state.cardFlipped"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"correct"</span><span class="nt">&gt;</span>Correct<span class="nt">&lt;/button&gt;</span>
+      <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"wrong"</span><span class="nt">&gt;</span>Wrong<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+</code></pre></div></div>
+
+<p>One of the main changes below is that the <code class="language-plaintext highlighter-rouge">question</code> and <code class="language-plaintext highlighter-rouge">answer</code> are no longer
+defined in <code class="language-plaintext highlighter-rouge">data</code>, instead they are <a href="https://vuejs.org/v2/api/#computed">computed properties</a> that
+will reflect the changes in the state stored in Vuex. Additionally, we’ve added
+a <code class="language-plaintext highlighter-rouge">correct</code> and <code class="language-plaintext highlighter-rouge">wrong</code> method to be triggered by the buttons we added.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/App.vue - script</span>
+<span class="k">import</span> <span class="nx">flashcard</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/FlashCard</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">flashcard</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nf">data </span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">score</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nf">question </span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">getters</span><span class="p">.</span><span class="nx">currentQuestion</span> <span class="c1">// handled by vuex</span>
+    <span class="p">},</span>
+    <span class="nf">answer </span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">getters</span><span class="p">.</span><span class="nx">currentAnswer</span> <span class="c1">// handled by vuex</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nf">correct </span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">dispatch</span><span class="p">(</span><span class="dl">'</span><span class="s1">correctAnswer</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// handled by vuex</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">score</span><span class="o">++</span>
+    <span class="p">},</span>
+    <span class="nf">wrong </span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">dispatch</span><span class="p">(</span><span class="dl">'</span><span class="s1">wrongAnswer</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// handled by vuex</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="explaining-the-flashcard-component">Explaining the flashcard component</h2>
+
+<p>The placeholder flashcard component we wrote earlier isn’t particularly
+effective since it shows both the question and answer to the user at the same
+time. Below we instruct the flashcard component to only show either the front
+or the back.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- src/components/Flashcard.vue - template --&gt;</span>
+<span class="nt">&lt;template&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flashcard"</span> <span class="err">@</span><span class="na">click=</span><span class="s">"flipCard"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">v-show=</span><span class="s">"!isToggle"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"card-content center"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>{{ front }}<span class="nt">&lt;/p&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">v-show=</span><span class="s">"isToggle"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"card-content center"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>{{ back }}<span class="nt">&lt;/p&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/template&gt;</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/components/Flashcard.vue - script</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">props</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">front</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+      <span class="na">default</span><span class="p">:</span> <span class="dl">'</span><span class="s1">default front</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">back</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+      <span class="na">default</span><span class="p">:</span> <span class="dl">'</span><span class="s1">default back</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nf">isToggle </span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">cardFlipped</span> <span class="c1">// handled by vuex</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nf">flipCard </span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">flipCard</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// handled by vuex</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* src/components/Flashcard.vue - style */</span>
+<span class="nc">.flashcard</span> <span class="p">{</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="no">black</span><span class="p">;</span>
+  <span class="nl">border-style</span><span class="p">:</span> <span class="nb">solid</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>At this point we have a minimalist version of our flashcard game working. I’ll
+let you figure out how you would like to style it, so that it’s more
+aesthetically pleasing. As a flourish, I’d recommend adding an animation to
+show the flashcards flipping like <a href="https://github.com/cuduy197/vue-flashcard">this</a>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Hopefully you found this helpful. <a href="https://vuejs.org/">Vue.js</a> and <a href="https://vuex.vuejs.org/">Vuex</a> are powerful
+tools for building interactive and responsive user interfaces quickly and
+sustainably. Happy hacking.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 17 Feb 2018</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">2848 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

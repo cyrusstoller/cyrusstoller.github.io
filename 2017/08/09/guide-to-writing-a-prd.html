@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Guide to writing a PRD</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2017/08/09/guide-to-writing-a-prd">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Guide to writing a PRD</h1>
+
+<div id="post">
+  <blockquote>
+  <p><strong>Author:</strong> Cyrus<br />
+<strong>Status:</strong> <code class="language-plaintext highlighter-rouge">Complete</code></p>
+</blockquote>
+
+<ul>
+  <li>Driver: [Fill in the blank]</li>
+  <li>Approver: [Fill in the blank]</li>
+  <li>Contributors: [Fill in the blank]</li>
+  <li>Informed: [Fill in as necessary]</li>
+</ul>
+
+<h2 id="motivation-for-writing-a-prd">Motivation for writing a PRD</h2>
+
+<p>As teams grow, it’s no longer efficient for everyone involved in a project
+to meet and share updates as they happen in real-time.
+And as organizational structure forms,
+teams need help to stay on task,
+to avoid the temptations of <a href="https://en.wikipedia.org/wiki/Scope_creep">scope creep</a>,
+and to curb conflict arising from uncertainty about who is in charge.</p>
+
+<p>The main purpose of a PRD is to explain <em>why</em> a particular project is important
+and to define <em>what</em> needs to be built (not <em>how</em>).
+By explaining the motivation behind a project, team members can better reason
+about how to make decisions when they are presented with new information.
+More than anything a PRD should be a document that can be referred to whenever
+there’s disagreement on the best way to move forward.</p>
+
+<h2 id="requirements-for-an-upcoming-prd">Requirements for an upcoming PRD</h2>
+
+<ul>
+  <li>Document the <a href="https://en.wikipedia.org/wiki/Responsibility_assignment_matrix#DACI">Driver, Approver, Contributors, and Informed</a> (DACI) for the project
+or another comparable scheme for defining who needs to be privy to what and who will settle disputes.
+Once agreed upon, be sure to get feedback from everyone who will
+be involved about the specific requirements that will need to be met.</li>
+  <li>Outline the business rationale for devoting valuable <a href="https://en.wikipedia.org/wiki/Human_resources">human resources</a> to a project.
+Strike a balance between being explicit and concise.
+This should be an easy document to refer back to that should be intelligible
+to everyone regardless of technical expertise.</li>
+  <li>Specify an estimated time of delivery with an understanding that this may change
+as the team digs into implementation details.</li>
+</ul>
+
+<h2 id="defining-success-for-a-prd">Defining success for a PRD</h2>
+
+<ul>
+  <li>Team members have read the PRD and know where to find it.</li>
+  <li>Minimize the number of misunderstandings about what’s required before releasing to production.
+And as appropriate, engineering, design, marketing, customer success, and sales should
+know what they are responsible for delivering.</li>
+  <li>Qualitatively ensure that team is on the same page about what needs to be done.</li>
+  <li>Release on schedule.</li>
+</ul>
+
+<h2 id="assumptions">Assumptions</h2>
+
+<ul>
+  <li>The process of putting together a PRD will help the team come to a healthy compromise on
+the minimum scope necessary for meaningful progress.</li>
+  <li>Once each person’s role has been established for a project, it won’t change unless there
+are extenuating circumstances.</li>
+  <li>Metrics for success will not change unless they’re found to not correlate with the
+right behavior, in which case what is being measured should change, not the target.
+The fact that a metric is difficult to achieve is <em>not</em> grounds for an
+adjustment.</li>
+</ul>
+
+<h2 id="current-plan-for-execution">Current plan for execution</h2>
+
+<ul>
+  <li><em>Milestone #0</em>: <strong>Driver</strong> asks <strong>Contributors</strong> to contribute to a first draft of the PRD
+    <ul>
+      <li>Make tasks in <a href="https://asana.com/">Asana</a></li>
+      <li>File tickets on <a href="https://www.github.com/">Github</a> and/or <a href="https://www.atlassian.com/software/jira/">Jira</a> with links to the associated <a href="https://asana.com/">Asana</a> tasks</li>
+      <li>Put project on the marketing <a href="https://trello.com/">Trello</a> board</li>
+      <li><a href="https://slack.com/">Slack</a> the team to check their task management tools on a dedicated slack channel</li>
+    </ul>
+  </li>
+  <li><em>Milestone #1</em>: <strong>Driver</strong> circulates the PRD to inform <strong>Informed</strong>
+    <ul>
+      <li>Ensure <strong>Informed</strong> have access to the <a href="https://docs.google.com/">Google Doc</a> with default access to <code class="language-plaintext highlighter-rouge">Suggest</code></li>
+      <li><strong>Driver</strong> organizes a meeting to explain / read the PRD to <strong>Informed</strong></li>
+    </ul>
+  </li>
+  <li><em>Milestone #2</em>: <strong>Driver</strong> seeks approval from the <strong>Approver</strong>
+    <ul>
+      <li>Confirm that <strong>Approver</strong> acknowledges and understands what is being approved</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<ul>
+  <li>Setting up interviews with customers to understand their expectations.</li>
+  <li>Estimates on how long implementation will take once the scope has been defined.</li>
+  <li>Budget approval for any work to be done by outside contractors.</li>
+</ul>
+
+<h2 id="acronym-definition">Acronym Definition</h2>
+
+<p><code class="language-plaintext highlighter-rouge">PRD</code> = <a href="https://en.wikipedia.org/wiki/Product_requirements_document">Product Requirements Document</a></p>
+
+<hr />
+
+<p>I realize this is a little meta, but I thought it’d be interesting to write
+a <a href="https://en.wikipedia.org/wiki/Product_requirements_document">PRD</a> for writing a PRD.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 09 Aug 2017</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">646 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Share/">Share</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

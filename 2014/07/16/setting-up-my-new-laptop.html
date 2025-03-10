@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Setting up my new laptop</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2014/07/16/setting-up-my-new-laptop">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Setting up my new laptop</h1>
+
+<div id="post">
+  <p>I’m often asked what I do to setup a new computer.
+Since I just got a new Mac, I figured this was a good opportunity to share my process.</p>
+
+<p>I realize that tools have been created to solve this problem.
+These make sense if you frequently provision new laptops.
+But since I only do one every couple years, I thought that was overkill.
+If you’re interested you may want to check out projects like:
+<a href="https://boxen.github.com/">Boxen</a> by <a href="https://github.com">Github</a>
+based on <a href="http://puppetlabs.com/">Puppet</a>
+or
+<a href="https://github.com/pivotal-sprout/sprout-osx-apps">Sprout OS X Apps</a>
+by <a href="http://pivotallabs.com/">Pivotal Labs</a>
+(originally called <a href="https://github.com/pivotal/pivotal_workstation">Pivotal Workstation</a>)
+based on <a href="http://www.getchef.com/">Chef</a>.</p>
+
+<p>Here are the steps that I took. For users who would prefer to use
+a <code class="language-plaintext highlighter-rouge">Caskfile</code> to automate the installation process of native applications,
+I’ll be discussing that option at the <a href="#caskfile">end</a>.</p>
+
+<hr />
+
+<h2 id="the-basics">The basics</h2>
+
+<p><strong>Change the default hostname</strong> - go to <code class="language-plaintext highlighter-rouge">System Preferences / Sharing</code></p>
+
+<blockquote>
+  <p>Usually this is set to something like “Cyrus Stoller’s MacBook” during the inital setup process.
+Since I have had multiple MacBooks at this point, I have started naming my computers
+after worlds from Star Trek. My current computer is named “vulcan”.</p>
+</blockquote>
+
+<p><strong>iTerm2</strong> - <a href="http://www.iterm2.com/">http://www.iterm2.com/</a></p>
+
+<blockquote>
+  <p>iTerm2 has lots of little features that make it easier to work with than the default
+<code class="language-plaintext highlighter-rouge">Terminal.app</code> included by Apple.
+My personal favorites are split panes and search that highlights all matches
+(and even supports regular expressions).</p>
+</blockquote>
+
+<p><strong>Generate a new SSH key pair</strong></p>
+
+<blockquote>
+  <p><a href="https://github.com">Github</a> has a good set of <a href="https://help.github.com/articles/generating-ssh-keys">instructions</a>
+on how to do this. Once you have done this you’ll need to copy your public key to any
+servers that you would like to connect to without a password.</p>
+
+  <p>Add your new laptop public SSH key <code class="language-plaintext highlighter-rouge">~/.ssh/id_rsa.pub</code> to the <code class="language-plaintext highlighter-rouge">~/.ssh/authorized_keys</code> file on servers
+that you would like to connect to without being prompted for a password.
+If you’re not hosting any of your own servers, then you don’t need to worry about this.</p>
+
+  <p>Next, I add my new laptop public SSH key to:</p>
+
+  <ul>
+    <li>Github - <a href="https://github.com/settings/ssh">https://github.com/settings/ssh</a></li>
+    <li>Bitbucket - <a href="https://bitbucket.org/account/user/cyrusstoller/ssh-keys/">https://bitbucket.org/account/user/cyrusstoller/ssh-keys/</a></li>
+    <li>Heroku - <a href="https://dashboard.heroku.com/account">https://dashboard.heroku.com/account</a></li>
+    <li>DigitalOcean - <a href="https://cloud.digitalocean.com/ssh_keys">https://cloud.digitalocean.com/ssh_keys</a></li>
+  </ul>
+
+  <p>It’s easiest to copy your SSH key to your clipboard by using:</p>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pbcopy &lt; ~/.ssh/id_rsa.pub
+</code></pre></div>  </div>
+
+  <p>Another hot tip is that you can find any SSH keys that a user has added to <a href="https://github.com">Github</a>
+by going to his/her profile and appending <code class="language-plaintext highlighter-rouge">.keys</code>.
+For me it’s: <a href="https://github.com/cyrusstoller.keys">https://github.com/cyrusstoller.keys</a>.</p>
+</blockquote>
+
+<p><strong>Quicksilver</strong> - <a href="http://qsapp.com/download.php">http://qsapp.com/download.php</a></p>
+
+<blockquote>
+  <p>Spotlight has come a long way in limiting the need for my fingers to leave the keyboard
+to launch applications and open files. But, I can still load applications faster using
+Quicksilver. In particular I like that I can assign my own abbreviations for applications.
+For example, if I do <code class="language-plaintext highlighter-rouge">CMD + space</code> followed by <code class="language-plaintext highlighter-rouge">e</code> I open <code class="language-plaintext highlighter-rouge">TextEdit.app</code>.
+I also like that I can place a large text banner over my entire screen.
+I do this to share a URL before a presentation or to make it easy to see a phone number
+from across a room.</p>
+
+  <p>Once installed I go to the Quicksilver preferences to make sure that it starts after
+login and that make it so that the Quicksilver icon does not appear in the dock.
+I know others prefer tools like <a href="http://www.alfredapp.com/">Alfred</a>,
+but Quicksilver meets my needs and I know how to configure it to optimize my workflow.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="web-browsing">Web browsing</h2>
+
+<p><strong>Google Chrome</strong> - <a href="http://www.google.com/chrome/index.html">http://www.google.com/chrome/index.html</a></p>
+
+<blockquote>
+  <p>I switch the default search engine to <a href="https://duckduckgo.com/">DuckDuckGo</a> by going
+to <code class="language-plaintext highlighter-rouge">chrome://settings/</code> (the setting you want is near the bottom).
+This makes it so that if you type a non-URL into the omnibar it will default to searching
+<a href="https://duckduckgo.com/">DuckDuckGo</a> instead of Google.</p>
+</blockquote>
+
+<p><strong>Mozilla Firefox</strong> - <a href="http://www.mozilla.org/en-US/firefox/new/">http://www.mozilla.org/en-US/firefox/new/</a></p>
+
+<blockquote>
+  <p>Like with Chrome, I switch the default search engine to <a href="https://duckduckgo.com/">DuckDuckGo</a>.
+To do that I install the following addons:
+<a href="https://addons.mozilla.org/en-US/firefox/addon/omnibar/">omnibar</a>,
+<a href="https://addons.mozilla.org/en-US/firefox/addon/duck-duck-go-ssl/">duckduckgo</a>,
+and I also add a <a href="https://addons.mozilla.org/en-US/firefox/addon/flagfox/">plugin</a>
+which displays the flag of the country where the website originates from in the omnibar.</p>
+</blockquote>
+
+<p><strong>Tor</strong> - <a href="https://www.torproject.org/">https://www.torproject.org/</a></p>
+
+<blockquote>
+  <p>I try to periodically use the Tor browser, so that it won’t be out of the ordinary for
+traffic from my area to go through the Tor network when I actually do need privacy.
+For details on why you should care about Tor, you should read this
+<a href="https://www.eff.org/deeplinks/2014/06/why-you-should-use-tor">article</a>
+written by the <a href="https://www.eff.org/">EFF</a>.</p>
+</blockquote>
+
+<p><strong>Adobe Flash</strong> - <a href="http://get.adobe.com/flashplayer/">http://get.adobe.com/flashplayer/</a></p>
+
+<blockquote>
+  <p>While I generally dislike that Flash kills my battery, many websites that I frequent rely on it,
+making it a necessary download (e.g. <a href="http://www.hulu.com/">Hulu</a> and <a href="http://www.pandora.com/">Pandora</a>).</p>
+</blockquote>
+
+<hr />
+
+<h2 id="menu-bar-items">Menu bar items</h2>
+
+<p><strong>Dropbox</strong> - <a href="https://www.dropbox.com/downloading">https://www.dropbox.com/downloading</a></p>
+
+<p><strong>Memory Clean</strong> - <a href="https://itunes.apple.com/us/app/id451444120?mt=12">https://itunes.apple.com/us/app/id451444120?mt=12</a></p>
+
+<blockquote>
+  <p>After I quit RAM intensive applications, I like to get memory released as soon as possible.</p>
+</blockquote>
+
+<p><strong>Display Menu</strong> - <a href="https://itunes.apple.com/us/app/id549083868?mt=12">https://itunes.apple.com/us/app/id549083868?mt=12</a></p>
+
+<blockquote>
+  <p>Apple discontinued its menu-bar option for selecting display resolutions, but luckily there’s a replacement.
+This is handy if you frequently connect to external displays like projectors or TVs.</p>
+</blockquote>
+
+<p><strong>Battery Health</strong> - <a href="https://itunes.apple.com/us/app/id490192174?mt=12">https://itunes.apple.com/us/app/id490192174?mt=12</a></p>
+
+<p><strong>f.lux</strong> - <a href="https://justgetflux.com/">https://justgetflux.com/</a></p>
+
+<blockquote>
+  <p><a href="https://justgetflux.com/research.html">Research</a> shows that kinds of light you are exposed to
+can impact sleep patterns. If there’s a chance this will help mitigate my chances of getting a sleep disorder,
+I’ll take it.
+My eyes are pretty sensitive, and I have found f.lux has made working on a computer easier at night.
+You may also want to read <a href="http://www.thesleepjudge.com/different-ways-technology-affects-sleep-quality/">this article</a>
+about how technology can impact your sleep quality.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="other-native-applications">Other native applications</h2>
+
+<p><strong>Skype</strong> - <a href="http://www.skype.com/en/download-skype/skype-for-computer/">http://www.skype.com/en/download-skype/skype-for-computer/</a></p>
+
+<blockquote>
+  <p>Some friends use Skype, others use Google Hangouts, and others use FaceTime.
+It’s good to have options available, since sometimes I run into connection difficulties.</p>
+</blockquote>
+
+<p><strong>VLC</strong> - <a href="http://www.videolan.org/vlc/">http://www.videolan.org/vlc/</a></p>
+
+<blockquote>
+  <p>VLC is a great media player that can play media files that make Quicktime complain.</p>
+</blockquote>
+
+<p><strong>Adium</strong> - <a href="https://www.adium.im/">https://www.adium.im/</a></p>
+
+<blockquote>
+  <p>I use Adium for instant messaging on gChat, IRC, MSN, and Yahoo Messenger.</p>
+</blockquote>
+
+<p><strong>Sublime</strong> - <a href="http://www.sublimetext.com">http://www.sublimetext.com</a></p>
+
+<blockquote>
+  <p>When I’m not using <a href="http://www.vim.org/">Vim</a> or <a href="https://www.gnu.org/software/emacs/">Emacs</a>,
+I usually use Sublime.
+I know it’s weird that I use both <code class="language-plaintext highlighter-rouge">vim</code> and <code class="language-plaintext highlighter-rouge">emacs</code>,
+but I have an odd preference for using different text editors for different types of tasks.
+I like how Sublime makes it simple to customize snippets, install packages, and color schemes.
+I make extensive use of the <code class="language-plaintext highlighter-rouge">Go to anything</code> and the <code class="language-plaintext highlighter-rouge">command palette</code>.
+In general it’s been easier for me to configure Sublime than it is to get my <code class="language-plaintext highlighter-rouge">vimrc</code> just right.
+For a long time, I used <a href="http://macromates.com/">TextMate</a> as my primary editor, but last year
+I made the switch to Sublime. The reasons for that will have to wait for another post.
+I’ll talk about how I configure Sublime in the next section.</p>
+</blockquote>
+
+<p><strong>Transmission</strong> - <a href="https://www.transmissionbt.com/download/">https://www.transmissionbt.com/download/</a></p>
+
+<blockquote>
+  <p>Really handy for downloading torrents.
+I downloaded the <a href="https://www.tug.org/mactex/">MacTex</a> package (~2.5Gb) via torrent.
+It’s nice not having to start a large download over after 2Gb have been downloaded.</p>
+</blockquote>
+
+<p><strong>Mailplane</strong> - <a href="http://mailplaneapp.com/">http://mailplaneapp.com/</a></p>
+
+<blockquote>
+  <p>If you find your self switching between more than a couple gmail accounts, Mailplane is key.
+It’s $25 and definitely worth the money.
+(Note how few paid applications I’m featuring.)</p>
+</blockquote>
+
+<hr />
+
+<h2 id="installing-tools-for-web-and-mobile-development">Installing tools for web and mobile development</h2>
+
+<p><strong>Xcode</strong> - <a href="https://itunes.apple.com/us/app/id497799835">https://itunes.apple.com/us/app/id497799835</a></p>
+
+<p><strong>homebrew</strong> - <a href="http://brew.sh/">http://brew.sh/</a> - to get started I installed:
+<code class="language-plaintext highlighter-rouge">git</code>, <code class="language-plaintext highlighter-rouge">wget</code>, <code class="language-plaintext highlighter-rouge">tree</code>, <code class="language-plaintext highlighter-rouge">tig</code>, <code class="language-plaintext highlighter-rouge">clisp</code>, <code class="language-plaintext highlighter-rouge">postgresql</code>, <code class="language-plaintext highlighter-rouge">redis</code>, <code class="language-plaintext highlighter-rouge">node</code>, <code class="language-plaintext highlighter-rouge">imagemagick</code>, and <code class="language-plaintext highlighter-rouge">heroku-toolbelt</code>.</p>
+
+<p><strong><a href="https://github.com/sstephenson/rbenv">rbenv</a></strong> - installed quickly with
+<a href="https://github.com/fesplugas/rbenv-installer/">https://github.com/fesplugas/rbenv-installer/</a></p>
+
+<blockquote>
+  <p>I set my global ruby version to <code class="language-plaintext highlighter-rouge">2.0.0p481</code>, and also install versions <code class="language-plaintext highlighter-rouge">1.9.3</code> and <code class="language-plaintext highlighter-rouge">2.1.2</code>.</p>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>rbenv <span class="nb">install </span>2.0.0-p481
+<span class="nv">$ </span>rbenv <span class="nb">install </span>1.9.3-p547
+<span class="nv">$ </span>rbenv <span class="nb">install </span>2.1.2
+<span class="nv">$ </span>rbenv global 2.0.0-p481
+</code></pre></div>  </div>
+
+  <p>For more detailed instructions on how to get a <a href="http://rubyonrails.org/">Rails</a> development environment
+setup you may want to checkout these
+<a href="http://www.createdbypete.com/articles/ruby-on-rails-development-setup-for-mac-osx/">two</a>
+<a href="http://blog.55minutes.com/2013/09/rails-os-x-install-guide/">tutorials</a>.</p>
+</blockquote>
+
+<p><strong>Configuring Sublime</strong></p>
+
+<blockquote>
+  <p>First, add the binary to your <code class="language-plaintext highlighter-rouge">$PATH</code> to launch sublime from the command line using <code class="language-plaintext highlighter-rouge">subl</code>.</p>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">ln</span> <span class="nt">-s</span> /Applications/Sublime<span class="se">\ </span>Text.app/Contents/SharedSupport/bin/subl
+/usr/local/bin/subl
+</code></pre></div>  </div>
+
+  <p>Next, open Sublime to install <a href="https://sublime.wbond.net/installation">package control</a>.
+Type “CTRL-`” to bring up the console to paste in the code from the package control site.
+Once that’s done, type “CMD-SHIFT-P” and type “install” and you should see
+“Package Control: install package” autocomplete.</p>
+
+  <p>Here are the packages that I installed:
+<code class="language-plaintext highlighter-rouge">puppet</code>, <code class="language-plaintext highlighter-rouge">rspec</code>, <code class="language-plaintext highlighter-rouge">SCSS</code>, <code class="language-plaintext highlighter-rouge">nginx</code>, optionally <code class="language-plaintext highlighter-rouge">emmet</code>, <code class="language-plaintext highlighter-rouge">handlebars</code>, <code class="language-plaintext highlighter-rouge">better coffeescript</code>, <code class="language-plaintext highlighter-rouge">latex snippets</code>, <code class="language-plaintext highlighter-rouge">ERB Snippets</code>,
+<code class="language-plaintext highlighter-rouge">All Autocomplete</code>, <code class="language-plaintext highlighter-rouge">GitGutter</code>, and <code class="language-plaintext highlighter-rouge">SublimeLinter</code>.</p>
+</blockquote>
+
+<hr />
+
+<p><a name="caskfile"></a></p>
+
+<h2 id="automated-installation-using-a-caskfile">Automated installation using a Caskfile</h2>
+
+<p>Doing all of this takes a lot of time. Going to websites to download native applications is a pain.
+Fortunately, there is a way to install these applications from the command line.</p>
+
+<p><strong>homebrew cask</strong> - <a href="https://formulae.brew.sh/cask/">https://formulae.brew.sh/cask/</a></p>
+
+<p><em>Edit 9/21/2019</em>: This was formerly found at: caskroom.io</p>
+
+<blockquote>
+  <p>I learned about this from <a href="https://github.com/mathiasbynens/dotfiles">https://github.com/mathiasbynens/dotfiles</a>.
+In the <a href="https://github.com/mathiasbynens/dotfiles/blob/master/Caskfile">Caskfile</a> you can define
+all of the applications that you want to install. The only thing I don’t like about this approach is
+that applications won’t be install in the system-wide <code class="language-plaintext highlighter-rouge">/Applications</code> directory. Instead they are
+symlinked into your local <code class="language-plaintext highlighter-rouge">~/Applications</code> directory for you to use.</p>
+
+  <p>For example, I like having manual control of fan speeds in my laptop.</p>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew cask <span class="nb">install </span>smcFanControl
+</code></pre></div>  </div>
+
+  <p>Then you have <code class="language-plaintext highlighter-rouge">smcFanControl</code> in <code class="language-plaintext highlighter-rouge">~/Applications</code>.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="miscellaneous-tools-for-data-analysis">Miscellaneous tools for data analysis</h2>
+
+<p>Julia - <a href="http://julialang.org/">http://julialang.org/</a></p>
+
+<p>R - <a href="http://www.r-project.org/">http://www.r-project.org/</a></p>
+
+<hr />
+
+<h2 id="miscellaneous-accessories">Miscellaneous accessories</h2>
+
+<p><a href="http://www.thule.com/en-us/us/products/sleeves-and-cases/laptop-and-tablet-cases/laptop-sleeves-and-cases/thule-gauntlet-15-macbook-pro-sleeve-_-tl_85854221252">Thule Laptop Case</a> - $49.95</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Thanks for reading this far. This is how I got my laptop up and running. I’m in the process of cleaning
+up my dotfiles so I can share those as well. Hopefully this is helpful.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 16 Jul 2014</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">1723 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

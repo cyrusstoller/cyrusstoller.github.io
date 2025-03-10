@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Nancy Drew</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/nancydrew.html">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Nancy Drew</h1>
+
+<div id="post">
+  <p>Here’s a small tool to help you look people up efficiently.
+You’ll need to enable popups for this domain or it won’t work.
+Here’s how for: <a href="https://support.google.com/chrome/answer/95472?hl=en">Chrome</a>, <a href="https://support.mozilla.org/en-US/questions/962529">Firefox</a>, <a href="http://support.microsoft.com/kb/909604">Internet Explorer</a>, and <a href="http://www.technipages.com/safari-enabledisable-pop-up-blocker">Safari</a>.</p>
+
+<form action="#" id="nd_form">
+  <input type="text" placeholder="Enter name" id="nd_target" />
+  <input type="submit" id="nd_search" value="Search Now" />
+</form>
+
+<p>After you enter the person’s name and it will open new tabs with search results from:</p>
+
+<ul>
+  <li>LinkedIn (be sure to be logged in)</li>
+  <li>Facebook (be sure to enable <a href="https://www.facebook.com/about/graphsearch">graph search</a> - it’s the button at the bottom)</li>
+  <li>Twitter</li>
+  <li>Google</li>
+  <li>Wikipedia</li>
+  <li>Github</li>
+</ul>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", bindNancyDrew);
+
+  function bindNancyDrew(){
+    document.getElementById("nd_search").addEventListener("click", openTabs);
+    document.getElementById("nd_form").addEventListener("submit", function(){ return false; });
+  };
+
+  function openTabs(){
+    var searchString = document.getElementById("nd_target").value
+    var urlEncodedSearchString = encodeURIComponent(searchString);
+    var services = [
+      "https://www.linkedin.com/vsearch/f?type=all&keywords=",
+      "https://www.facebook.com/search/more/?q=",
+      "https://twitter.com/search?f=users&q=",
+      "https://www.google.com/#q=",
+      "https://en.wikipedia.org/w/index.php?search=",
+      "https://github.com/search?type=Users&utf8=%E2%9C%93&q=",
+      // "http://scholar.google.com/scholar?q=",
+    ]
+
+    for (var i = services.length - 1; i >= 0 ; i--) {
+      var tabURL = services[i] + urlEncodedSearchString;
+      openNewTab(tabURL);
+      // console.log(tabURL);
+    };
+  };
+
+  function openNewTab(url) {
+    window.open(url, '_blank');
+  }
+</script>
+
+
+</div>
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

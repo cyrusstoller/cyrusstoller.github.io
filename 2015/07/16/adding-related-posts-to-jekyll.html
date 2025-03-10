@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Adding related posts to a Jekyll blog</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2015/07/16/adding-related-posts-to-jekyll">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Adding related posts to a Jekyll blog</h1>
+
+<div id="post">
+  <p>I use <a href="http://jekyllrb.com/">Jekyll</a> to generate this blog as static files.
+The <code class="language-plaintext highlighter-rouge">lsi</code> <a href="http://jekyllrb.com/docs/configuration/">configuration</a> produces an index of
+related posts instead of just the most recent ones that are
+rendered at the bottom of each post.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml</span>
+<span class="na">lsi</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<p>With only a few posts, this worked fine out of the box.
+But recently, I started having second thoughts about whether I wanted to 
+run a local server because I was unsure whether it was hanging and 
+as a result I found myself using <code class="language-plaintext highlighter-rouge">CTRL-C</code> more than usual.
+To fix this, I needed the <a href="https://github.com/jekyll/classifier-reborn">classifier-reborn gem</a> to take advantage of 
+<a href="http://www.gnu.org/software/gsl/">GNU gsl</a>, which appeared in warning messages when I started the <code class="language-plaintext highlighter-rouge">WEBrick</code> server.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Notice: for 10x faster LSI support, please install http://rb-gsl.rubyforge.org/
+</code></pre></div></div>
+
+<p>Unfortunately, the instructions on <a href="http://rb-gsl.rubyforge.org/">http://rb-gsl.rubyforge.org/</a>
+didn’t direcly tie back to my Jekyll project, so I had just ignored them.
+In hindsight, I should have paid more attention to a potential 10x performance improvement.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>Getting <code class="language-plaintext highlighter-rouge">gsl</code> working on my Mac took me a little longer than expected, 
+so I wanted to share some quick tips, so you can avoid the same confusion.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew <span class="nb">install </span>gsl
+</code></pre></div></div>
+
+<p>And then add the following gems to your <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="s2">"gsl"</span>
+<span class="n">gem</span> <span class="s2">"narray"</span> <span class="c1"># This is the gem that I didn't know about</span>
+</code></pre></div></div>
+
+<p>After adding this, the indexing is basically instantenous.</p>
+
+<p>Hope this can help you stay focused on your writing.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 16 Jul 2015</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">275 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

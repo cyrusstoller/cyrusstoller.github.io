@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Getting started with tmux</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2023/05/25/getting-started-with-tmux">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Getting started with tmux</h1>
+
+<div id="post">
+  <p>One of the biggest benefits I’ve seen from switching to vim as my primary text
+editor is that I can use the same text editor whether I <code class="language-plaintext highlighter-rouge">ssh</code> into a server, or
+I use any of my laptops (regardless of operating system). If you’re interested
+in learning how I use vim, please check out this <a href="/2018/03/05/getting_started_with_vim">old post</a>. To keep my
+workflows as similar as possible, I have also started gravitating to
+<a href="https://github.com/tmux/tmux/wiki">tmux</a>. This post should offer some tips on how to
+<a href="https://github.com/tmux/tmux/wiki/Getting-Started">get started</a> with tmux.</p>
+
+<ul>
+  <li><a href="#part1">Part 1: Core concepts</a></li>
+  <li><a href="#part2">Part 2: Navigation</a></li>
+  <li><a href="#part3">Part 3: Configuration</a></li>
+  <li><a href="#part4">Part 4: Data movement</a></li>
+</ul>
+
+<p>For this tutorial, I’ll use the following notation:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-b&gt;</code> is equivalent to pressing <code class="language-plaintext highlighter-rouge">control</code> and <code class="language-plaintext highlighter-rouge">b</code> at the same time.
+    <ul>
+      <li>This is the default <code class="language-plaintext highlighter-rouge">prefix</code> which is used to determine whether a command
+is intended for tmux or the terminal running in the tmux session.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">prefix q</code> is equivalent to pressing <code class="language-plaintext highlighter-rouge">control</code> and <code class="language-plaintext highlighter-rouge">b</code> at the same time, then
+letting them go and pressing the letter <code class="language-plaintext highlighter-rouge">q</code>.</li>
+</ul>
+
+<p>If you’ve used emacs before, you’ll find that a lot of the keybindings bear 
+some resemblance. Let’s get started.</p>
+
+<hr />
+
+<p><a name="part1"></a></p>
+<h1 id="part-1-core-concepts">Part 1: Core concepts</h1>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Pane</code>: a pseudo terminal</li>
+  <li><code class="language-plaintext highlighter-rouge">Window</code>: A collection of panes that are shown on screen at the same time.
+This is similar to what you’d expect to find in a window in an application
+like <a href="https://iterm2.com/">iTerm</a>.
+    <ul>
+      <li>Panes can be arranged however you like within a given window and can be
+moved between windows.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Session</code>: A collection of windows that are managed by tmux. Sessions can
+persist in the background if you lose your connection with the server or
+detach from the session.
+    <ul>
+      <li>tmux can manage multiple sessions. An arbitrary number of tmux instances
+can connect to a single session.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Using sessions:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$ tmux new</code> = Creates a new tmux session</li>
+  <li><code class="language-plaintext highlighter-rouge">$ tmux ls</code> = View current tmux sessions
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">prefix s</code> = Navigate between sessions</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">$ tmux attach -t SESSION_NAME</code> = Attach to an existing tmux session</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix $</code> = Rename a session</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix d</code> = Detach from current session</li>
+</ul>
+
+<p>When you start a new tmux session, a single window with a single pane is
+created.</p>
+
+<p><em>This is the end of Part 1 on <a href="#part1">core concepts</a>.</em></p>
+
+<hr />
+<p><a name="part2"></a></p>
+<h1 id="part-2-navigation">Part 2: Navigation</h1>
+
+<p>Now that you have a tmux session, you need to setup up your work environment.</p>
+
+<p>Managing windows:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">prefix c</code> = Creates a new window</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix n</code> = Navigate to the next window</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix p</code> = Navigate to the previous window</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix NUM</code> = Navigate to window at index <code class="language-plaintext highlighter-rouge">NUM</code></li>
+  <li><code class="language-plaintext highlighter-rouge">prefix &amp;</code> = Close current window</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix ,</code> = Rename current window</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix w</code> = Navigate between windows in active sessions</li>
+</ul>
+
+<p>Managing panes:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">prefix %</code> = Creates a new pane by splitting the active pane vertically</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix "</code> = Creates a new pane by splitting the active pane horizontally</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix arrow</code> = Move between panes in the direction of the arrow</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix x</code> = Close active pane</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix z</code> = Make pane full screen</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix q</code> = Navigate between panes in active window</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix !</code> = Split current pane into its own window</li>
+</ul>
+
+<p>Resizing and moving panes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">prefix &lt;M-arrow&gt;</code> = Resize the current pane</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix E</code> = Spread out the panes evenly</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix Space</code> = Select the next default layout</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix {</code> = Move pane up</li>
+  <li><code class="language-plaintext highlighter-rouge">prefix }</code> = Move pane down</li>
+</ul>
+
+<p><em>This is the end of Part 2 on <a href="#part2">navigation</a>.</em></p>
+
+<hr />
+
+<p><a name="part3"></a></p>
+<h1 id="part-3-configuration">Part 3: Configuration</h1>
+
+<p>Like with a <code class="language-plaintext highlighter-rouge">vimrc</code>, you can add configurations to your <code class="language-plaintext highlighter-rouge">tmux.conf</code>. Here are
+some that you may <a href="https://github.com/cyrusstoller/dotfiles/blob/master/tmux/tmux.conf">consider</a> adopting when you’re getting started. To
+learn more, you can browse the <a href="https://github.com/tmux/tmux/wiki/Getting-Started#list-of-useful-options">docs</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># tmux.conf</span>
+<span class="nb">set</span> <span class="nt">-g</span> mouse on           <span class="c"># enable mouse scrolling</span>
+<span class="nb">set</span> <span class="nt">-s</span> escape-time 10     <span class="c"># faster command sequences</span>
+<span class="nb">set</span> <span class="nt">-g</span> history-limit 5000 <span class="c"># boost history limit</span>
+<span class="nb">set</span> <span class="nt">-g</span> allow-rename off   <span class="c"># don't rename windows automatically</span>
+
+<span class="nb">set</span> <span class="nt">-g</span> mode-keys vi       <span class="c"># use vi keybindings for copy mode</span>
+
+<span class="c"># display "tmux.conf loaded!"</span>
+</code></pre></div></div>
+
+<p><em>This is the end of Part 3 on <a href="#part3">configuration</a>.</em></p>
+
+<hr />
+
+<p><a name="part4"></a></p>
+<h1 id="part-4-data-movement">Part 4: Data movement</h1>
+
+<p>A key hurdle to me adopting a tmux-based workflow was figuring out how to move
+data between panes. Now that I know how to use it, I find it much more
+expressive than using my mouse to select text, and I appreciate having easy
+access to multiple buffers.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-[&gt;</code> = Enter copy mode</li>
+  <li><code class="language-plaintext highlighter-rouge">q</code> = Exit copy mode</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-]&gt;</code> = Paste buffer</li>
+</ul>
+
+<p><em>emacs mode (default)</em></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-Space&gt;</code> = Start selection</li>
+  <li><code class="language-plaintext highlighter-rouge">R</code> = Change to rectangle selection</li>
+  <li>Use standard <code class="language-plaintext highlighter-rouge">emacs</code> movements</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-w&gt;</code> = Copy selection</li>
+</ul>
+
+<p><em>vi mode (my preference)</em></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Space</code> = Start selection</li>
+  <li><code class="language-plaintext highlighter-rouge">v</code> = Change to visual block mode</li>
+  <li>Use standard <code class="language-plaintext highlighter-rouge">vim</code> movements</li>
+  <li><code class="language-plaintext highlighter-rouge">Enter</code> = Copy selection</li>
+</ul>
+
+<p><strong>Multiple paste buffers</strong></p>
+
+<p>Copied text is placed into a buffer that you can paste later. tmux has the
+ability to manage multiple buffers. Here are the highlights of how I use them.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;C-=&gt;</code> = View the paste buffers</li>
+  <li><code class="language-plaintext highlighter-rouge">Enter</code> or <code class="language-plaintext highlighter-rouge">p</code> = Paste selected buffer</li>
+  <li><code class="language-plaintext highlighter-rouge">d</code> = Delete selected buffer</li>
+</ul>
+
+<p>You can read more about copy and paste in tmux
+<a href="https://github.com/tmux/tmux/wiki/Getting-Started#copy-and-paste">here</a>.</p>
+
+<p><em>This is the end of Part 4 on <a href="#part4">data movement</a>.</em></p>
+
+<hr />
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Hope this helps get you oriented with tmux. For a quick refresher about the
+commands at your disposal, use <code class="language-plaintext highlighter-rouge">prefix ?</code>. For more details, I will sometimes
+browse through <code class="language-plaintext highlighter-rouge">$ tmux list-keys</code> to see all of the available keybindings and
+<code class="language-plaintext highlighter-rouge">$ tmux list-commands</code> to see all of the commands that can be used. I realize
+this is just scratching the surface of how tmux can help improve my workflow.
+If you have suggestions on things that I should consider trying, please let me
+know. Happy hacking.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 25 May 2023</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">1127 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">18 Dec 2022</span> &raquo; <a href="/2022/12/18/default-to-writing-a-doc">Default to writing a doc</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

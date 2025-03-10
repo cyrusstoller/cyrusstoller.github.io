@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Google Drive isn't professional grade yet</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2017/07/05/google-drive-isnt-professional-grade-yet">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Google Drive isn't professional grade yet</h1>
+
+<div id="post">
+  <p>Sharing documents between team members is hard.
+And like everyone else, I hate emailing documents back and forth.
+While Google Drive is useful, it’s not professional grade yet.
+In this post, I’ll share some of my biggest gripes and why you
+should prefer files that can be stored locally.
+Don’t be fooled by the short-term benefits.
+Google Drive will create more headaches than it’s worth
+the longer your organization uses it.</p>
+
+<h2 id="1-i-can-never-find-the-file-i-want">1) I can never find the file I want</h2>
+
+<p>Because each user has a unique file structure, in practice
+the only way that I can find files is through the
+search box at the top of the screen or scrolling through my <code class="language-plaintext highlighter-rouge">Recently Opened</code> files.
+This would work well if the whole team was disciplined about following good filenaming conventions,
+but in practice filenames are pretty generic (e.g. <code class="language-plaintext highlighter-rouge">20170701 Brainstorm</code>).
+While descriptive of when a document was created, this is hard to find
+unless you know the date.</p>
+
+<p>The Google Drive UI encourages users to create files
+and figure out where to put them later.
+If users end up organizing their files, they will typically just put
+them into the file structure that is visible to them,
+but not necessarily to the rest of the team.
+Essentially, organization schemes are hard to enforce because it’s hard
+for users to understand where the files live.</p>
+
+<h2 id="1a-collaborating-with-external-people">1a) Collaborating with external people</h2>
+
+<p>But, even if you’ve been able to wrangle your team to be
+disciplined about filenames, you’ll quickly run into the problem of
+Google Docs that are shared with you by people outside your company
+(e.g. vendor contracts).
+When I open that document, where does it go?
+In practice, the only way for me to find the file again is for me to
+find the relevant email that shared the file with me and click on the link again.
+I’ve gone as far as making documents that I store locally
+that are filled with links to documents in Google Drive that I use regularly,
+so that I can reliably get back to them.</p>
+
+<p>Unfortunately, these problems only get worse the longer your team
+uses Google Drive. If you’re not careful, search results
+quickly start to get polluted with unrelated documents.
+While some of this could be cleared up if there were a portion of the URL
+that was human-readable,
+most of these issues would continue.</p>
+
+<h2 id="2-tracking-versions">2) Tracking versions</h2>
+
+<p>Users can make suggestions in the same way that they would with <code class="language-plaintext highlighter-rouge">Track Changes</code>
+in Microsoft Office, but the problem is that it’s hard to look back at previous versions
+of the document. If the changes are accepted in quick succession it’s hard to distinguish
+the order in which changes were made. In other words, it’s hard to do partial rollbacks,
+especially in cases when suggestions were erroneously accepted.</p>
+
+<p>Moreover, it takes a concerted effort to go back and see all of the changes that
+a user suggested if they were already accepted.
+Before with track changes, I could at least see a copy of the changes that were
+being suggested.
+In other words, it’s frustrating to no longer have the analog of a <code class="language-plaintext highlighter-rouge">pull request</code>
+as our team works to finalize documents.</p>
+
+<h2 id="2a-hard-to-remember-file-permissions">2a) Hard to remember file permissions</h2>
+
+<p>On top of that, it’s easy to forget who has access to a document.
+As a result, files get shared that people don’t have permissions to open them.
+And worse, vendors often have visibility into how your team is considering
+redlining an agreement;
+unless you are disciplined about making a separate copy for internal use
+from the one they send you, they can see everything you’re doing - an easy mistake
+to make when using Google Docs.</p>
+
+<h2 id="3-vulnerability-to-outages">3) Vulnerability to outages</h2>
+
+<p>Unfortunately, no company can guarantee 100% uptime.
+As a result, your team is at risk of not being able to work at a critical
+moment if Google has an outage.
+Other solutions provide local copies that can continue
+to be revised even if they cannot be synced immediately.
+But, Google Docs can’t even be accessed if they haven’t been explicitly
+exported ahead of time.
+This feels like an unnecessary level of dependency.</p>
+
+<h2 id="4-design">4) Design</h2>
+
+<p>The default themes for Google Presentations look amateur.
+Just look at the difference between the defaults for Keynote or InDesign
+and Google Presentations. The difference is obvious.
+And that’s based on no difference in effort from the user.</p>
+
+<h2 id="5-lack-of-performance-inhibits-creativity">5) Lack of performance inhibits creativity</h2>
+
+<p>Page load times especially for large documents are atrocious.
+Sometimes I’m not even able to scroll on screen.
+This would never happen with a file that’s stored locally.
+While I can understand this being the case for large documents that are
+hundreds of pages long, this also happens sporadically with smaller spreadsheets (&lt; 300 rows).</p>
+
+<p>The uncertainty about whether this will be the case makes me resistant to even
+opening these kinds of files.
+So, it’s not uncommon for me to do my work locally and later copy
+it up to Google Drive only when it’s ready to be circulated.
+I’m frustrated that I need workarounds to make working on simple documents palatable.</p>
+
+<h2 id="5a-extraneous-clicks">5a) Extraneous clicks</h2>
+
+<p>Links need to be clicked twice to get to the external URL, which makes no sense.
+If Google Drive presumed that my default behavior would be to edit the URL, that’d be one thing,
+but it just shows me a truncated view of the URL before I need to click it again from within
+a tooltip.
+Why not make it so that I follow the link by default and allow me to right-click
+on it if I want to edit the URL that it points to or change it back to plain text?
+The current behavior leads to a lot of unnecessary clicks!</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Use Google Drive for scratch work.
+It works well for real-time collaboration,
+but for anything beyond that, it’s a struggle.</p>
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 05 Jul 2017</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">992 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Opinion/">Opinion</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

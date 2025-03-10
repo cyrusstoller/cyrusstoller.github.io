@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Using Crostini for Rails development</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2020/01/28/using-crostini-for-rails-development">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Using Crostini for Rails development</h1>
+
+<div id="post">
+  <p>Previously, I’ve written about how I <a href="/2014/12/31/ubuntu-machine-for-travel">setup a cheap Linux laptop</a> to take
+traveling. Unfortunately, I have been frustrated that the hardware on these
+cheap laptops has become too weak for me to do meaningful work. The minimal RAM
+results in the system slowing to a crawl when multiple tabs are open. As a
+result, I found myself not really using my cheap laptop anymore.</p>
+
+<p>On my old travel laptop, I used <a href="https://github.com/dnschneid/crouton">Cruton</a> to transition from <a href="https://en.wikipedia.org/wiki/Chrome_OS">ChromeOS</a>
+to <a href="https://en.wikipedia.org/wiki/Debian">Debian</a>, but that’s started to feel clunky. Now that <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/containers_and_vms.md">Crostini</a>
+is more mature, I have been curious whether this would make for a better travel
+laptop experience. With the Linux environment more deeply integrated into
+ChromeOS I’ve been hopeful that development will feel more natural.</p>
+
+<h2 id="pixelbook-go">Pixelbook Go</h2>
+
+<p>Not all Chromebooks support <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/containers_and_vms.md">Crostini</a> yet. I chose the <a href="https://www.amazon.com/Google-Pixelbook-Chromebook-64GB-Black/dp/B07YMGQYP6/">Pixelbook Go</a>,
+mainly because it didn’t feel like cheap plastic construction and because I
+felt confident that it wouldn’t lag with multiple tabs open. Oddly, it feels
+pretty similar to a Macbook Air when I first picked it up. Granted $650 isn’t
+as cheap as my previous travel laptops, but this still feels materially cheaper
+than my Macbook Pro, which is the main reason I want a travel laptop in the
+first place.</p>
+
+<p>From a technical specs point of view, the <a href="https://www.amazon.com/Google-Pixelbook-Chromebook-64GB-Black/dp/B07YMGQYP6/">Pixelbook Go</a> has a Intel M3
+processor and 8gb of RAM, which is comparable to the now defunct 12-inch
+Macbook. Not a powerhouse computer by any means, but with 10+ hours of reliable
+battery life and all metal construction weighing only a little over 2 pounds
+this felt like a good combo for travel.</p>
+
+<h2 id="installation">Installation</h2>
+
+<ul>
+  <li>Make sure you purchase a Chromebook that supports Crostini</li>
+  <li>Go to your settings and click <code class="language-plaintext highlighter-rouge">Linux (Beta)</code> and click install</li>
+  <li>Once it’s installed you’ll be presented with bash prompt
+    <ul>
+      <li>(Optional) Install zsh and clone my <a href="https://github.com/cyrusstoller/dotfiles">dotfiles</a></li>
+    </ul>
+  </li>
+  <li><a href="https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generate an ssh key pair</a></li>
+  <li>Install necessary packages to setup your development environment</li>
+</ul>
+
+<h2 id="gotchas">Gotchas</h2>
+
+<p><strong>1) Replacing zsh as the primary shell</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>vim /etc/passwd
+</code></pre></div></div>
+
+<p>Copy the following line (where <code class="language-plaintext highlighter-rouge">cyrus</code> is your username):</p>
+
+<div class="language-config highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cyrus</span>:<span class="n">x</span>:<span class="m">1000</span>:<span class="m">1000</span>:<span class="n">cyrus</span>:/<span class="n">home</span>/<span class="n">cyrus</span>:/<span class="n">bin</span>/<span class="n">bash</span>
+</code></pre></div></div>
+<p>And add the following in the line above it:</p>
+<div class="language-config highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cyrus</span>:<span class="n">x</span>:<span class="m">1000</span>:<span class="m">1000</span>:<span class="n">cyrus</span>:/<span class="n">home</span>/<span class="n">cyrus</span>:/<span class="n">bin</span>/<span class="n">zsh</span>
+</code></pre></div></div>
+
+<p>Then run:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>chsh <span class="nt">-s</span> zsh
+</code></pre></div></div>
+
+<p><strong>2) Copy and paste from Chrome</strong></p>
+
+<p>At first I got frustrated that I could not copy and paste directly from Chrome
+into the Crostini terminal using <code class="language-plaintext highlighter-rouge">CTRL+V</code>. I’m still not entirely sure why, but
+you need to use <code class="language-plaintext highlighter-rouge">CTRL+SHIFT+V</code> instead.</p>
+
+<p><strong>3) No tabs in the terminal</strong></p>
+
+<p>I typically use multiple tabs in iTerm to keep projects separated. From what I
+can tell so far, the Crostini terminal does not support this yet. Fortunately,
+<code class="language-plaintext highlighter-rouge">tmux</code> works great. I just haven’t figured out how to make the mouse bindings
+work like they do on my Mac.</p>
+
+<p>For one-off tasks and setting up a development server, this works well. But,
+when I need to switch between tabs often, I feel some mental friction in my
+workflow. My hunch is that this may be due to the fact that I haven’t
+customized my <code class="language-plaintext highlighter-rouge">tmux.conf</code>. If I want to use this laptop regularly for more than
+just debugging and writing blog posts, I’ll need to put some time into getting
+this setup better.</p>
+
+<p><strong>4) No terminal configuration</strong></p>
+
+<p>I find the red cursor block to be a little annoying. From my use so far, I
+haven’t found a way to adjust that yet. The terminal also doesn’t respond well
+to characters that are more than a fixed width. This became a problem when
+using the default theme for <a href="https://ohmyz.sh/">oh-my-zsh.</a> So, I’ve adjusted my <code class="language-plaintext highlighter-rouge">zshrc</code> file
+to use a different theme when on a Crostini machine.</p>
+
+<p><strong>5) Linux freezes</strong></p>
+
+<p>The only solve I’ve found so far is to restart the Chromebook. Fortunately that
+doesn’t take very long (usually 30 seconds), but I wish there were a way to
+handle this more gracefully.</p>
+
+<p><strong>6) Installing postgres and redis</strong></p>
+
+<p>My previous travel laptops have run <a href="https://en.wikipedia.org/wiki/Ubuntu">Ubuntu</a>. So, in the past, I’ve
+been able to use <code class="language-plaintext highlighter-rouge">apt</code> packages to install everything, but I’ve found that I
+need to install some of these packages from tarball to get the right versions
+when using Crostini.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>I forget that I’m using a Chromebook when I surf the web and check email. The
+main time I’m aware of its limited hardware is when I boot a development
+server or run a test suite. So far, performance has been more than sufficient
+for my travel needs, but falls well short of what I would use as my primary
+laptop. For me, travel is the ideal use case for a Chromebook.</p>
+
+<p>I hope this is helpful. Happy hacking and safe travels.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 28 Jan 2020</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">842 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

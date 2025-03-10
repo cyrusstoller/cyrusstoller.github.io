@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Code that everyone should know how to write</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2015/10/27/code-that-everyone-should-know-how-to-write">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Code that everyone should know how to write</h1>
+
+<div id="post">
+  <p>When people say that they’re learning to code, they usually mean that they’re
+learning to make websites or mobile apps. Code schools typically teach basic
+<a href="http://rubyonrails.org/">Ruby on Rails</a> and <a href="https://nodejs.org/en/">Node.js</a>, aiming to prepare students for junior
+software development roles. But, if that’s not what you’re aiming for, these
+crash courses won’t help you.</p>
+
+<p>In general, I think people would benefit more from learning to write simple
+throw away scripts to automate tasks on their computers. Learning to code
+shouldn’t just be about becoming a software engineer. It should be about being
+more technoliterate and about improving productivity.</p>
+
+<p>Novice coders should be encouraged by two observations about these disposable
+programs. First, even when code is poorly written, the end product is usually
+the same. Second, I hardly ever need to understand any concepts beyond arrays
+and dictionaries to write them.</p>
+
+<p>While understanding theory from my CS degree definitely helps me write better
+software, for simple programs the rate limiting factor is human programming
+time, not <a href="https://en.wikipedia.org/wiki/Big_O_notation">big O notation</a>. In
+other words, writing slow code doesn’t make a difference. For example, if you
+use <a href="https://en.wikipedia.org/wiki/Bubble_sort">bubble sort</a> when you should
+have used <a href="https://en.wikipedia.org/wiki/Quicksort">quick sort</a> for a small
+data set, the difference in runtime will barely be perceptible.</p>
+
+<p>In the same way that not everyone who knows how to write prose will become a
+professional author, not everyone who can code will become a professional
+software developer. Instead of writing programs from first principles, people
+uninterested in pursuing professional software development should start by
+learning to use packages, libraries, and frameworks. Small victories and
+solutions to personal problems will serve as good motivation to keep learning.</p>
+
+<p>Unfortunately, learning to write these disposable scripts can be hard when you
+don’t know where to start. Because these programs are highly specific to
+particular tasks, people typically don’t share them on sites like <a href="https://github.com/">Github</a>.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>You need to have the right mindset. Anytime you’re asked to perform the same
+task more than once, ask yourself whether there’s a way to automate it. Here
+are some examples of the types of scripts you should write.</p>
+
+<h2 id="examples">Examples</h2>
+
+<ol>
+  <li><strong>Reorganizing data:</strong> It’s common to need to reorder text. Usually this
+involves lots of highly error prone copy and paste. Next time, consider
+writing a script in <a href="https://www.python.org/">python</a> or <a href="https://en.wikipedia.org/wiki/Sed">sed</a>.</li>
+  <li><strong>Standardizing data formats:</strong> For example if you want capitalization to be
+consistent, it’s easy to forget to push <code class="language-plaintext highlighter-rouge">shift</code>, but the computer will make
+sure everything looks the same.</li>
+  <li><strong>Collecting information:</strong> Learn to write web scrapers to extract
+information from websites.</li>
+  <li><strong>Downloading datasets from government websites:</strong> Usually this take a lot
+of clicking. Have you computer do it for you.</li>
+  <li><strong>Renaming files:</strong> Instead of clicking each file and renaming it, you can
+write a simple program to rename all of the files using a consistent naming
+scheme.</li>
+  <li><strong>Categorizing data / counting:</strong> When there’s a concrete rule for bucketing
+data, your computer will be far faster and won’t complain about having to
+redo work.</li>
+  <li><strong>Removing duplicates:</strong> Because computers don’t go cross-eyed, they’re able
+to find duplicates or near duplicates with ease.</li>
+  <li><strong>Multiple clicks:</strong> If the clicks are predictable, then write a program to
+execute multiple actions at once.</li>
+  <li><strong>Analyzing Excel files with complicated logic:</strong> Because Excel only allow
+ten conditional statements in a given cell, running any analysis with
+complicated logic is nearly impossible.
+Here’s a <a href="https://github.com/cyrusstoller/Pathfinder">simple program</a> I wrote that produces histograms of
+paths through a network.</li>
+  <li><strong>Running routine reports:</strong> If you need to generate the same report every
+week based on dynamic data, you should automate that process. By lowering
+the friction of generating these reports, you’ll make better use of your
+data.</li>
+</ol>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>If you do this, you’ll join the few who use computers as more than glorified
+typewriters, internet browsers, and television sets. Please email me if you’re
+interested in having me write up one of these examples. I’m happy to write a
+follow up.</p>
+
+<hr />
+
+<p>Thanks to <code class="language-plaintext highlighter-rouge">panglott</code> on HN for recommending <a href="https://automatetheboringstuff.com/">automate the boring stuff
+(python)</a>.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 27 Oct 2015</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">680 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Opinion/">Opinion</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

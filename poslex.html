@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Poslex</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/poslex.html">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Poslex</h1>
+
+<div id="post">
+  <p>Here’s a tool to help you scramble your messages, making them harder for 
+machines to read, while not making them too much harder for humans readers.
+This was inspired by
+<em><a href="http://www.ncbi.nlm.nih.gov/pubmed/432075">Rayner, K. (1979). Eye guidance in reading: Fixation locations within words.</a></em>.</p>
+
+<p>Shuffling is based on the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher–Yates shuffle</a>.</p>
+
+<form action="#" id="p_form">
+  <textarea cols="70" rows="10" id="plaintext" placeholder="plaintext"></textarea> 
+  <br />
+  <br />
+  <input type="submit" id="p_shuffle" value="Shuffle" />
+  <input type="submit" id="p_shuffle_copy" value="Shuffle + Copy" />
+  <br />
+  <br />
+  <textarea cols="70" rows="10" id="ciphertext" placeholder="ciphertext"></textarea> 
+</form>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("p_form").addEventListener("submit", function(event){ event.preventDefault(); });
+    document.getElementById("p_shuffle").addEventListener("click", poslex);
+    document.getElementById("p_shuffle_copy").addEventListener("click", poslexAndCopy);
+  });
+
+  String.prototype.shuffle = function() {
+    var a = this.split(""),
+        n = a.length;
+
+    for(var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a.join("");
+  };
+
+  var poslex = function(){
+    var plaintext = document.getElementById("plaintext").value;
+    var lines = plaintext.split("\n");
+    var cipherLines = new Array();
+
+    for (var i = lines.length - 1; i >= 0; i--) {
+      var line = lines[i]
+      var cipherLine = shuffleWords(line);
+      cipherLines.unshift(cipherLine);
+    };
+
+    for (var i = cipherLines.length - 1; i >= 0; i--) {
+      if (cipherLines[i] === "undefined") {
+        cipherLines[i] = "";
+      };
+    };
+
+    setCipherText(cipherLines.join("\n"));
+    return false;
+  };
+
+  var poslexAndCopy = function(){
+    poslex();
+
+    document.getElementById("ciphertext").select();
+
+    // Copy to clipboard
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+    } catch (err) {
+      alert('Oops, browser unable to copy to clipboard');
+    }
+    return false;
+  }
+
+  var shuffleWords = function(text){
+    var tokens = text.split(" ");
+    var cipherTokens = new Array();
+    for (var i = tokens.length - 1; i >= 0; i--) {
+      var token = tokens[i].replace("\r","").replace("\n",""),
+          first = token[0], 
+          last = "", middle = "", res = "",
+          lastChars = 1;
+      if ( token.length < 1 ) {
+        first = "";
+      } else if ( token.length > 1 ) {
+        last = token.slice(-1);
+        if (last.search(/\W/) == 0 && token.length > 2) {
+          last = token.slice(-2);
+          lastChars = 2;
+        };
+      }
+      middle = token.slice(1,-lastChars);
+      res = first + middle.shuffle() + last;
+
+      cipherTokens.unshift(res);
+    };
+
+    return cipherTokens.join(" ");
+  }
+
+  var setCipherText = function(text){
+    var ciphertext = document.getElementById("ciphertext");
+    ciphertext.value = text;
+  };
+</script>
+
+
+</div>
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

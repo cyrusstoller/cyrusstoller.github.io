@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | How to use your time with freelance developers</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2015/07/08/how-to-use-your-time-with-freelance-developers">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>How to use your time with freelance developers</h1>
+
+<div id="post">
+  <p>In general, I think that if you have an idea, you should write the
+code yourself (<a href="/2011/03/24/dont-hire-cheap-hackers">previous post</a>).
+It’s more likely to turn out the way you want and 
+you will have more control moving forward.
+But, that’s not always an option.
+Recently, I’ve been advising some friends on how to use their time
+most efficiently with freelance developers.
+Hopefully this post can help you avoid some hiccups they have encountered.</p>
+
+<h2 id="be-committed">Be committed</h2>
+
+<p>If you are going to hire a freelance developer, be sure that
+you are going to be willing to spend enough money to get a
+quality product, especially if you are going to be relying on the
+software for more than just a proof of concept.
+Many people claim they know exactly what they need a “programmer”
+to do, since they have sketched out some wireframes in PowerPoint.
+In my experience, these “wireframes” are probably going to be thrown
+out because my friends have not thought through what they actually
+want in enough detail.</p>
+
+<p>Writing software takes time and expertise.
+I’d recommend you try to think about this process in similar way
+to asking a freelancer helping you to create a physicial prototype.
+It’s going to take time and it’s going to cost real money.
+If this seems like it’s going to be a problem,
+consider whether this is a project you actually want to work on.</p>
+
+<p>Assuming you have decided to move ahead with your project,
+here are some concrete ways to be economical with the time
+your freelancer is going to be billing you for.</p>
+
+<h2 id="know-what-you-want">Know what you want</h2>
+
+<p>This may sounds simple, but most of my friends only knew what they
+wanted in an abstract sense.
+They had not figured out the details.
+For example, they had a couple sentence description, but had not thought
+through the details of what would need to be built to accomplish
+their vision.
+Some freelance developers relish the opportunity to craft
+your product, but there is a lot of variability in quality and
+this exposes your project to unnecessary risk.
+Before you start looking for a freelancer, 
+you should be able to articulate workflows and what they are
+intended to accomplish.</p>
+
+<h2 id="whats-in-the-database">What’s in the database?</h2>
+
+<p>Wireframes are certainly important, but you also need to know which
+data is important for you to collect from your users.
+This needs to be <em>super specific</em>.</p>
+
+<p>It’s important to both understand how users are going to be
+inputting information and how you would like to store it.
+For example, you may just ask a user to enter an <code class="language-plaintext highlighter-rouge">address</code> field,
+but on your server you would like to geocode the <code class="language-plaintext highlighter-rouge">address</code>
+into <code class="language-plaintext highlighter-rouge">latitude</code> and <code class="language-plaintext highlighter-rouge">longitude</code>, so that it will be easier
+to sort by distance later.
+The <code class="language-plaintext highlighter-rouge">address</code> should be stored as a <a href="https://en.wikipedia.org/wiki/String_(computer_science)">string</a> and
+the <code class="language-plaintext highlighter-rouge">latitude</code> and <code class="language-plaintext highlighter-rouge">longitude</code> may be stored as <a href="https://en.wikipedia.org/wiki/Floating_point">floats</a>.</p>
+
+<p>You should know that you want to collect first and last names of 
+your users separately as <a href="https://en.wikipedia.org/wiki/String_(computer_science)">strings</a>
+and that you would like to keep track of how many times a user
+has visited your site as an integer.
+You may also want to keep track of a user’s billing address.
+For your convenience later, you may want to break this down
+into many smaller fields, so that you can easily look up all of your
+customers who live in a particular zipcode.</p>
+
+<p>If this feels painfully specific, then you’re probably doing it right.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Once you have thought through these details, you
+can short circuit many conversations with your freelancer that have
+a tendency to go around in circles.
+And by providing a clear picture of what you want,
+you should be able to get a more accurate time guestimate.
+Hopefully this will help save you from learning two weeks 
+before your deadline that the software you need won’t be ready in time.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 08 Jul 2015</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">658 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Advice/">Advice</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

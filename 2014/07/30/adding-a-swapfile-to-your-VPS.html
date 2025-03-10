@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Adding a swapfile to your VPS</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2014/07/30/adding-a-swapfile-to-your-VPS">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Adding a swapfile to your VPS</h1>
+
+<div id="post">
+  <p><a href="http://revtilt.com">RevTilt</a> is hosted on a 512MB droplet on <a href="http://digitalocean.com/">Digital Ocean</a>.
+The low amount of RAM is usually fine, given the traffic, but it’s become a problem 
+during deployment. I wasn’t able to deploy without stopping my server first, which
+defeats the purpose of having setup zero downtime deployment.
+This is largely because the zero downtime deploys spin up two instances of the application 
+side by side until <a href="http://unicorn.bogomips.org/">Unicorn</a> kills the old master process.
+Without adding a <code class="language-plaintext highlighter-rouge">swapfile</code> to my VPS, my deployments had been failing due to an inability to 
+allocate enough memory.
+For a more detailed explanation of how this work you may want to checkout these 
+<a href="https://github.com/blog/517-unicorn">blog</a> <a href="http://railscasts.com/episodes/373-zero-downtime-deployment">posts</a> and this <a href="http://www.slideshare.net/pedrobelo/zero-downtime-deploys-for-rails-apps">presentation</a>.</p>
+
+<p>By adding a <code class="language-plaintext highlighter-rouge">swapfile</code> processes are no longer randomly terminated due to “out of memory” errors.
+Instead, the system just slows down as a whole while it waits for the I/O to disk.
+<strong>This is not a substitute for having the appropriate amount of RAM on your server.</strong>
+Paging is <a href="https://en.wikipedia.org/wiki/Paging#Performance">many orders of magnitude slower</a> than using RAM. 
+If your server has an SSD then it’s not quite as bad, but it’s still <em>substationally</em> worse than 
+adding more RAM.
+This is meant to serve as an emergency fallback. 
+In my case, I only make use of the <code class="language-plaintext highlighter-rouge">swapfile</code> when I deploy, which isn’t too often.</p>
+
+<p>I like this technique because it lets me continue using zero downtime deployment 
+in low memory environments.
+I’m not recommending you skimp on your server specs. It’s not worth it.</p>
+
+<hr />
+
+<p>Ok, let’s get started.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo install</span> <span class="nt">-o</span> root <span class="nt">-g</span> root <span class="nt">-m</span> 0600 /dev/null /swapfile
+</code></pre></div></div>
+
+<p>This creates an empty <code class="language-plaintext highlighter-rouge">swapfile</code> for your system to use. This is more concise than using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo touch</span> /swapfile
+<span class="nv">$ </span><span class="nb">sudo chmod </span>0600 /swapfile
+</code></pre></div></div>
+
+<p>Next, you need to specify how big your <code class="language-plaintext highlighter-rouge">swapfile</code> is going to be.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/swapfile <span class="nv">bs</span><span class="o">=</span>1k <span class="nv">count</span><span class="o">=</span>512k
+</code></pre></div></div>
+
+<p>This creates a <code class="language-plaintext highlighter-rouge">swapfile</code> that is 512 MB. You can adjust this to meet the needs of your system.
+Read this <a href="https://help.ubuntu.com/community/SwapFaq">FAQ</a> put together by <a href="http://www.ubuntu.com/">Ubuntu</a>
+to learn more about setting an appropriate file size.</p>
+
+<p>Now, tell your <a href="https://en.wikipedia.org/wiki/Linux">Linux</a> system about this file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>mkswap /swapfile <span class="c"># make it a swap file</span>
+<span class="nv">$ </span><span class="nb">sudo </span>swapon /swapfile <span class="c"># activate it</span>
+<span class="c"># $ sudo swapoff /swapfile # to deactivate it</span>
+</code></pre></div></div>
+
+<p>We need to make sure that it will be available after reboot, so we add it to the filesystem.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"/swapfile swap swap auto 0 0"</span> | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/fstab
+</code></pre></div></div>
+
+<p>In the <a href="https://en.wikipedia.org/wiki/Fstab">fstab</a>, you specify:
+device name, mount point, fs-type, options, dump-freq, and pass-num.</p>
+
+<p>And lastly, tell your system to use this <code class="language-plaintext highlighter-rouge">swapfile</code> as a last resort by setting the
+<a href="https://en.wikipedia.org/wiki/Swappiness">swappiness</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>sysctl <span class="nt">-w</span> vm.swappiness<span class="o">=</span>10
+<span class="nv">$ </span><span class="nb">echo </span>vm.swappiness <span class="o">=</span> 10 | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+</code></pre></div></div>
+
+<p>If you want to keep your <code class="language-plaintext highlighter-rouge">/etc/sysctl.conf</code> clean you can create a new file in <code class="language-plaintext highlighter-rouge">/etc/sysctl.d</code>
+named <code class="language-plaintext highlighter-rouge">/etc/sysctl.d/10-swapfile.conf</code>.
+For more discussion about how to use this technique when setting up a system like 
+<a href="http://www.discourse.org/">Discourse</a> check out this 
+<a href="https://meta.discourse.org/t/create-a-swapfile-for-your-linux-server/13880">thread</a>.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 30 Jul 2014</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">599 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

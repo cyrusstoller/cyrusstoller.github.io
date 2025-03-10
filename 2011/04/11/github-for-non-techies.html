@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Github for Non-Techies</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2011/04/11/github-for-non-techies">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Github for Non-Techies</h1>
+
+<div id="post">
+  <p>I was having a discussion with a friend from college who needed to have some
+“minor” changes made to her website. She had originally paid a web developer to
+make it, but was frustrated with how long it was taking him to make changes and
+she was on a tight deadline. She asked if I would be willing to help her out. I
+told her that I couldn’t commit to being her full time web developer, but that
+I’d be willing to take a look at the code if she put it on <a href="https://github.com/" title="Github">Github</a>. I said
+that I’d be willing to make a pull request if she told me exactly what she
+needed changed.</p>
+
+<p>That’s when I realized that we were bound for a train wreck. She had never
+taken any computer science classes and had never opened the <code class="language-plaintext highlighter-rouge">Terminal</code> on her
+Macbook. In her words:</p>
+
+<blockquote>
+  <p>terminal : me :: elevator : claustrophobe</p>
+</blockquote>
+
+<p>So, since I was going to write this up for her anyway, here’s my explanation of
+how to get <a href="https://github.com/" title="Github">Github</a> setup and how to create a repository. To me, the
+instructions on the <a href="https://github.com/" title="Github">Github</a> website are really clear and direct, but
+they’re targeting an audience that has used the <code class="language-plaintext highlighter-rouge">Terminal</code> before and may have
+an opinion in the <code class="language-plaintext highlighter-rouge">emacs</code> vs <code class="language-plaintext highlighter-rouge">vim</code> debate (go emacs!).</p>
+
+<p>The first question my friend asked me, was <em>“where do I type?”</em> I think most
+geeks just take this starting point for granted. So, here’s my attempt at a
+<em>literal</em> step-by-step tutorial.</p>
+
+<hr />
+
+<h2 id="opening-the-terminal-on-a-mac">Opening the Terminal on a Mac</h2>
+
+<p>Open <code class="language-plaintext highlighter-rouge">/Applications/Utilities/Terminal.app</code>. For those of you don’t know what
+this means. Go to your <code class="language-plaintext highlighter-rouge">Applications</code> folder, then scroll to the bottom and
+open the <code class="language-plaintext highlighter-rouge">Utilities</code> folder. In there you’ll see a lot of really useful
+applications that Apple provides. Open <code class="language-plaintext highlighter-rouge">Terminal</code>.</p>
+
+<p>Hopefully you can see how <code class="language-plaintext highlighter-rouge">/Applications/Utilities/Terminal.app</code> translates to
+opening the <code class="language-plaintext highlighter-rouge">Terminal</code>. This is called a
+<a href="http://en.wikipedia.org/wiki/Path_%28computing%29">path</a>.</p>
+
+<p>Great job. Now breathe. The blinking cursor is your friend. <em>I promise.</em></p>
+
+<h2 id="basic-unix-commands">Basic UNIX commands</h2>
+
+<blockquote>
+  <p>I have a cursor. Great … I could have just opened <code class="language-plaintext highlighter-rouge">Microsoft Word</code> or
+<code class="language-plaintext highlighter-rouge">TextEdit</code> and seen something similar.</p>
+</blockquote>
+
+<p>Except, those prompts would not have let you take complete control of your
+computer. Don’t worry, you won’t be able to do anything too harmful without
+getting a warming or being prompted for your password.</p>
+
+<h3 id="notation-of-the-prompt-aka-command-line">Notation of the prompt (aka Command Line)</h3>
+
+<p>When describing what to type into the <code class="language-plaintext highlighter-rouge">Terminal</code> many people will prepend each
+command with <code class="language-plaintext highlighter-rouge">$</code> or <code class="language-plaintext highlighter-rouge">&gt;</code>. You don’t need to type the character that is denoting
+the prompt, which is often referred to as the <a href="http://en.wikipedia.org/wiki/Command_line">Command
+Line</a>. For example, if you see:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ~/Documents/
+<span class="nv">$ </span><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>You would type <code class="language-plaintext highlighter-rouge">cd ~/Documents/</code> and then press <code class="language-plaintext highlighter-rouge">return</code>, then when you get the
+next prompt, you would type <code class="language-plaintext highlighter-rouge">pwd</code> and then press <code class="language-plaintext highlighter-rouge">return</code>. Always be sure to
+type exactly what was written. For the most part, the <code class="language-plaintext highlighter-rouge">Terminal</code> prompt or
+<em>Command Line</em>, is case-sensitive.</p>
+
+<h3 id="basic-file-navigation">Basic File Navigation</h3>
+
+<p>I’m hoping that you don’t save all of your files on your desktop like my dad
+does. Most people make folders or in UNIX parlance <code class="language-plaintext highlighter-rouge">directories</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$ cd filename</code> is analogous to opening a directory (file) called <code class="language-plaintext highlighter-rouge">filename</code>.
+It’s short for <em>change directory</em>. <code class="language-plaintext highlighter-rouge">$ pwd</code> will show you where you are. It’s
+short for <em>print working directory</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">$ ls</code> lists everything in your current working directory</li>
+  <li><code class="language-plaintext highlighter-rouge">$ mkdir foo</code> creates a new directory called <code class="language-plaintext highlighter-rouge">foo</code> in your working directory.
+It’s short for <em>make directory</em>.</li>
+  <li>You can always type <code class="language-plaintext highlighter-rouge">$ man &lt;commandname&gt;</code> and it will show you the <code class="language-plaintext highlighter-rouge">man</code> or
+<code class="language-plaintext highlighter-rouge">manual</code> page for that command. Whenever I have something like
+<code class="language-plaintext highlighter-rouge">&lt;commandname&gt;</code> supplement that with something else. For example try <code class="language-plaintext highlighter-rouge">$ man
+pwd</code> to see the man page for the <code class="language-plaintext highlighter-rouge">pwd</code> command. If you want to close the man
+page type the letter <code class="language-plaintext highlighter-rouge">q</code>.</li>
+</ul>
+
+<p>When you first launch the <code class="language-plaintext highlighter-rouge">Terminal</code> you will start in your <code class="language-plaintext highlighter-rouge">home</code> directory,
+which is notated at <code class="language-plaintext highlighter-rouge">~</code> in shorthand. This is the folder that has your
+<code class="language-plaintext highlighter-rouge">Desktop</code>, <code class="language-plaintext highlighter-rouge">Documents</code> and <code class="language-plaintext highlighter-rouge">Downloads</code> folders. You can use this shorthand at
+the Command Line. For example:</p>
+
+<h3 id="practice-changing-directories">Practice Changing Directories</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>Documents
+</code></pre></div></div>
+
+<p>You are now in your <code class="language-plaintext highlighter-rouge">Documents</code> directory. You can verify this with <code class="language-plaintext highlighter-rouge">$ pwd</code>,
+which will output something like <code class="language-plaintext highlighter-rouge">/Users/cyrusstoller/Documents</code>. To go back to
+your <code class="language-plaintext highlighter-rouge">home</code> directory you have a few options:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">$ cd ~</code> will change your working directory to your <code class="language-plaintext highlighter-rouge">home</code> directory.</li>
+  <li><code class="language-plaintext highlighter-rouge">$ cd ..</code> will change to you working directory’s parent directory, in other
+words the folder that your current working directory is in. In this case
+that happens to be your <code class="language-plaintext highlighter-rouge">home</code> directory.</li>
+</ol>
+
+<p><em>“Ok. Great. I can use <code class="language-plaintext highlighter-rouge">$ pwd</code> to see which directory I’m in, but how do I see
+which directories I can go into?”</em> Type <code class="language-plaintext highlighter-rouge">$ ls</code> to see all of the files in your
+current working directory. (If you try to <code class="language-plaintext highlighter-rouge">cd</code> into a file that isn’t a
+directory you’ll get an error.)</p>
+
+<p>Try to <code class="language-plaintext highlighter-rouge">cd</code> into a bunch of your directories. Use <code class="language-plaintext highlighter-rouge">ls</code> to see what is in each
+directory. And type <code class="language-plaintext highlighter-rouge">pwd</code> to confirm that you are where you think you should
+be.</p>
+
+<p>Now use <code class="language-plaintext highlighter-rouge">$ mkdir my_new_directory</code> to create a new directory (or folder) called
+<code class="language-plaintext highlighter-rouge">my_new_directory</code> in your current working directory. You can <code class="language-plaintext highlighter-rouge">cd</code> into it and
+see that there is nothing inside. If you just type <code class="language-plaintext highlighter-rouge">$ cd</code> you will go back to
+you home directory. To go into <code class="language-plaintext highlighter-rouge">my_new_directory</code> you type <code class="language-plaintext highlighter-rouge">$ cd
+my_new_directory</code>.</p>
+
+<p>These are just some of the very basics in UNIX file navigation. Here are some
+other resources that you may want to check out, if you’re feeling confused, or
+are eager to learn more tricks.</p>
+
+<ul>
+  <li><a href="http://cslibrary.stanford.edu/107/UnixProgrammingTools.pdf">Stanford CS Unix Programming Tools Cheat Sheet</a> - Go to Section 5 at the bottom</li>
+  <li><a href="http://www.ee.surrey.ac.uk/Teaching/Unix/">Unix Tutorial for Beginners</a></li>
+  <li><a href="http://people.ischool.berkeley.edu/~kevin/unix-tutorial/toc.html">Unix Tutorial</a></li>
+</ul>
+
+<h2 id="setting-up-your-github-account">Setting up your Github account</h2>
+
+<p>This is the easy part. Go to <a href="https://github.com/" title="Github">github.com</a> and create an account. Unless you
+need to keep your code private, a free account should do just fine. You’re
+going to follow the <a href="http://help.github.com/mac-set-up-git/" title="Setting up git on a mac">instructions</a> that the good folks at <a href="https://github.com/" title="Github">Github</a> have
+written up.</p>
+
+<h2 id="creating-your-first-repository">Creating your first repository</h2>
+
+<p>Great job setting up your account. Now let’s create a repository by following
+these <a href="http://help.github.com/create-a-repo/" title="Creating a github repository">instructions</a>.</p>
+
+<p>Here are the highlights and why they’re important.</p>
+
+<ul>
+  <li>Create a repository on the <a href="https://github.com/" title="Github">Github</a> website. I’d recommend trying to use
+only letters and numbers. I try to conform the <a href="http://en.wikipedia.org/wiki/Camelcase" title="CamelCase">CamelCase Convention</a>.</li>
+  <li>You need to create a directory for your repository. You can put this folder
+wherever you want on your computer. I’d recommend creating a folder called
+<code class="language-plaintext highlighter-rouge">Github</code> in your documents folder.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ~/Documents/
+<span class="nv">$ </span><span class="nb">mkdir </span>Github
+<span class="nv">$ </span><span class="nb">cd </span>Github
+<span class="nv">$ </span><span class="nb">mkdir</span> &lt;SAME AS YOUR REPOSITORY NAME&gt;
+</code></pre></div></div>
+
+<p>More or less everything that you put in this folder will be put on <a href="https://github.com/" title="Github">Github</a>.
+As you get more advanced you’ll learn why you might not want everything to go
+to Github (ie Database passwords etc …) - to prevent certain files from
+getting uploaded you can read more about <code class="language-plaintext highlighter-rouge">.gitignore</code> files
+<a href="http://help.github.com/ignore-files/">here</a>. While you can technically make
+the name of your directory different than the name of your repository it will
+just make your life a lot more difficult.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">$ cd &lt;SAME AS YOUR REPOSITORY NAME&gt;</code> if you type <code class="language-plaintext highlighter-rouge">$ pwd</code> you should see
+something like <code class="language-plaintext highlighter-rouge">/User/cyrusstolller/Documents/Github/&lt;SAME AS YOUR REPOSITORY
+NAME&gt;</code>. Clearly, your file path won’t include your username (on your
+computer, which may be different from the one you setup on Github) instead of
+<code class="language-plaintext highlighter-rouge">cyrusstoller</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">$ git init</code> You need to initialize your git repository. Git doesn’t
+magically know which folders you want to treat as repositories, so here
+you’re telling git that this directory is “special.”</li>
+</ul>
+
+<p>Here’s where my friend got lost. What is a text editor? <em>Do I just type into
+Microsoft Word?</em> For the most part, the answer is <strong>no</strong>.</p>
+
+<h3 id="adding-files-that-already-exist-somewhere-else">Adding files that already exist somewhere else</h3>
+
+<p>In my friend’s case she had some PHP files that her web developer had emailed
+to her (this seems really sketchy, but I’m just going with what I’ve been
+told). For her she could just drag and drop those files into her new git
+repository. To quickly open here current directory so that she could drag and
+drop like she’s used, use <code class="language-plaintext highlighter-rouge">$ open .</code> - the <code class="language-plaintext highlighter-rouge">.</code> refers to your current
+directory. You should hopefully see your newly created empty folder. Now drag
+and drop your files into this folder.</p>
+
+<h3 id="creating-new-files-with-a-text-editor">Creating new files with a text editor</h3>
+
+<p>You can skip this section if you already dragged files into your git
+repository.</p>
+
+<p>On the Github help page they mention <code class="language-plaintext highlighter-rouge">$ touch README</code> - that just creates a
+blank file called <code class="language-plaintext highlighter-rouge">README</code>. Github treats files named <code class="language-plaintext highlighter-rouge">README</code> in a special
+way. If you’ve ever gone to a Github and see some instructions at the bottom or
+an explanation of what the repository is, that text comes from the <code class="language-plaintext highlighter-rouge">README</code>
+file. If you want to learn more read <a href="https://github.com/github/markup">here</a>.</p>
+
+<p>You can also use <code class="language-plaintext highlighter-rouge">emacs</code>, <code class="language-plaintext highlighter-rouge">vim</code>, <code class="language-plaintext highlighter-rouge">TextMate</code>, <code class="language-plaintext highlighter-rouge">Komodo</code>, <code class="language-plaintext highlighter-rouge">TextWrangler</code>, etc …
+to create new files in your repository. Yes, you can also have directories
+inside of your repository; git will recursively look through everything in your
+directory where you initialized your repository.</p>
+
+<h3 id="making-your-first-commit">Making your first commit</h3>
+
+<p>Even though your files reside in the same folder as your repository, they
+haven’t actually been added to your repository yet. You need to make a
+<code class="language-plaintext highlighter-rouge">commit</code>. Git is a version control system. You can think of each <code class="language-plaintext highlighter-rouge">commit</code> being
+a “version” of the files in your repository that you want to keep track of. I
+would recommend being generous with your <code class="language-plaintext highlighter-rouge">commits</code>. In other words, commit
+often. Git is smart. It only save the differences between each <code class="language-plaintext highlighter-rouge">commit</code> so
+you’re not going to “wasting” a lot of space on your hard drive.</p>
+
+<p>Ok. <em>So how do I make a commit?</em></p>
+
+<p>At a very basic level there are two steps to creating your first commit: 1.
+staging what you want in your commit 2. finalizing your commit.</p>
+
+<ol>
+  <li>You use <code class="language-plaintext highlighter-rouge">$ git add .</code> to add everything in your current directory to your
+“staging area”. (Remember the <code class="language-plaintext highlighter-rouge">.</code> notation from earlier?) As you learn more,
+you can add files individually. And as you get more advanced, you can add
+only parts of a file. But, I digress…
+    <ul>
+      <li>You can try <code class="language-plaintext highlighter-rouge">$ git status</code> to see what has been added to your staging area.
+ It will say <code class="language-plaintext highlighter-rouge">Initial commit</code> above your files. That’s just indicating that
+ your git repository doesn’t have any <code class="language-plaintext highlighter-rouge">commits</code> yet.</li>
+    </ul>
+  </li>
+  <li>You use <code class="language-plaintext highlighter-rouge">$ git commit -m "My initial commit"</code> to finalize your <code class="language-plaintext highlighter-rouge">commit</code> and
+add it to you git repository. The <code class="language-plaintext highlighter-rouge">-m</code> tells the <code class="language-plaintext highlighter-rouge">commit</code> command that
+you’re going to be passing a message along with your commit. It’s good form
+to always make a note of what you were changing in each commit. In this case
+our message was <code class="language-plaintext highlighter-rouge">"My initial commit"</code>.</li>
+</ol>
+
+<p>Here’s a <a href="http://gitready.com/beginner/2009/01/18/the-staging-area.html" title="Git Staging Area">blog post</a> that explains the concept of “staging” in more depth.</p>
+
+<p>Excellent work. Now type <code class="language-plaintext highlighter-rouge">$ git log</code> to see a list of all of your <code class="language-plaintext highlighter-rouge">commits</code>.
+You should see one message. At this point, you have created your first git
+repository and created your first commit. Well done. But, you haven’t put your
+repository on <a href="https://github.com/" title="Github">Github</a> yet. It’s just on your local machine.</p>
+
+<p>If you type <code class="language-plaintext highlighter-rouge">$ git status</code> you can see if any files have been modified since
+your last commit.</p>
+
+<h2 id="putting-your-first-repository-on-github">Putting your first repository on Github</h2>
+
+<p>Now that you have a git repository on your computer, how do you put it on
+<a href="https://github.com/" title="Github">Github</a>.</p>
+
+<p>If this your first time creating a repository <a href="https://github.com/" title="Github">Github</a> might provide
+instructions on how to do this. You can follow the instructions that are on
+your repository page. And skip to the next section.</p>
+
+<ol>
+  <li>Go to the your github repository in your favorite browser (ie Safari,
+Chrome, Firefox, etc ..): <code class="language-plaintext highlighter-rouge">https://github.com/&lt;your github username&gt;/&lt;your
+github repository name&gt;/</code></li>
+  <li>There copy a string that looks like <code class="language-plaintext highlighter-rouge">git@github.com:&lt;your github
+username&gt;/&lt;your github repository name&gt;.git</code> by clicking the clipboard icon
+next to it.</li>
+  <li>Go back to your terminal and make sure that you’re still in the same working
+directory as your git repository.</li>
+  <li><code class="language-plaintext highlighter-rouge">$ git remote add origin git@github.com:&lt;your github username&gt;/&lt;your github
+repository name&gt;.git</code> This connects your local git repository to the
+repository that you have on Github.</li>
+  <li><code class="language-plaintext highlighter-rouge">$ git push origin master</code> This tells git to push the commits on your master
+branch to the <code class="language-plaintext highlighter-rouge">origin</code> repository, which is your repository on Github.</li>
+</ol>
+
+<p>No reload you repository page on the Github website and you should see your
+files there. Congratulations.</p>
+
+<h2 id="adding-new-commits">Adding new commits</h2>
+
+<p>Great work. You have your first commit on Github. w00t.</p>
+
+<p>To add new files. You can drag and drop them into the folder that contains your
+git repository. Then do the following once you have navigated to your git
+repository using <code class="language-plaintext highlighter-rouge">cd</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git add <span class="nb">.</span>
+<span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"&lt;message for what you did&gt;"</span>
+</code></pre></div></div>
+
+<p>Git is smart and tracks files that you have already added and will show you
+changes that have been made. You’ll see the differences by using the <code class="language-plaintext highlighter-rouge">$ git
+diff</code> command. You should see the changes that you just made. Type the letter
+<code class="language-plaintext highlighter-rouge">q</code> to exit.</p>
+
+<p>If you just want to see which files have been modified use the <code class="language-plaintext highlighter-rouge">$ git status</code>
+command. It will show you a list of the files that have been modified.</p>
+
+<p>To undo, use <code class="language-plaintext highlighter-rouge">$ git checkout .</code> to restore the state of the last commit. This
+will erase any changes you have made since your last commit. To confirm that,
+try <code class="language-plaintext highlighter-rouge">$ git status</code> and it should say “Nothing to commit.”</p>
+
+<h2 id="additional-resources">Additional Resources</h2>
+
+<ul>
+  <li><a href="http://gitready.com/" title="Gitready">Gitready</a></li>
+  <li><a href="http://progit.org/book/" title="Pro Git">Pro Git</a></li>
+  <li><a href="http://gitimmersion.com/" title="Git Immersion">Git Immersion</a></li>
+  <li><a href="http://book.git-scm.com/" title="Git Community Book">Git Community Book</a></li>
+  <li><a href="http://ftp.newartisans.com/pub/git.from.bottom.up.pdf" title="Git From the Bottom Up">Git From the Bottom Up (pdf)</a></li>
+  <li><a href="http://www-cs-students.stanford.edu/~blynn/gitmagic/" title="Git Magic">Git Magic</a></li>
+</ul>
+
+<p>I hope this is helpful. Good luck and happy coding.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 11 Apr 2011</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">2614 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

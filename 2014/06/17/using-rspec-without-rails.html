@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Cyrus Stoller | Using rspec without Rails</title>
+   <meta name="author" content="Cyrus Stoller" />
+   <meta property="og:image"            content="https://www.cyrusstoller.com/images/cs_blog_logo.png">
+   <meta property="og:image:type"       content="image/png">
+   <meta property="og:image:width"      content="400">
+   <meta property="og:image:height"     content="400">
+   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+   
+   <link rel="canonical" href="https://www.cyrusstoller.com/2014/06/17/using-rspec-without-rails">
+   
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" media="screen, projection" />
+
+   <!-- Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ92HM6GZV"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VZ92HM6GZV');
+   </script>
+
+</head>
+<body>
+
+<div class="site">
+  <div class="title">
+  <a class="name" href="/">Cyrus Stoller</a>
+  <a class="extra" href="/">home</a>
+  <a class="extra" href="/about">about</a>
+  <a class="extra" href="/consulting">consulting</a>
+</div>
+
+
+  <h1>Using rspec without Rails</h1>
+
+<div id="post">
+  <p><a href="https://www.ruby-lang.org/">Ruby</a> is a great for building things besides <a href="http://rubyonrails.org/">rails</a> applications.
+But, for newcomers, figuring out how to use tools like <a href="https://github.com/rspec/rspec">rspec</a> without the nice plug and play 
+rails generators can be confusing because the <a href="https://www.relishapp.com/rspec/docs/gettingstarted">documentation</a>
+assumes you understand how to setup your project.</p>
+
+<p>In this tutorial I’m going to show you how to setup <a href="https://github.com/rspec/rspec">rspec</a> to test your code and how to use
+<a href="https://github.com/guard/guard-rspec">guard-rspec</a> to run your specs whenever you save.
+I find that by deceasing the amount of work I have to do to run my tests, the more likely I am to write them.</p>
+
+<p>Here’s the basic directory structure (<a href="https://github.com/cyrusstoller/bugfree-template">github repo</a>) I use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my_project
+├── Gemfile
+├── Guardfile
+├── lib
+│   ├── file1.rb
+│   └── file2.rb
+└── spec
+    ├── lib
+    │   ├── file1_spec.rb
+    │   └── file2_spec.rb
+    └── spec_helper.rb
+</code></pre></div></div>
+
+<p>Now I’ll go through each of these files and explain what they do.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Gemfile</span>
+<span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
+<span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'rspec'</span><span class="p">,</span> <span class="s1">'~&gt; 3.0.0'</span>
+  <span class="n">gem</span> <span class="s1">'guard-rspec'</span><span class="p">,</span> <span class="s1">'~&gt; 4.2.10'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Your <code class="language-plaintext highlighter-rouge">Gemfile</code> is where you define which gems you are using in your project.
+For this tutorial, I’m assuming you know what gems are. I suggest using
+<a href="http://rubygems.org/">rubygems.org</a> and <a href="http://ruby-toolbox.org/">ruby-toolbox.org</a> before you
+start writing new code. It’s possible that someone else has already written what you need.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Guardfile</span>
+<span class="n">guard</span> <span class="s1">'rspec'</span><span class="p">,</span> <span class="ss">cmd: </span><span class="s2">"bundle exec rspec"</span><span class="p">,</span> <span class="ss">:all_after_pass</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span> 
+  <span class="ss">:failed_mode</span> <span class="o">=&gt;</span> <span class="ss">:none</span> <span class="k">do</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{</span><span class="se">\A</span><span class="sr">spec/.+_spec</span><span class="se">\.</span><span class="sr">rb</span><span class="se">\z</span><span class="sr">}</span><span class="p">)</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{</span><span class="se">\A</span><span class="sr">lib/(.+)</span><span class="se">\.</span><span class="sr">rb</span><span class="se">\z</span><span class="sr">}</span><span class="p">)</span>   <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="s2">"spec/lib/</span><span class="si">#{</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">_spec.rb"</span> <span class="p">}</span>
+  <span class="n">watch</span><span class="p">(</span><span class="s1">'spec/spec_helper.rb'</span><span class="p">)</span>  <span class="p">{</span> <span class="s2">"spec"</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Your <code class="language-plaintext highlighter-rouge">Guardfile</code> specifies which specs to run when a file is saved. 
+If the file is in the <code class="language-plaintext highlighter-rouge">spec</code> directory and its filename ends with <code class="language-plaintext highlighter-rouge">_spec.rb</code>, 
+we’re telling <code class="language-plaintext highlighter-rouge">guard</code> to run the specs in that file.
+If the file is in the <code class="language-plaintext highlighter-rouge">lib</code> directory, we’re telling <code class="language-plaintext highlighter-rouge">guard</code> to look for the corresponding
+spec file in the <code class="language-plaintext highlighter-rouge">spec/lib</code> directory and run it. 
+And lastly, if the <code class="language-plaintext highlighter-rouge">spec_helper.rb</code> is changed, we’re telling guard to run
+all of the specs.</p>
+
+<p>Place the code you want tested in the <code class="language-plaintext highlighter-rouge">lib</code> directory and place corresponding specs
+in the <code class="language-plaintext highlighter-rouge">spec/lib</code> directory. For example, if you have a file <code class="language-plaintext highlighter-rouge">lib/file1.rb</code> make a spec file
+called <code class="language-plaintext highlighter-rouge">spec/lib/file1_spec.rb</code>.</p>
+
+<h2 id="setting-up-your-specs">Setting up your specs</h2>
+
+<p>Now let’s look at how to setup your <code class="language-plaintext highlighter-rouge">spec</code> directory. In a <a href="http://rubyonrails.org/">rails</a> project pretty much all
+of your classes have been preloaded.
+This won’t be true for your new project by default.
+First we need to add our <code class="language-plaintext highlighter-rouge">lib</code> directory to the <code class="language-plaintext highlighter-rouge">$LOAD_PATH</code> so that we can require those
+files in our specs. To learn more about how ruby loads files, click 
+<a href="http://ruby.about.com/od/rubysbasicfeatures/ss/Load-Vs-Require.htm">here</a>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># spec/spec_helper.rb</span>
+<span class="vg">$LOAD_PATH</span><span class="p">.</span><span class="nf">unshift</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span> <span class="s1">'..'</span><span class="p">,</span> <span class="s1">'lib'</span><span class="p">))</span>
+<span class="vg">$LOAD_PATH</span><span class="p">.</span><span class="nf">unshift</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">))</span>
+<span class="nb">require</span> <span class="s1">'rspec'</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">order</span> <span class="o">=</span> <span class="s1">'random'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Depending on your project there are a couple of approaches that might work well for you.</p>
+
+<h3 id="option-1">Option 1</h3>
+
+<p>Load only the necessary files per spec file. So, at the top of <code class="language-plaintext highlighter-rouge">spec/lib/file1_spec.rb</code>
+you would have:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># spec/lib/file1_spec.rb</span>
+<span class="nb">require</span> <span class="s2">"spec_helper"</span>
+<span class="nb">require</span> <span class="s2">"file1"</span>
+</code></pre></div></div>
+
+<h3 id="option-2">Option 2</h3>
+
+<p>If you don’t want to have to remember to load a file in each of your spec files or if
+you have classes that need to interact with each other, you may just want to require all of them.
+To do this you can add the following to your <code class="language-plaintext highlighter-rouge">spec/spec_helper.rb</code>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># spec/spec_helper.rb</span>
+<span class="no">Dir</span><span class="p">[</span><span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span> <span class="s2">".."</span><span class="p">,</span> <span class="s2">"lib"</span> <span class="p">,</span> <span class="s2">"**.rb"</span><span class="p">)].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+  <span class="nb">require</span> <span class="n">f</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>Update</em>: Thanks to <a href="http://www.pathtothenextlevel.com/about/">Eric Chiang</a> for catching a typo.</p>
+
+<p>Hopefully this was helpful. Happy coding.</p>
+
+
+</div>
+
+<p class="navigation">
+  <a href="/">&larr; Go home</a>
+  &nbsp;
+  <a href="#">Back to top</a>
+  &nbsp;
+  <span class="small-muted">originally posted: 17 Jun 2014</span>
+  
+  
+    &nbsp;
+    <span class="small-muted">&ndash;</span>
+    &nbsp;
+    <span class="small-muted">772 words</span>
+  
+</p>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span class="small-muted">06 Feb 2025</span> &raquo; <a href="/2025/02/06/fabrication-begins-for-production-opentitan-silicon">Fabrication begins for production OpenTitan silicon</a></li>
+    
+      <li><span class="small-muted">15 Jun 2023</span> &raquo; <a href="/2023/06/15/opentitan-rtl-freeze">OpenTitan RTL Freeze</a></li>
+    
+      <li><span class="small-muted">25 May 2023</span> &raquo; <a href="/2023/05/25/getting-started-with-tmux">Getting started with tmux</a></li>
+    
+  </ul>
+</div>
+
+
+  <span class="label">Category</span>
+  <a href="/categories/Tutorial/">Tutorial</a>
+
+
+  <div class="footer">
+  <div class="contact">
+    <p>
+      Cyrus Stoller<br />
+      Copyright © 2025
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="mailto:cyrus.stoller+blog@gmail.com?subject=hi">cyrus.stoller@gmail.com</a><br />
+      <a href="tel:4158672705">(415) 867-2705</a>
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/cyrusstoller/">github.com/cyrusstoller</a><br />
+      <a href="http://twitter.com/cyrusstoller/">twitter.com/cyrusstoller</a><br />
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="//chirp.cyrusstoller.com/">chirps</a><br />
+      <a href="/archive.html">archive</a><br />
+    </p>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
